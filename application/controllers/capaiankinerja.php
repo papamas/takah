@@ -108,83 +108,17 @@ class Capaiankinerja extends MY_Controller {
 		$sql_instansi  = $sql_instansi . "  AND a.kode_instansi IN($verprov)";
 		
 	   $sql="SELECT count(a.nip) jumlah,a.*, b.INS_NAMINS,c.GOL_GOLNAM GOL_LAMA,
-d.GOL_GOLNAM GOL_BARU FROM takah.npkp a
+d.GOL_GOLNAM GOL_BARU , e.nama FROM takah.npkp a
 INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
 INNER JOIN MIRROR.golru c ON c.GOL_KODGOL = a.gol_lama_id
 INNER JOIN MIRROR.golru d ON d.GOL_KODGOL = a.gol_baru_id
+INNER JOIN takah.app_user e ON e.id  =  a.id_pelaksana
 WHERE 1=1 $sql_aksi  $sql_instansi  AND DATE( tgl_input ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
-AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY aksi,tmt,kode_instansi ";
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY concat(a.aksi,a.tmt,a.kode_instansi,a.id_pelaksana) ";
        
-		$q    = $this->db->query($sql);
+		$q    = $this->db1->query($sql);
 		
-		//var_dump($sql);exit;
 		
-        // creating xls file
-		$now              = date('dmYHis');
-		$filename         = "CAPAIANNPKPREKAPITULASIVERPROV".$now.".xls";
-		
-		header('Pragma:public');
-		header('Cache-Control:no-store, no-cache, must-revalidate');
-		header('Content-type:application/x-msdownload');
-		header('Content-Disposition:attachment; filename='.$filename);                      
-		header('Expires:0'); 
-		
-		$html   = 'LAPORAN CAPAIAN KINERJA <br/>
-				   Aplikasi Tata Naskah  Kepegawaian<br/><br/>';
-		$html .= '<style> .str{mso-number-format:\@;}</style>';
-		$html .= '<table border="1">';					
-		$html .='<tr>
-					<th>NO</th>
-					<th>TGL</th>
-					<th>TMT</th>
-					<th>AKSI</th>
-					<th>INSTANSI</th>
-					<th>JUMLAH</th>'; 
-		$html 	.= '</tr>';
-		if($q->num_rows() > 0){
-			$i = 1;		        
-			foreach ($q->result() as $r) {
-			   	$html .= "<tr><td>$i</td>";
-				$html .= "<td >{$r->tgl_input}</td>";
-				$html .= "<td>{$r->tmt}</td>";
-				$html .= "<td>{$r->aksi}</td>";
-				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
-				$html .= "<td>{$r->jumlah}</td>";					
-				$html .= "</tr>";
-				$i++;
-			}
-			$html .="</table>";
-			echo $html;
-		}else{
-			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
-			echo $html;
-		} 	  
-	
-	}
-	
-	
-	function _cetak_rekap_kabkot($data)
-	{
-	    $instansi      = $data['instansi'];
-		$startdate     = $data['startdate'];
-		$enddate       = $data['enddate'];
-		$sql_aksi      = $data['sql_aksi'];
-		$sql_pelaksana = $data['sql_pelaksana'];
-		$sql_instansi  = $data['sql_instansi'];
-		$kab_kot       = implode(',',$this->_get_kabkot());
-		$sql_instansi  = $sql_instansi . "  AND a.kode_instansi IN($kab_kot)";
-		
-	   $sql="SELECT count(a.nip) jumlah,a.*, b.INS_NAMINS,c.GOL_GOLNAM GOL_LAMA,
-d.GOL_GOLNAM GOL_BARU FROM takah.npkp a
-INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
-INNER JOIN MIRROR.golru c ON c.GOL_KODGOL = a.gol_lama_id
-INNER JOIN MIRROR.golru d ON d.GOL_KODGOL = a.gol_baru_id
-WHERE 1=1 $sql_aksi  $sql_instansi  AND DATE( tgl_input ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
-AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY aksi,tmt,kode_instansi ";
-       
-		$q    = $this->db->query($sql);
-		
-		//var_dump($sql);exit;
 		
         // creating xls file
 		$now              = date('dmYHis');
@@ -196,15 +130,67 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY aksi,tmt,kode
 		header('Content-Disposition:attachment; filename='.$filename);                      
 		header('Expires:0'); 
 		
-		$html   = 'LAPORAN CAPAIAN KINERJA <br/>
-				   Aplikasi Tata Naskah  Kepegawaian<br/><br/>';
+		$html   = 'LAPORAN CAPAIAN KINERJA  '.$startdate.'  sampai dengan '. $enddate.'<br/>
+				   Aplikasi Tata Naskah  Kepegawaian<br/><br/>
+				   PEREKAMAN NPKP<br/>';
 		$html .= '<style> .str{mso-number-format:\@;}</style>';
 		$html .= '<table border="1">';					
 		$html .='<tr>
 					<th>NO</th>
-					<th>TGL</th>
+					<th>PELAKSANA</th>					
+					<th>INSTANSI</th>
 					<th>TMT</th>
 					<th>AKSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";				
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->tmt}</td>";
+				$html .= "<td>{$r->aksi}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		} 
+
+        // Peminjaman TAKAH
+		
+		if($sql_pelaksana != '')
+		{
+		    $sql_pelaksana   = str_replace('a.id_pelaksana','a.created_by',$sql_pelaksana);
+		}
+		else
+		{
+		    $sql_pelaksana  = " ";
+		}
+		$sql="SELECT a.*,count(a.id) jumlah,DATE( a.created_date ) tgl_pinjam, 
+		DATE( a.tgl_kembali ) tgl_balik , b.nama , c.INS_NAMINS
+		FROM  takah.formulir_pinjam a
+        INNER JOIN takah.app_user b ON a.created_by = b.id 
+  		INNER JOIN mirror.instansi c ON c.INS_KODINS = a.kode_instansi
+		WHERE 1=1 AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
+		GROUP BY concat(a.kode_instansi,a.created_by)";
+			
+		$q    = $this->db1->query($sql);
+		
+		
+	    $html   = '<br/>
+				   PEMINJAMAN TATA NASKAH<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
 					<th>INSTANSI</th>
 					<th>JUMLAH</th>'; 
 		$html 	.= '</tr>';
@@ -212,9 +198,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY aksi,tmt,kode
 			$i = 1;		        
 			foreach ($q->result() as $r) {
 			   	$html .= "<tr><td>$i</td>";
-				$html .= "<td >{$r->tgl_input}</td>";
-				$html .= "<td>{$r->tmt}</td>";
-				$html .= "<td>{$r->aksi}</td>";
+				$html .= "<td >{$r->nama}</td>";
 				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
 				$html .= "<td>{$r->jumlah}</td>";					
 				$html .= "</tr>";
@@ -225,7 +209,806 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY aksi,tmt,kode
 		}else{
 			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
 			echo $html;
-		} 	  
+		}
+
+		
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.kode_instansi','a.instansi',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+
+    // perekaman cpns    
+    $sql="SELECT 
+    a . *,
+    c.INS_NAMINS, d.nama,
+	count(a.id) jumlah
+FROM
+    (SELECT 
+        a . *,  DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input
+    FROM
+        takah.cpns a
+    WHERE
+        1 = 1 $sql_pelaksana  $sql_instansi
+            AND DATE(created_date) BETWEEN STR_TO_DATE('$startdate', '%d/%m/%Y ') AND STR_TO_DATE('$enddate', '%d/%m/%Y')) a
+        
+    INNER JOIN
+    mirror.instansi c ON a.instansi = c.INS_KODINS
+	INNER JOIN takah.app_user d ON d.id  = a.created_by
+GROUP by concat(a.instansi,a.created_by)";
+
+        $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN CPNS<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}	
+		
+		// Perekaman BUP
+		$sql="SELECT a.*, count(a.id) jumlah, b.INS_NAMINS,c.nama,  
+		DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input FROM takah.bup a  
+		INNER JOIN mirror.instansi b ON a.instansi = b.INS_KODINS
+		INNER JOIN takah.app_user c ON c.id  = a.created_by
+		WHERE 1=1  $sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi)";
+       
+	    $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN BUP<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// PWK MASUK BY TUJUAN
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi','a.instansi_tujuan',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+		
+		$sql="SELECT a.*,count(a.id) jumlah, DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input , b.INS_NAMINS, c.nama
+		FROM takah.pwk a 
+		INNER JOIN mirror.instansi b ON a.instansi_tujuan  = b.INS_KODINS
+		INNER JOIN takah.app_user c ON a.created_by = c.id
+		WHERE 1=1 
+		$sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi_tujuan)";
+		
+	    $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN PINDAH WILAYAH KERJA (MASUK)<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// PWK KELUAR BY ASAL
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi_tujuan','a.instansi_asal',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+		
+		$sql="SELECT a.*,count(a.id) jumlah, DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input , b.INS_NAMINS, c.nama
+		FROM takah.pwk a 
+		INNER JOIN mirror.instansi b ON a.instansi_asal  = b.INS_KODINS
+		INNER JOIN takah.app_user c ON a.created_by = c.id
+		WHERE 1=1 
+		$sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi_asal)";
+		
+	    $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN PINDAH WILAYAH KERJA (KELUAR)<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// HUKUMAN DISIPLIN
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi_asal','a.instansi',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+		$sql="SELECT a.*, count(a.id) jumlah, b.INS_NAMINS, c.nama FROM takah.hukuman a  
+		INNER JOIN mirror.instansi b ON a.instansi = b.INS_KODINS
+		INNER JOIN takah.app_user c ON a.created_by = c.id		
+		WHERE 1=1  $sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi)";
+
+         $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN HUKUMAN DISIPLIN<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// DMS
+		if($sql_pelaksana != '')
+		{
+		    $sql_pelaksana   = str_replace('a.created_by','a.id_pelaksana',$sql_pelaksana);
+		}
+		else
+		{
+		    $sql_pelaksana  = " ";
+		}
+		
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi','a.kode_instansi',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+
+		$sql="select a.*, sum(a.jumlah) jumlah_doc , count(a.nip) jumlah  from (
+		SELECT  a.*, sum(b.jumlah) jumlah, c.INS_NAMINS, d.nama pelaksana FROM dms_nip a  
+		INNER JOIN dms_scan b ON b.id_dms_nip = a.id 
+		INNER JOIN mirror.instansi c ON a.kode_instansi = c.INS_KODINS
+		INNER JOIN takah.app_user d ON a.id_pelaksana = d.id	
+		where 1=1 AND DATE( b.created_doc ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y')  $sql_pelaksana   $sql_instansi  AND a.scanning IS NOT  NULL
+		GROUP BY concat(a.id,a.id_pelaksana,a.kode_instansi)
+		) a GROUP BY concat(a.id_pelaksana,a.kode_instansi)";
+		
+		$q    = $this->db1->query($sql);
+		$html   = '<br/>
+				   PEREKAMAN DMS<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH FILE</th>
+					<th>JUMLAH TAKAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->pelaksana}</td>";
+				$html .= "<td >{$r->INS_NAMINS}</td>";
+				$html .= "<td width=450>{$r->jumlah_doc}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// surat masuk	
+		if($sql_pelaksana != '')
+		{
+		    $sql_pelaksana   = str_replace('a.id_pelaksana','a.id_penerima',$sql_pelaksana);
+		}
+		else
+		{
+		    $sql_pelaksana  = " ";
+		}
+		
+		$sql="SELECT a.*, count(a.id) jumlah, b.action_disposisi, c.INS_NAMINS, d.nama FROM  takah.surat_masuk a 
+		LEFT JOIN action_disposisi  b ON b.id_surat=a.id  
+		INNER JOIN mirror.instansi c ON a.kode_instansi = c.INS_KODINS
+		INNER JOIN takah.app_user d ON a.id_penerima = d.id	
+		WHERE 1=1 AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana  $sql_instansi 
+        -- AND a.status_penerima IS NOT NULL 
+		GROUP BY concat(a.id_penerima,a.kode_instansi)
+		";
+			
+		$q    = $this->db1->query($sql);
+		$html   = '<br/>
+				   PEREKAMAN SURAT MASUK<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>';
+					 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td >{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+	}
+	
+	
+	function _cetak_rekap_kabkot($data)
+	{
+	    
+		
+		$instansi      = $data['instansi'];
+		$startdate     = $data['startdate'];
+		$enddate       = $data['enddate'];
+		$sql_aksi      = $data['sql_aksi'];
+		$sql_pelaksana = $data['sql_pelaksana'];
+		$sql_instansi  = $data['sql_instansi'];
+		$kab_kot       = implode(',',$this->_get_kabkot());				
+		$sql_instansi  = $sql_instansi . "  AND a.kode_instansi IN($kab_kot)";		
+	   $sql="SELECT count(a.nip) jumlah,a.*, b.INS_NAMINS,c.GOL_GOLNAM GOL_LAMA,
+d.GOL_GOLNAM GOL_BARU , e.nama FROM takah.npkp a
+INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
+INNER JOIN MIRROR.golru c ON c.GOL_KODGOL = a.gol_lama_id
+INNER JOIN MIRROR.golru d ON d.GOL_KODGOL = a.gol_baru_id
+INNER JOIN takah.app_user e ON e.id  =  a.id_pelaksana
+WHERE 1=1 $sql_aksi  $sql_instansi  AND DATE( tgl_input ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY concat(a.aksi,a.tmt,a.kode_instansi,a.id_pelaksana) ";
+       
+		$q    = $this->db1->query($sql);	
+		
+        // creating xls file
+		$now              = date('dmYHis');
+		$filename         = "CAPAIANNPKPREKAPITULASIKABKOT".$now.".xls";
+		
+		header('Pragma:public');
+		header('Cache-Control:no-store, no-cache, must-revalidate');
+		header('Content-type:application/x-msdownload');
+		header('Content-Disposition:attachment; filename='.$filename);                      
+		header('Expires:0'); 
+		
+		$html   = 'LAPORAN CAPAIAN KINERJA  '.$startdate.'  sampai dengan '. $enddate.'<br/>
+				   Aplikasi Tata Naskah  Kepegawaian<br/><br/>
+				   PEREKAMAN NPKP<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>					
+					<th>INSTANSI</th>
+					<th>TMT</th>
+					<th>AKSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";				
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->tmt}</td>";
+				$html .= "<td>{$r->aksi}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		} 
+
+        // Peminjaman TAKAH
+		
+		if($sql_pelaksana != '')
+		{
+		    $sql_pelaksana   = str_replace('a.id_pelaksana','a.created_by',$sql_pelaksana);
+		}
+		else
+		{
+		    $sql_pelaksana  = " ";
+		}
+		$sql="SELECT a.*,count(a.id) jumlah,DATE( a.created_date ) tgl_pinjam, 
+		DATE( a.tgl_kembali ) tgl_balik , b.nama , c.INS_NAMINS
+		FROM  takah.formulir_pinjam a
+        INNER JOIN takah.app_user b ON a.created_by = b.id 
+  		INNER JOIN mirror.instansi c ON c.INS_KODINS = a.kode_instansi
+		WHERE 1=1 AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
+		GROUP BY concat(a.kode_instansi,a.created_by)";
+		
+        //var_dump($sql );exit;		
+		$q    = $this->db1->query($sql);
+		
+		
+	    $html   = '<br/>
+				   PEMINJAMAN TATA NASKAH<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+
+		
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.kode_instansi','a.instansi',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+
+    // perekaman cpns    
+    $sql="SELECT 
+    a . *,
+    c.INS_NAMINS, d.nama,
+	count(a.id) jumlah
+FROM
+    (SELECT 
+        a . *,  DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input
+    FROM
+        takah.cpns a
+    WHERE
+        1 = 1 $sql_pelaksana  $sql_instansi
+            AND DATE(created_date) BETWEEN STR_TO_DATE('$startdate', '%d/%m/%Y ') AND STR_TO_DATE('$enddate', '%d/%m/%Y')) a
+        
+    INNER JOIN
+    mirror.instansi c ON a.instansi = c.INS_KODINS
+	INNER JOIN takah.app_user d ON d.id  = a.created_by
+GROUP by concat(a.instansi,a.created_by)";
+
+        $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN CPNS<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}	
+		
+		// Perekaman BUP
+		$sql="SELECT a.*, count(a.id) jumlah, b.INS_NAMINS,c.nama,  
+		DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input FROM takah.bup a  
+		INNER JOIN mirror.instansi b ON a.instansi = b.INS_KODINS
+		INNER JOIN takah.app_user c ON c.id  = a.created_by
+		WHERE 1=1  $sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi)";
+       
+	    $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN BUP<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// PWK MASUK BY TUJUAN
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi','a.instansi_tujuan',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+		
+		$sql="SELECT a.*,count(a.id) jumlah, DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input , b.INS_NAMINS, c.nama
+		FROM takah.pwk a 
+		INNER JOIN mirror.instansi b ON a.instansi_tujuan  = b.INS_KODINS
+		INNER JOIN takah.app_user c ON a.created_by = c.id
+		WHERE 1=1 
+		$sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi_tujuan)";
+		
+	    $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN PINDAH WILAYAH KERJA (MASUK)<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// PWK KELUAR BY ASAL
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi_tujuan','a.instansi_asal',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+		
+		$sql="SELECT a.*,count(a.id) jumlah, DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input , b.INS_NAMINS, c.nama
+		FROM takah.pwk a 
+		INNER JOIN mirror.instansi b ON a.instansi_asal  = b.INS_KODINS
+		INNER JOIN takah.app_user c ON a.created_by = c.id
+		WHERE 1=1 
+		$sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi_asal)";
+		
+	    $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN PINDAH WILAYAH KERJA (KELUAR)<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// HUKUMAN DISIPLIN
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi_asal','a.instansi',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+		$sql="SELECT a.*, count(a.id) jumlah, b.INS_NAMINS, c.nama FROM takah.hukuman a  
+		INNER JOIN mirror.instansi b ON a.instansi = b.INS_KODINS
+		INNER JOIN takah.app_user c ON a.created_by = c.id		
+		WHERE 1=1  $sql_pelaksana $sql_instansi  AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') GROUP BY concat(a.created_by,a.instansi)";
+
+         $q    = $this->db1->query($sql);
+	   
+	    $html   = '<br/>
+				   PEREKAMAN HUKUMAN DISIPLIN<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// DMS
+		if($sql_pelaksana != '')
+		{
+		    $sql_pelaksana   = str_replace('a.created_by','a.id_pelaksana',$sql_pelaksana);
+		}
+		else
+		{
+		    $sql_pelaksana  = " ";
+		}
+		
+		if($sql_instansi != '')
+		{
+		    $sql_instansi   = str_replace('a.instansi','a.kode_instansi',$sql_instansi);
+		}
+		else
+		{
+		    $sql_instansi  = " ";
+		}
+
+		$sql="select a.*, sum(a.jumlah) jumlah_doc , count(a.nip) jumlah  from (
+		SELECT  a.*, sum(b.jumlah) jumlah, c.INS_NAMINS, d.nama pelaksana FROM dms_nip a  
+		INNER JOIN dms_scan b ON b.id_dms_nip = a.id 
+		INNER JOIN mirror.instansi c ON a.kode_instansi = c.INS_KODINS
+		INNER JOIN takah.app_user d ON a.id_pelaksana = d.id	
+		where 1=1 AND DATE( b.created_doc ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y')  $sql_pelaksana   $sql_instansi  AND a.scanning IS NOT  NULL
+		GROUP BY concat(a.id,a.id_pelaksana,a.kode_instansi)
+		) a GROUP BY concat(a.id_pelaksana,a.kode_instansi)";
+		
+		$q    = $this->db1->query($sql);
+		$html   = '<br/>
+				   PEREKAMAN DMS<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH FILE</th>
+					<th>JUMLAH TAKAH</th>'; 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->pelaksana}</td>";
+				$html .= "<td >{$r->INS_NAMINS}</td>";
+				$html .= "<td width=450>{$r->jumlah_doc}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
+		
+		// surat masuk	
+		if($sql_pelaksana != '')
+		{
+		    $sql_pelaksana   = str_replace('a.id_pelaksana','a.id_penerima',$sql_pelaksana);
+		}
+		else
+		{
+		    $sql_pelaksana  = " ";
+		}
+		
+		$sql="SELECT a.*, count(a.id) jumlah, b.action_disposisi, c.INS_NAMINS, d.nama FROM  takah.surat_masuk a 
+		LEFT JOIN action_disposisi  b ON b.id_surat=a.id  
+		INNER JOIN mirror.instansi c ON a.kode_instansi = c.INS_KODINS
+		INNER JOIN takah.app_user d ON a.id_penerima = d.id	
+		WHERE 1=1 AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana  $sql_instansi 
+        -- AND a.status_penerima IS NOT NULL 
+		GROUP BY concat(a.id_penerima,a.kode_instansi)
+		";
+			
+		$q    = $this->db1->query($sql);
+		$html   = '<br/>
+				   PEREKAMAN SURAT MASUK<br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>PELAKSANA</th>
+					<th>INSTANSI</th>
+					<th>JUMLAH</th>';
+					 
+		$html 	.= '</tr>';
+		if($q->num_rows() > 0){
+			$i = 1;		        
+			foreach ($q->result() as $r) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td >{$r->nama}</td>";
+				$html .= "<td >{$r->INS_NAMINS}</td>";
+				$html .= "<td>{$r->jumlah}</td>";					
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=6 >There is no data found</td></tr></table>";
+			echo $html;
+		}
 	
 	}
 	
