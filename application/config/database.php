@@ -49,8 +49,8 @@ $active_group = 'default';
 $active_record = TRUE;
 // Database NPKP
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'openkm';
-$db['default']['password'] = '*secret*';
+$db['default']['username'] = 'username';
+$db['default']['password'] = 'password';
 $db['default']['database'] = 'takah';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
@@ -66,8 +66,8 @@ $db['default']['stricton'] = FALSE;
 
 // DATABASE MIRROR SAPK
 $db['sapkdb']['hostname'] = 'localhost';
-$db['sapkdb']['username'] = 'openkm';
-$db['sapkdb']['password'] = '*secret*';
+$db['sapkdb']['username'] = 'username';
+$db['sapkdb']['password'] = 'password';
 $db['sapkdb']['database'] = 'mirror';
 $db['sapkdb']['dbdriver'] = 'mysql';
 $db['sapkdb']['dbprefix'] = '';
@@ -83,8 +83,8 @@ $db['sapkdb']['stricton'] = FALSE;
 
 // DATABASE OKMDB
 $db['okmdb']['hostname'] = 'localhost';
-$db['okmdb']['username'] = 'openkm';
-$db['okmdb']['password'] = '*secret*';
+$db['okmdb']['username'] = 'username';
+$db['okmdb']['password'] = 'password';
 $db['okmdb']['database'] = 'okmdb';
 $db['okmdb']['dbdriver'] = 'mysql';
 $db['okmdb']['dbprefix'] = '';
