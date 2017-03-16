@@ -84,45 +84,7 @@ class Prascanning extends MY_Controller {
 		
         $q						= $this->_get_recordListing($data);		
 		
-		//creating xls file
-		$now              = date('dmYHis');
-		$filename         = "PRACANNINGPNS".$now.".xls";
-		
-		header('Pragma:public');
-		header('Cache-Control:no-store, no-cache, must-revalidate');
-		header('Content-type:application/x-msdownload');
-		header('Content-Disposition:attachment; filename='.$filename);                      
-		header('Expires:0'); 
-		
-		$html   = 'LISTING PRASCANNING KEADAAN DATA PNS BERDASARKAN DATABASE MIRROR UPDATE TGL : '. $this->_get_time_create().' ' .$instansi. ' <br/>
-				   Aplikasi Tata Naskah  Kepegawaian<br/><br/>';
-		$html .= '<style> .str{mso-number-format:\@;}</style>';
-		$html .= '<table border="1">';					
-		$html .='<tr>
-					<th>NO</th>
-					<th>NIP</th>
-					<th>NAMA</th>
-					<th>STATUS</th>
-					<th>INSTANSI</th>'; 
-		$html 	.= '</tr>';
-		if(count($q) > 0){
-			$i = 1;		        
-			foreach ($q as $r) {
-			   	$html .= "<tr><td>$i</td>";
-				$html .= "<td class=str>{$r['PNS_NIPBARU']}</td>";
-				$html .= "<td width=400>{$r['PNS_PNSNAM']}</td>";
-				$html .= "<td>{$r['KED_KEDNAM']}</td>";
-				$html .= "<td width=450>{$r['INS_NAMINS']}</td>";				
-				$html .= "</tr>";
-				$i++;
-			}
-			$html .="</table>";
-			echo $html;
-		}else{
-			$html .="<tr><td  colspan=5 >There is no data found</td></tr></table>";
-			echo $html;
-		}
-         
+		 
 	    $this->_insertDMS($data);
 		
 	}
@@ -155,13 +117,13 @@ class Prascanning extends MY_Controller {
 		$user_dms  = $dms_login->dms_user;
 		$pass_dms  = $dms_login->dms_password;
 		
+		
 		//var_dump($dms_login);exit;
 		
 		
+		$token = $this->openkm->Login('okmAdmin	','admin');
 		
-		$this->openkm->Login($user_dms,$pass_dms);
-		
-		//var_dump($q);exit;
+		//var_dump($token);exit;
 			
 		foreach ($q as $key => $value)
 		{
@@ -188,29 +150,84 @@ class Prascanning extends MY_Controller {
 			$rdata[$key]['nama_instansi']    = $nama_instansi;
 			$rdata[$key]['kode_instansi']    = $value['PNS_INSDUK'];
 			$rdata[$key]['nama']             = $value['PNS_PNSNAM'];
+			$rdata[$key]['status']           = $value['KED_KEDNAM'];			
+			$rdata[$key]['umur']             = $value['UMUR'];			
+			if (!empty($value['JBF_USIPEN']))
+				$rdata[$key]['bup']      = $value['JBF_USIPEN'];
+			else
+				$rdata[$key]['bup']      = '58';
+			
+			if (!empty($value['JBF_NAMJAB']))
+			    $rdata[$key]['jabatan']          = $value['JBF_NAMJAB'];
+			else
+                $rdata[$key]['jabatan']          = $value['JJB_JJBNAM'];
+					 				
+				
+				
             			
 			 
+		}
+		
+		/* echo "<pre>";
+		print_r($rdata);
+		echo "</pre>";
+		 */
+		//creating xls file
+		$now              = date('dmYHis');
+		$filename         = "PRACANNINGPNS".$now.".xls";
+		
+		header('Pragma:public');
+		header('Cache-Control:no-store, no-cache, must-revalidate');
+		header('Content-type:application/x-msdownload');
+		header('Content-Disposition:attachment; filename='.$filename);                      
+		header('Expires:0'); 
+		
+		$html   = 'LISTING PRASCANNING KEADAAN DATA PNS BERDASARKAN DATABASE MIRROR UPDATE TGL : '. $this->_get_time_create().' <br/>
+				   Aplikasi Tata Naskah  Kepegawaian<br/><br/>';
+		$html .= '<style> .str{mso-number-format:\@;}</style>';
+		$html .= '<table border="1">';					
+		$html .='<tr>
+					<th>NO</th>
+					<th>NIP</th>
+					<th>NAMA</th>
+					<th>INSTANSI</th>
+					<th>STATUS</th>					
+					<th>JABATAN</th>
+					<th>UMUR</th>
+					<th>BUP</th>'; 
+		$html 	.= '</tr>';
+		if(count($rdata) > 0){
+			$i = 1;		        
+			foreach ($rdata as $key => $item) {
+			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td class=str>{$rdata[$key]['nip']}</td>";
+				$html .= "<td width=400>{$rdata[$key]['nama']}</td>";
+				$html .= "<td width=450>{$rdata[$key]['nama_instansi']}</td>";
+				$html .= "<td>{$rdata[$key]['status']}</td>";
+				$html .= "<td>{$rdata[$key]['jabatan']}</td>";  				
+				$html .= "<td>{$rdata[$key]['umur']}</td>";
+				$html .= "<td>{$rdata[$key]['bup']}</td>";
+				$html .= "</tr>";
+				$i++;
+			}
+			$html .="</table>";
+			echo $html;
+		}else{
+			$html .="<tr><td  colspan=5 >There is no data found</td></tr></table>";
+			echo $html;
 		}
 		
 		// create template
         if(count($rdata) > 0)
 		{
-			
+			//var_dump($rdata);
 			foreach($rdata as $key => $value)
 			{
 				$path = $rdata[$key]['result']->path;
 				$rpath     = explode('/',$path);
-				if(count($rpath) == 4)
-				{ 
-					$template  = $this->openkm->getTemplate();
-					foreach($template as $val)
-					{
-						$cpath   = $path.'/'.$val;
-						$c       = $this->openkm->CreateTemplate($cpath);			
-						
-					}	
-				}
 				
+				
+						
 			    $dms = array('nip'			=> $rdata[$key]['nip'],
 						 'prascanning'		=> 1,
 						 'scanning'         => '',
@@ -224,10 +241,10 @@ class Prascanning extends MY_Controller {
 						 'uuid'             => $rdata[$key]['result']->uuid
 		    	);		
                 $this->db1->set('pradate','NOW()',FALSE);
-                $this->db1->insert('dms_nip',$dms);				
+                //$this->db1->insert('dms_nip',$dms);				
 			} 
 		}
-
+ 
         $this->openkm->Logout(); 		
 	
 	}
@@ -272,18 +289,31 @@ class Prascanning extends MY_Controller {
 		$start                  = $data['start']; 	
 		$end                    = $data['end']; 
 		
-		$sql="SELECT a.PNS_INSDUK, a.PNS_NIPBARU,a.PNS_PNSNAM, b.INS_NAMINS,c.KED_KEDNAM FROM mirror.pupns a 
+		/* $sql="SELECT a.PNS_INSDUK, a.PNS_NIPBARU,a.PNS_PNSNAM, b.INS_NAMINS,c.KED_KEDNAM FROM mirror.pupns a 
 		INNER JOIN mirror.instansi b ON b.INS_KODINS = a.PNS_INSDUK 
 		INNER JOIN mirror.kedhuk c ON c.KED_KEDKOD = a.PNS_KEDHUK 
 		WHERE a.PNS_KEDHUK='$status' AND a.PNS_INSDUK='$instansi'  
-		AND a.PNS_NIPBARU NOT IN (SELECT nip FROM takah.dms_nip) LIMIT $end";
+		AND a.PNS_NIPBARU NOT IN (SELECT nip FROM takah.dms_nip)LIMIT $end"; */
 		
-		//var_dump($sql);exit;
 		
+		$sql="SELECT YEAR(CURDATE())- YEAR(a.PNS_TGLLHRDT) UMUR,
+		a.PNS_INSDUK, a.PNS_NIPBARU,a.PNS_PNSNAM, 
+		b.INS_NAMINS,c.KED_KEDNAM, d.JBF_NAMJAB, d.JBF_USIPEN,
+		e.JJB_JJBNAM
+		FROM mirror.pupns a 
+		INNER JOIN mirror.instansi b ON b.INS_KODINS = a.PNS_INSDUK 
+		INNER JOIN mirror.kedhuk c ON c.KED_KEDKOD = a.PNS_KEDHUK 
+		LEFT JOIN mirror.jabfun d ON d.JBF_KODJAB = a.PNS_JABFUN
+		LEFT JOIN mirror.jenjab e ON e.JJB_JJBKOD = a.PNS_JNSJAB
+		WHERE a.PNS_KEDHUK='$status' AND a.PNS_INSDUK='$instansi' 
+		AND  YEAR(CURDATE())- YEAR(a.PNS_TGLLHRDT) <= 60 
+		AND a.PNS_NIPBARU NOT IN (SELECT nip FROM takah.dms_nip) 
+		ORDER BY a.PNS_NIPBARU ASC LIMIT $end";
+		
+		//var_dump($sql);
+		//exit;
 		$query  = $this->db3->query($sql)->result_array();
-		
 		$data = array();
-		
 		foreach ($query as $key =>$value)
 		{
 		    $isExisting = $this->_isExisting($value['PNS_NIPBARU']);
@@ -298,6 +328,10 @@ class Prascanning extends MY_Controller {
 							 'PNS_PNSNAM'   => $value['PNS_PNSNAM'],
 							 'INS_NAMINS'   => $value['INS_NAMINS'],
 							 'KED_KEDNAM'   => $value['KED_KEDNAM'],
+							 'UMUR'			=> $value['UMUR'],
+							 'JBF_NAMJAB'   => $value['JBF_NAMJAB'],
+							 'JBF_USIPEN'   => $value['JBF_USIPEN'],
+							 'JJB_JJBNAM'   => $value['JJB_JJBNAM'],
 			);
 		}
 		
@@ -363,7 +397,20 @@ table_name='pupns'";
         $status     = $data['status'];
 		
 
-	    $sql="SELECT PNS_NIPBARU FROM pupns WHERE PNS_KEDHUK='$status' AND PNS_INSDUK='$instansi' AND PNS_NIPBARU NOT IN (SELECT nip FROM takah.dms_nip)";
+	    /* $sql="SELECT PNS_NIPBARU FROM pupns WHERE PNS_KEDHUK='$status' AND PNS_INSDUK='$instansi' AND PNS_NIPBARU NOT IN (SELECT nip FROM takah.dms_nip)"; */
+		$sql="SELECT YEAR(CURDATE())- YEAR(a.PNS_TGLLHRDT) UMUR,
+		a.PNS_INSDUK, a.PNS_NIPBARU,a.PNS_PNSNAM, 
+		b.INS_NAMINS,c.KED_KEDNAM, d.JBF_NAMJAB, d.JBF_USIPEN,
+		e.JJB_JJBNAM
+		FROM mirror.pupns a 
+		INNER JOIN mirror.instansi b ON b.INS_KODINS = a.PNS_INSDUK 
+		INNER JOIN mirror.kedhuk c ON c.KED_KEDKOD = a.PNS_KEDHUK 
+		LEFT JOIN mirror.jabfun d ON d.JBF_KODJAB = a.PNS_JABFUN
+		LEFT JOIN mirror.jenjab e ON e.JJB_JJBKOD = a.PNS_JNSJAB
+		WHERE a.PNS_KEDHUK='$status' AND a.PNS_INSDUK='$instansi' 
+		AND  YEAR(CURDATE())- YEAR(a.PNS_TGLLHRDT) <= 60 
+		AND a.PNS_NIPBARU NOT IN (SELECT nip FROM takah.dms_nip) 
+		ORDER BY a.PNS_NIPBARU ASC ";
 		$query  = $this->db3->query($sql);
 		
 		return $query->num_rows();
