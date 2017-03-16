@@ -55,7 +55,7 @@ class Disposisi extends MY_Controller {
 		$data['penerima']		= $this->_get_app_user();
 		$data['instansi']       = $this->_get_instansi();
 		$data['show']			= FALSE;
-		
+	    $data['message']        = '';
 		$this->load->view('disposisi/vdisposisi',$data);
 	}
 	
@@ -64,10 +64,12 @@ class Disposisi extends MY_Controller {
 		$instansi 		   = $this->input->post('instansi');
 		$penerima		   = $this->input->post('penerima');
 		$status			   = $this->input->post('status');
+		$search			   = $this->input->post('search');
 		
 		$this->session->set_userdata(array('instansi'  	  => $instansi,			   
 										   'penerima'     => $penerima,
 										   'status'       => $status,
+										   'search'       => $search,
 								   ));     
 			
 		$ket = array(
@@ -96,6 +98,7 @@ class Disposisi extends MY_Controller {
 		$data['instansi']			  = $instansi;
 		$data['penerima']             = $penerima;
 		$data['status']               = $status;
+		$data['search']               = $search;
 		$data['page']				  = 0;
 		$data['pagination']	          = $this->_get_pagination($data);		
 		$data['surat_masuk']          = $this->_get_surat_masuk($data);
@@ -104,7 +107,7 @@ class Disposisi extends MY_Controller {
 		$data['penerima']		      = $this->_get_app_user();
 		$data['instansi']             = $this->_get_instansi();
 		$data['show']			      = TRUE;
-				
+		$data['message']		      = '';		
 		$this->load->view('disposisi/vdisposisi',$data);
 	}
 	
@@ -147,6 +150,7 @@ class Disposisi extends MY_Controller {
 		$data['instansi']			  = $this->session->userdata('instansi');
 		$data['penerima']             = $this->session->userdata('penerima');
 		$data['status']               = $this->session->userdata('status');
+		$data['search']               = $this->session->userdata('search');
 		
 		$data['page']		          = $page;
 		$data['pagination']	          = $this->_get_pagination($data);		
@@ -156,7 +160,7 @@ class Disposisi extends MY_Controller {
 		$data['penerima']		      = $this->_get_app_user();
 		$data['instansi']             = $this->_get_instansi();
 		$data['show']			      = TRUE;
-				
+		$data['message']		      = '';	
 		$this->load->view('disposisi/vdisposisi',$data);
 	}
 	
@@ -253,6 +257,7 @@ class Disposisi extends MY_Controller {
 	       
 			
 			$this->db1->set('status_penerima',1);
+			$this->db1->set('update_date','NOW()',false);
 			$this->db1->where('id',$id_surat);
 			$this->db1->update('surat_masuk');
 	    }
@@ -286,6 +291,7 @@ class Disposisi extends MY_Controller {
 		$data['penerima']		= $this->_get_app_user();
 		$data['instansi']       = $this->_get_instansi();
 		$data['show']			= FALSE;
+	    $data['message']        = 'Save successfuly...';
 		$this->load->view('disposisi/vdisposisi',$data);
 	
 	}
@@ -300,6 +306,7 @@ class Disposisi extends MY_Controller {
 		
 		$this->db1->where('id',$id);
 		$this->db1->set('status_penerima',1);
+		$this->db1->set('update_date','NOW()',false);
 		$this->db1->update('surat_masuk');
 		
 		$sql="SELECT a.*,b.action_disposisi from surat_masuk a
@@ -319,6 +326,7 @@ class Disposisi extends MY_Controller {
 	   $penerima  = $data['penerima'];
 	   $status    = $data['status'];
 	   $page      = $data['page'];
+	   $search   = $data['search'];
 	   
 	    if($penerima != '')
 	    {
@@ -326,7 +334,7 @@ class Disposisi extends MY_Controller {
 	    }
 		else
 		{
-		    $sql_penerima  = " ";
+		    $sql_penerima  = " AND a.id_penerima='$user_id' ";
 		}
 		
 		if($instansi != '')
@@ -351,9 +359,20 @@ class Disposisi extends MY_Controller {
 		{
 		   $sql_status = " ";
 		}
+		
+		if($search != '')
+		{
+		    $sql_search  = " AND  a.nip ='$search' ";
+		}
+		else
+		{
+		    $sql_search  = " ";
+			
+		}
+		
 		$sql="SELECT a.*,b.INS_NAMINS FROM surat_masuk a 
 		INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
-		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  order by a.status_penerima,a.id DESC LIMIT $page,25 ";
+		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  $sql_search order by a.status_penerima,a.id DESC LIMIT $page,25 ";
 	   
 	   $query	=  $this->db1->query($sql);
 	   
@@ -366,6 +385,7 @@ class Disposisi extends MY_Controller {
 	   $instansi  = $data['instansi'];
 	   $penerima  = $data['penerima'];
 	   $status    = $data['status'];
+	   $search    = $data['search'];
 	   
 	    if($penerima != '')
 	    {
@@ -398,9 +418,20 @@ class Disposisi extends MY_Controller {
 		{
 		   $sql_status = " ";
 		}
+		
+		if($search != '')
+		{
+		    $sql_search  = " AND  a.nip ='$search' ";
+		}
+		else
+		{
+		    $sql_search  = " ";
+			
+		}
+		
 		$sql="SELECT a.*,b.INS_NAMINS FROM surat_masuk a 
 		INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
-		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  order by a.status_penerima ASC ";
+		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  $sql_search order by a.status_penerima ASC ";
 	   
 	   $query	=  $this->db1->query($sql);
 	   
@@ -436,7 +467,7 @@ class Disposisi extends MY_Controller {
 		
 		$data['instansi']       = $this->_get_instansi();
 		$data['penerima']		= $this->_get_app_user();
-		
+		$data['message']        = 'Save successfuly...';
 		$this->load->view('pencatatan/vsurat_masuk',$data);   
 	}
 	
