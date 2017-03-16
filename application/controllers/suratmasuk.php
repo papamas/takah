@@ -132,8 +132,9 @@ class Suratmasuk extends MY_Controller {
 		
 		$sql="SELECT a.*, b.action_disposisi FROM  surat_masuk a 
 		LEFT JOIN action_disposisi  b ON b.id_surat=a.id  
-		WHERE 1=1 AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
-AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_penerima $sql_status $sql_instansi
+		WHERE 1=1 AND ( DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') OR DATE( a.update_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ) $sql_penerima $sql_status $sql_instansi
 		ORDER BY a.tgl_terima,a.id ASC";
 		
 		//var_dump($sql); exit;
@@ -165,7 +166,8 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_penerima $sql_status $sql_instansi
 					<th>INSTANSI</th>
 					<th>PENGIRIM</th>
 					<th>KEPADA</th>
-					<th>STATUS</th>					
+					<th>STATUS</th>
+					<th>UPDATE DATE</th>	
 					<th>JUMLAH SURAT</th>
 					<th>KETERANGAN</th>'; 
 		$html 	.= '</tr>';
@@ -183,7 +185,8 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_penerima $sql_status $sql_instansi
 				$html .= "<td>{$this->_get_nama_instansi($r->kode_instansi)}</td>";
 				$html .= "<td>{$this->_get_nama_orang($r->id_pengirim)}</td>";
 				$html .= "<td>{$this->_get_nama_orang($r->id_penerima)}</td>";
-				$html .= "<td>{$r->status_penerima}</td>";
+				$html .= "<td align=center>".($r->status_penerima ? '&#10004;' : ' ')."</td>";
+				$html .= "<td>{$r->update_date}</td>";
 				$html .= "<td>{$r->jumlah_surat}</td>";
                 $html .= "<td>{$r->action_disposisi}</td>";				
 				$html .= "</tr>";
@@ -253,6 +256,87 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_penerima $sql_status $sql_instansi
 	   return $row->nama;  
 	
 	}
+	
+	function search()
+	{
+	    $search =$this->input->post('search');
+		
+		if($search)
+		{
+		   $sql_search = "AND a.nip ='$search' ";
+		}
+		else
+		{
+		   $sql_search ="";
+		}
+		
+		$user_id = $this->session->userdata('user_id');		
+		
+		$sql="SELECT a.*, DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input,
+		DATE_FORMAT(a.tgl_terima, '%d-%m-%Y') tgl_ter, 
+		DATE_FORMAT(a.tgl_surat, '%d-%m-%Y') tgl_sur,
+		b.INS_NAMINS FROM surat_masuk a
+		INNER JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
+		WHERE 1=1 $sql_search  
+		AND id_penerima='$user_id' 
+		LIMIT 10";
+		$query = $this->db1->query($sql);
+		
+		$data['record']    = $query; 
+		$data['message']   ='';
+		$data['instansi']  = $this->_get_instansi();
+	    $this->load->view('search/vsuratmasuk',$data);
+	}
+	
+	function get_surat()
+	{
+	   $id = $this->input->post('surat_id');
+	   
+	   $sql="SELECT *,DATE_FORMAT(created_date,'%d-%m-%Y') tgl_input,
+	   DATE_FORMAT(tgl_terima,'%d-%m-%Y') tgl_ter,
+	   DATE_FORMAT(tgl_surat,'%d-%m-%Y') tgl_sur
+	   FROM takah.surat_masuk where id='$id' ";
+	   $query = $this->db1->query($sql);
+		
+	   echo json_encode($query->result_array());
+	   
+	
+	}
+	
+	function update()
+	{
+	    $id  			        = $this->input->post('surat_id');
+		$tgl_input  			= $this->input->post('tgl_input');
+		$nip  					= $this->input->post('nip');
+		$instansi  		    	= $this->input->post('instansi');
+		$no_surat	  			= $this->input->post('no_surat');
+		$tgl_surat	  			= $this->input->post('tgl_surat');
+		$tgl_terima		  		= $this->input->post('tgl_terima');
+		$perihal		  		= $this->input->post('perihal');
+		
+		$data = array('created_date'     => date('Y-m-d', strtotime($tgl_input)),
+					  'nip'              => $nip,
+					  'kode_instansi'    => $instansi,
+					  'nomor_surat'      => strtoupper($no_surat),
+					  'tgl_surat'        => date('Y-m-d', strtotime($tgl_surat)),
+					  'tgl_terima'       => date('Y-m-d', strtotime($tgl_terima)),
+					  'perihal'   		 => $perihal,
+		
+		);
+		
+		$this->db1->where('id',$id);
+	    $this->db1->update('surat_masuk', $data);
+		
+	}
+	
+	function delete()
+	{
+	    $id  			    = $this->input->post('suratdel_id');
+		$this->db1->where('id',$id);
+	    $this->db1->delete('surat_masuk');
+	
+	}
+	
 }
 
 /* End of file welcome.php */
