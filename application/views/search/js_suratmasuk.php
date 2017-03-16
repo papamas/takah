@@ -1,40 +1,123 @@
-<?php //0046a
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('Site error: the file <b>'.__FILE__.'</b> requires the ionCube PHP Loader '.basename($__ln).' to be installed by the website operator. If you are the website operator please use the <a href="http://www.ioncube.com/lw/">ionCube Loader Wizard</a> to assist with installation.');exit(199);
-?>
-HR+cPutyAlWUHg//1lDClzjvpLkWrGEePgkycjsKw2pbZYmhqEmEESRyuVmxOiORo95b9dgBYTpY
-snEuPwh6E6eEUCA/tyJlDiuGeN1wUwsaqdp8FK2tNKJoDba/fQQrHf+yPS0Lb8rRWvm9RW3mv+tU
-23Nr8extZo0tocSkwaiGKjHjEEMvLlEyV+MWZrY3hAAgBDZQs+gzEoIT5MhiwRN6SBIBCFAUUCGP
-99CP+Ml15h0NURSOjLVvakIJSTAzjevwgCj5czOibPjYRL/b/OsD8xUCQv+R5eMPRBNUJnie07m7
-wnKszn1s7rJMljP5fijmi8eiNk0VEBLwjD3v94D7DadvG/+cSfUSrC6Q8PA6G3suPvkBEEu8wHSP
-eT6GtajNt0Qc4WtVse2CQDcOy9Rj8yr9Bl8BsHD0L7kfUCXRx6q8IFk9ayFUVbBFAFvEcd0WXg7C
-cP7f6bhWjcDPuZzU5RULHA4Zl/M30JMgJw0qriKxtkf2EYwW45GMsfvniWKhf7XOj6aJ1Lw+v3XW
-KECJZ99LIO0obuN1yqREP+4NNcIY08cHcPsDlrFQg84MmOxAtb3LO4w5M8NWPNs2wec7CWDI1Uq2
-pbeFUCAkNdfAgakHxQpbcxhV6qdbd5fBqXG3M5YuU+dTpHO5PTI2r76Ht600xPmhxWRb8r9mz8Du
-NInWa5Abj9tMr92xsr7OB4WGA9KAtaOVxtOABWw756NGvPWwfugc6XwKKENuz9Jn7wtTNNJmLMvp
-Wbpb4vmOmzV0MPc8zl8bm0ABoBTxS2PffGf2w7nGKJaDITJAHNPi0rUvz9VKIamXul8YHrumCkni
-ZkfrOgRIQnji88DsI3bfCBUDgxWi+Zg3oP5eLU8dbYjz2wXBDQVyikFomfSNaBJJBhGVUP1wUwR4
-WzekmBhfwOlC5ImL/QlpcGjTzTXc0ai9/yMV1StwbvttOOZEw2mhMl5qVVoEpV+BA7JeGzTejr7/
-L8g+aiDpIUo6Srf9UkHDgcUdRgZYhZR2B35tnuCb0247/jMwR3xipj89wIoSgf1eVpWQG3DTPGmN
-hU36V8N4EE0mAEGTUGnss+FD9c/rYnAOnoSa08w9sayh3hQhjKoS3iClMIQQh81t0MtZXip00nPq
-chXiDaFBuiZlYtQmR7nlnQQVJm/BEpYhlVpdqJESVL8il0OK8E0W0oH8m/fNDVotamUJnN8NrYX3
-2WLB8+X4E2XjACcfd98IPKDbihC0KW90vZAMdW1ZhAUEIuxX61gD407DwXY+UyfGtLICc0PHUrjg
-AEs3x/UDBHTB+T8gXd9f2cTlsRjLWmoynSoD8F+aH0GfbZD/kzZYdoQdxpIQjIctKIKjWSTKhFRQ
-NhxHD06/Eeze1U2x8h7huujSZirfR5npjMHwdNIUXuyK4kqdFUp3l/3nDh01hKKpz9rUATQSlVT8
-8gt4RvPGT4ZOzi2+paM2/AtVYDIUsK4OhraPVXr9fufT8Dw2qdovb7swllJhoL013xSvA6/rXsd+
-DCIPL5fCoNnF/ATWzzfmy9AWg7EEpvBNBBBlyGXV6neqQHIJNj6txZ/bbYIJ7dx+tUcBXHVUBevZ
-R7Va6CSXovnW4TXkCcNE5rV3f6+Olt+2Cn7L/LI0WAaQ4E+bOjzoxST6GHm5DLLI1MPC8H0gEQ98
-wgHAQIgikIzA3DXZJbVGazISrIubXEJxjYi4KqFz4AZvYsMo+63XIXvmRv0n20bUoE93qWjT8w8D
-7mG/YinN81gY+WcB0ZYx9FfHwaunSirlz//f3msLIIUqLoNCjq/ByltF2LzyxfHKo+Gky0T8QRkf
-PoujoiK5WsxJTg6uX5Q5j5wPupY4h68RKGgA2H12Gcqroah9/BwyZfEjHdr/6tK0HQZN2o4aB9vP
-ijB5e+14Fh30tzLw7SQBe4NNSHRYXSuJ84C2wVKQrEHOAH1/wC/mPPgLuRc5rY7/MO3nCGvFOEYN
-nWUvCDZoP8WODnH2pGSWaqgKtt2nk8sC5ltZTstCa0pw3iQAhh2NsMA1AizminZ3QNWQEyvdszTd
-Y/xQreB+fEK/I2ERHmR8EfB6PtphC9CCm4ps6a+8EvXQX1sFAfVrVFhDsyFj+BP1oAiGjp6oermn
-UcukdM7VpynHUCs/6TKIw/ZZU8HXPPRC+B2SS4lU7+J3evlnIVRBPRPWSI12RGlLeBaqOoLbeTZ/
-DEi0VdcAv0OCSQbaFaXA0L2nQW4g+TAzZpIpBPGfrXCS7kl6od9EZOiPP4+8tHTcdbDYTtUK4wuV
-UNoz+u3SiIX27sa8xsqGeUhZqGVfsqV7HSAtf6qdQwz0q5kO8ZCJJIKe9CbXeKH/jkKAGCFg88oB
-2mJclcUZVqTebISwvW+m/g5PJ56VZ7QJJ+iSugf+aCg8oirbKhQmJBO1ruPb+/QIt49Z3lVdnpzC
-AWc7ZS4CFdXhj/m7qbS1PqiaZfRqMPyK3BUA02AlMmj61NKEC9Ce3bdmBgHAfp3RlLHPu7AmepLb
-ZgkkphaTPzKb66jkV4B4c+dqBbuqYy9s9t/51Pq7XAzNeqefhbrjCFIlnt6tQLr1T2oAaFfIDUBr
-qIzV2P+Sb6/11rxKe0VbXXHHPPj5hLUNyj60uf3mNj/ysQZLxW8FP8jKlbPc36FG3XpBbp1bEHCK
-ST1j9bOfQfIExpjKsE+h0FX3eVzr8zs96hNO/zyEvCGYvq4HL1HL6KLfVZxraxfKZclJkkzLJmhi
-iPfH93jtnaojnvAOmW==
+ <!-- DATA TABLE SCRIPTS -->
+<script src="<?php echo base_url()?>assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="<?php echo base_url()?>assets/js/dataTables/dataTables.bootstrap.js"></script>
+
+<script src="<?php echo base_url()?>assets/js/moment-with-locales.js"></script>
+<!-- Date Picker-->
+<script src="<?php echo base_url()?>assets/js/moment-with-locales.js"></script>
+<script src="<?php echo base_url()?>assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/select2/select2.full.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/noty/packaged/jquery.noty.packaged.js"></script>
+<script>	
+	$(document).ready(function () {	
+	    
+		var message   = '<?php echo $message?>';
+		
+			 if(message != '')
+			 {
+					var n = noty({
+						text        : '<?php echo $message?>',
+						type        : 'success',
+						dismissQueue: false,
+						layout      : 'topCenter',
+						theme       : 'defaultTheme'
+					});
+					
+					setTimeout(function () {
+						$.noty.close(n.options.id); 
+					}, 2000);	
+             }				 
+			 
+		$('.datetimepicker').datetimepicker({
+		   sideBySide: true,
+		   locale: 'id',
+		   format:'DD-MM-YYYY',
+		});
+		
+		$('#myModal').on('show.bs.modal',function(event){
+		    $('.msg').text(''); 
+		    var id= $(event.relatedTarget).data('id');	
+			$.ajax({
+			    url: "<?php echo site_url()?>/suratmasuk/get_surat",
+				dataType:'json',
+				type:'POST',
+				data:{surat_id:id},
+				success: function(result){                  				
+                    $("#surat_id").val(result[0].id);
+					$("#tgl_input").val(result[0].tgl_input);
+					$("#no_surat").val(result[0].nomor_surat);
+					$("#tgl_surat").val(result[0].tgl_sur);
+					$("#tgl_terima").val(result[0].tgl_ter);
+					$('[name=instansi]').val(result[0].kode_instansi);
+					$('[name=nip]').val(result[0].nip);
+					$("#perihal").val(result[0].perihal);
+				},				
+			});		
+				
+			
+		});
+		
+		// event delete
+		$("#update_surat").on("click",function(){
+		    $('.msg').text('Updating Please Wait.....')
+			         .removeClass( "text-green")
+					 .addClass( "text-blue" ); 
+			var data = $('#form-surat').serialize();
+			$.ajax({
+				type: "POST",
+				url : "<?php echo site_url()?>/suratmasuk/update",
+				data: data,
+				success: function(){
+					$('.msg').text('Updated Succesfully.....')
+                             .removeClass( "text-blue")
+					         .addClass( "text-green" );  					
+				}, // akhir fungsi sukses
+		    });
+			return false;
+		});
+		
+		$('#modalDelete').on('show.bs.modal',function(event){
+		    var id= $(event.relatedTarget).data('id');
+			$('.msg-del').text(' '); 
+			//console.log(id);
+            $("#suratdel_id").val(id);			
+						
+		});
+		
+		$("#delete-surat").on("click",function(){
+		    $('.msg-del').text('Deleting Please Wait.....')
+                         .removeClass( "text-green")
+				         .addClass( "text-blue" ); 
+							 
+			var data = $('#frmdel-surat').serialize();
+			$.ajax({
+				type: "POST",
+				url : "<?php echo site_url()?>/suratmasuk/delete",
+				data: data,
+				success: function(){
+					$('.msg-del').text('Deleted Succesfully.....')
+                                  .removeClass( "text-blue")
+					             .addClass( "text-green" ); 					
+				}, // akhir fungsi sukses
+		    });
+			return false;
+		});
+		
+		$(".nip").select2({
+		    minimumInputLength: 10,
+    	    ajax: {
+				url:  '<?php echo site_url() ?>'+'/pinjam/get_pns2',
+				dataType:'json',
+				type:'GET',							
+			},
+			results: function(data, page) {
+			    return { results: data.results };
+               // console.log(results: data.results);
+				//return {results:data};
+            }  
+		});
+		
+		
+	});	
+</script>
+

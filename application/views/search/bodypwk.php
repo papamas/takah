@@ -1,58 +1,194 @@
-<?php //0046a
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('Site error: the file <b>'.__FILE__.'</b> requires the ionCube PHP Loader '.basename($__ln).' to be installed by the website operator. If you are the website operator please use the <a href="http://www.ioncube.com/lw/">ionCube Loader Wizard</a> to assist with installation.');exit(199);
-?>
-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
+ <div id="wrapper">
+         <?php $this->load->view('nav_top')?>  
+           <!-- /. NAV TOP  -->
+           <!-- / Menu Load -->
+		   <?php $this->load->view('menu')?>  
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <hr />              
+               <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Pencarian Pindah Wilayah Kerja
+                        </div>
+                        <div class="panel-body">
+						    <div class="row">
+							 <form action="<?php echo site_url()?>/pindah/search/" method="post" >		   		     
+								 <div class="col-md-8 col-md-offset-2 input-group">
+									  <input type="text" name="search" class="form-control" placeholder="Masukan NIP ">
+									  <span class="input-group-btn">
+										<button type="submit" class="btn btn-default" type="button"><i class="fa fa-search"> Search!</i></button>
+									  </span>
+								  </div>
+							  </form>
+							 </div>
+							 <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+								  <?php if($record->num_rows() > 0) {?>
+								   <table class="table table-striped">
+										  <thead>
+											  <tr>
+												  <th>Tgl</th>
+												  <th>NIP</th>
+												  <th>Asal</th>
+												  <th>Tujuan</th>
+												  <th>No.SK</th>
+												  <th>Tgl SK</th>
+												  <th>TMT</th>
+												  <th>Perintah</th>
+											  </tr>
+										  </thead>   
+										  <tbody>
+										   	<?php foreach($record->result() as $value):?>
+												<tr>
+												   <td><?php echo $value->tgl_input?></td>
+												   <td><?php echo $value->nip?></td>
+												   <td><?php echo $value->asal?></td>
+												   <td><?php echo $value->tujuan?></td>												   
+												   <td><?php echo $value->no_sk?></td>
+												   <td><?php echo $value->tgl_suratkep?></td>
+												   <td><?php echo $value->tgl_tmt?></td>
+												   <td width="100">
+													<button class="btn btn-primary btn-xs" title="Edit" data-id="<?php echo $value->id?>" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit "></i> E</button>
+													<button class="btn btn-danger btn-xs" title="Delete" data-id="<?php echo $value->id?>" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-eraser"></i> D</button>
+												   </td>
+												</tr>
+												<?php endforeach;?>
+											</tbody>																			  
+									</table>
+									<?php } else { echo "<p><b>Sorry ,  Data NOT FOUND</b></p>";}?>
+								</div>                      
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+            </div>
+                <!-- /. ROW  -->
+              
+                    
+                         
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+		
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" width="900px">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel"><span class="msg"></span></h4>
+			</div>
+			<div class="modal-body">
+			<form id="form-pindah">
+			    <div class="form-group row">
+					<label class="control-label col-md-2">Tanggal:</label>
+					<div class="col-md-4">
+					<div class='input-group date datetimepicker'>
+						<input pattern="^\d{1,2}\-\d{1,2}\-\d{4}$" type='text' required name="tgl_input" id="tgl_input" value="" class="form-control" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+						</span>								
+					</div>											            
+				   <span class="help-block with-errors"></span>
+				   </div>
+				   	
+				</div>
+			    <div class="form-group row">
+				   <label class="control-label col-md-2">NIP:</label>
+					<div  class="col-md-10">
+					<input type="text" name="nip" required id="nip" class="form-control" >									
+					</div> 	
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-md-2">Asal:</label>
+					<div class="col-md-10">
+					<select name="instansi_asal" required class="form-control" >
+						<option value="">--Silahkan Pilih--</option>
+						<?php foreach($instansi->result() as $value):?>
+						<option value="<?php echo $value->INS_KODINS?>"><?php echo $value->INS_NAMINS?></option>
+						<?php endforeach?>
+						
+					</select>											 
+					</div>
+				 <span class="help-block with-errors"> </span>	
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-md-2">Tujuan:</label>
+					<div class="col-md-10">
+					<select name="instansi_tujuan" required class="form-control" >
+						<option value="">--Silahkan Pilih--</option>
+						<?php foreach($instansi->result() as $value):?>
+						<option value="<?php echo $value->INS_KODINS?>"><?php echo $value->INS_NAMINS?></option>
+						<?php endforeach?>
+						
+					</select>											 
+					</div>
+				 <span class="help-block with-errors"> </span>	
+				</div>
+				<div class="form-group row">
+				   <label class="control-label col-md-2">No.SK:</label>
+					<div  class="col-md-10">
+					<input type="text" name="no_sk" required id="no_sk" class="form-control" >									
+					</div>
+															            
+				   <span class="help-block with-errors"></span>
+				   
+				</div>
+				<div class="form-group row">
+					<label class="control-label col-md-2">Tgl SK:</label>
+					<div class="col-md-4">
+					<div class='input-group date datetimepicker'>
+						<input pattern="^\d{1,2}\-\d{1,2}\-\d{4}$" type='text' required name="tgl_sk" id="tgl_sk" value="" class="form-control" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+						</span>								
+					</div>	
+					</div>
+					<label class="control-label col-md-2">TMT:</label>
+					<div class="col-md-4">
+					<div class='input-group date datetimepicker'>
+						<input pattern="^\d{1,2}\-\d{1,2}\-\d{4}$" type='text' required name="tgl_tmt" id="tgl_tmt" value="" class="form-control" />
+						<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+						</span>								
+					</div>											            
+				   <span class="help-block with-errors"></span>
+				   </div>
+				   	
+				</div>
+				<input type="hidden" value="" id="pindah_id" name="pindah_id">
+			</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="update_pindah" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+	</div>	
+	
+	<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="myModalLabel"><span class="msg-del"></span></h4>
+			  </div>	
+		      <div class="modal-body">
+			  <form id="frmdel-pindah">Anda Yakin Menghapus data ini?
+			    <input type="hidden" value="" id="pindahdel_id" name="pindahdel_id">
+			  </form>	
+			  </div>
+			  
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="delete-pindah" class="btn btn-danger">OK</button>
+			   </div> 
+		    
+		  </div>
+		</div>
+	</div>'
+	

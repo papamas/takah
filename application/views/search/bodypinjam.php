@@ -1,48 +1,131 @@
-<?php //0046a
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('Site error: the file <b>'.__FILE__.'</b> requires the ionCube PHP Loader '.basename($__ln).' to be installed by the website operator. If you are the website operator please use the <a href="http://www.ioncube.com/lw/">ionCube Loader Wizard</a> to assist with installation.');exit(199);
-?>
-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
+ <div id="wrapper">
+         <?php $this->load->view('nav_top')?>  
+           <!-- /. NAV TOP  -->
+           <!-- / Menu Load -->
+		   <?php $this->load->view('menu')?>  
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <hr />              
+               <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Pencarian Peminjaman Tata Naskah
+                        </div>
+                        <div class="panel-body">
+						    <div class="row">
+							 <form action="<?php echo site_url()?>/pinjam/search/" method="post" >		   		     
+								 <div class="col-md-8 col-md-offset-2 input-group">
+									  <input type="text" name="search" class="form-control" placeholder="Masukan NIP ">
+									  <span class="input-group-btn">
+										<button type="submit" class="btn btn-default" type="button"><i class="fa fa-search"> Search!</i></button>
+									  </span>
+								  </div>
+							  </form>
+							 </div>
+							 <br/>
+                            <div class="row">
+                                <div class="col-md-12">
+								  <?php if($record->num_rows() > 0) {?>
+								   <table class="table table-striped">
+										  <thead>
+											  <tr>
+												  <th>Tgl Pinjam</th>
+												  <th>Takah PNS</th>
+												  <th>Instansi</th>		
+												  <th>Peminjam</th>
+												  <th>Pelaksana</th>
+												  <th>Status</th>
+												  <th>Perintah</th>
+											  </tr>
+										  </thead>   
+										  <tbody>
+										   	<?php foreach($record->result() as $value):?>
+												<tr>
+												   <td><?php echo $value->tgl_input?></td>
+												   <td><?php echo $value->PNS_PNSNAM?><br/><?php echo $value->nip_pns?></td>
+												   <td><?php echo $value->INS_NAMINS?></td>	
+												   <td><?php echo $value->NamaPeminjam?><br/><?php echo $value->nip_peminjam?></td>
+												   <td><?php echo $value->nama?></td>
+												   <td align="center"><?php echo ($value->tgl_kembali ? '&#10004;' : '&#10007;')?></td>
+												   <td>
+													<button class="btn btn-primary btn-xs" title="Edit" data-id="<?php echo $value->id?>" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit "></i> E</button>
+													<button class="btn btn-danger btn-xs" title="Delete" data-id="<?php echo $value->id?>" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-eraser"></i> D</button>
+												   </td>
+												</tr>
+												<?php endforeach;?>
+											</tbody>																			  
+									</table>
+									<?php } else { echo "<p><b>Sorry ,  Data NOT FOUND</b></p>";}?>
+								</div>                      
+                            </div>
+                        </div>
+                    </div>
+                     <!-- End Form Elements -->
+                </div>
+            </div>
+                <!-- /. ROW  -->
+              
+                    
+                         
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+		
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" width="900px">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel"><span class="msg"></span></h4>
+			</div>
+			<div class="modal-body">
+			<form id="form-pinjam">
+			    <div class="form-group row">
+				   <label class="control-label col-md-4">NIP Yang Menerima:</label>
+					<div  class="col-md-8">
+					<input type="text" name="nip_yang_menerima" required id="nip_yang_menerima" class="form-control" >									
+					</div> 	
+				</div>
+				<div class="form-group row">
+				   <label class="control-label col-md-4">NIP Yang Menyerahkan:</label>
+					<div  class="col-md-8">
+					<input type="text" name="nip_yang_menyerahkan" required id="nip_yang_menyerahkan" class="form-control" >									
+					</div> 	
+				</div>
+				<input type="hidden" value="" id="update_id" name="update_id">
+			</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="update_pinjam" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+	</div>	
+	
+	<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	   <div class="modal-dialog">
+	      <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="myModalLabel"><span class="msg-del"></span></h4>
+			  </div>	
+		      <div class="modal-body">
+			  <form id="frmdel-pinjam">Anda Yakin Menghapus data ini?
+			    <input type="hidden" value="" id="pinjamdel_id" name="pinjamdel_id">
+			  </form>	
+			  </div>
+			  
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" id="delete-pinjam" class="btn btn-danger">OK</button>
+			   </div> 
+		    
+		  </div>
+		</div>
+	</div>'
+	

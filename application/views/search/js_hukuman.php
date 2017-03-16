@@ -1,40 +1,124 @@
-<?php //0046a
-if(!extension_loaded('ionCube Loader')){$__oc=strtolower(substr(php_uname(),0,3));$__ln='ioncube_loader_'.$__oc.'_'.substr(phpversion(),0,3).(($__oc=='win')?'.dll':'.so');if(function_exists('dl')){@dl($__ln);}if(function_exists('_il_exec')){return _il_exec();}$__ln='/ioncube/'.$__ln;$__oid=$__id=realpath(ini_get('extension_dir'));$__here=dirname(__FILE__);if(strlen($__id)>1&&$__id[1]==':'){$__id=str_replace('\\','/',substr($__id,2));$__here=str_replace('\\','/',substr($__here,2));}$__rd=str_repeat('/..',substr_count($__id,'/')).$__here.'/';$__i=strlen($__rd);while($__i--){if($__rd[$__i]=='/'){$__lp=substr($__rd,0,$__i).$__ln;if(file_exists($__oid.$__lp)){$__ln=$__lp;break;}}}if(function_exists('dl')){@dl($__ln);}}else{die('The file '.__FILE__." is corrupted.\n");}if(function_exists('_il_exec')){return _il_exec();}echo('Site error: the file <b>'.__FILE__.'</b> requires the ionCube PHP Loader '.basename($__ln).' to be installed by the website operator. If you are the website operator please use the <a href="http://www.ioncube.com/lw/">ionCube Loader Wizard</a> to assist with installation.');exit(199);
-?>
-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
-fy+T19wIayPT0q2vyR5hZDaO
+ <!-- DATA TABLE SCRIPTS -->
+<script src="<?php echo base_url()?>assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="<?php echo base_url()?>assets/js/dataTables/dataTables.bootstrap.js"></script>
+
+<script src="<?php echo base_url()?>assets/js/moment-with-locales.js"></script>
+<!-- Date Picker-->
+<script src="<?php echo base_url()?>assets/js/moment-with-locales.js"></script>
+<script src="<?php echo base_url()?>assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/select2/select2.full.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/noty/packaged/jquery.noty.packaged.js"></script>
+<script>	
+	$(document).ready(function () {	
+	    
+		var message   = '<?php echo $message?>';
+		
+			 if(message != '')
+			 {
+					var n = noty({
+						text        : '<?php echo $message?>',
+						type        : 'success',
+						dismissQueue: false,
+						layout      : 'topCenter',
+						theme       : 'defaultTheme'
+					});
+					
+					setTimeout(function () {
+						$.noty.close(n.options.id); 
+					}, 2000);	
+             }				 
+			 
+		$('.datetimepicker').datetimepicker({
+		   sideBySide: true,
+		   locale: 'id',
+		   format:'DD-MM-YYYY',
+		});
+		
+		$('#myModal').on('show.bs.modal',function(event){
+		    $('.msg').text(''); 
+		    var id= $(event.relatedTarget).data('id');	
+			$.ajax({
+			    url: "<?php echo site_url()?>/hukuman/get_hukuman",
+				dataType:'json',
+				type:'POST',
+				data:{hukuman_id:id},
+				success: function(result){                  				
+                    $("#hukuman_id").val(result[0].id);
+					$("#tgl_input").val(result[0].tgl_input);
+					$("#tgl_tmt").val(result[0].tgl_tmt);
+					$("#tgl_sampai").val(result[0].tgl_sampai);
+					$('[name=instansi]').val(result[0].instansi);
+					$('[name=nip]').val(result[0].nip);
+					$('[name=tingkat]').val(result[0].tingkat);
+					$("#jenis_hukuman").val(result[0].jenis_hukuman);
+					
+				},				
+			});		
+				
+			
+		});
+		
+		// event delete
+		$("#update_hukuman").on("click",function(){
+		    $('.msg').text('Updating Please Wait.....')
+			         .removeClass( "text-green")
+					 .addClass( "text-blue" ); 
+			var data = $('#form-hukuman').serialize();
+			$.ajax({
+				type: "POST",
+				url : "<?php echo site_url()?>/hukuman/update",
+				data: data,
+				success: function(){
+					$('.msg').text('Updated Succesfully.....')
+                             .removeClass( "text-blue")
+					         .addClass( "text-green" );  					
+				}, // akhir fungsi sukses
+		    });
+			return false;
+		});
+		
+		$('#modalDelete').on('show.bs.modal',function(event){
+		    var id= $(event.relatedTarget).data('id');
+			$('.msg-del').text(' '); 
+			//console.log(id);
+            $("#hukumandel_id").val(id);			
+						
+		});
+		
+		$("#delete-hukuman").on("click",function(){
+		    $('.msg-del').text('Deleting Please Wait.....')
+                         .removeClass( "text-green")
+				         .addClass( "text-blue" ); 
+							 
+			var data = $('#frmdel-hukuman').serialize();
+			$.ajax({
+				type: "POST",
+				url : "<?php echo site_url()?>/hukuman/delete",
+				data: data,
+				success: function(){
+					$('.msg-del').text('Deleted Succesfully.....')
+                                  .removeClass( "text-blue")
+					             .addClass( "text-green" ); 					
+				}, // akhir fungsi sukses
+		    });
+			return false;
+		});
+		
+		$(".nip").select2({
+		    minimumInputLength: 10,
+    	    ajax: {
+				url:  '<?php echo site_url() ?>'+'/pinjam/get_pns2',
+				dataType:'json',
+				type:'GET',							
+			},
+			results: function(data, page) {
+			    return { results: data.results };
+               // console.log(results: data.results);
+				//return {results:data};
+            }  
+		});
+		
+		
+	});	
+</script>
+
