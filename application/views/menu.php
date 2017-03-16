@@ -29,18 +29,14 @@
 							
 							<li>
                                 <a  href="<?php echo site_url()?>/scanning/">Scanning </a>
-							</li>
-							<li> <a  href="<?php echo site_url()?>/pascascanning/">Pasca Scanning</a>
-							    
-							
-							</li>
-							<!--
-							   	-->			 
+							</li>							
+							<li><a  href="<?php echo site_url()?>/scanning/search">Search</a></li>		 
 							
 						</ul>	
 					</li>
+					
 					 <li>
-                        <a href="#" class="<?php if( ($this->uri->segment(1) == "hukuman" && $this->uri->segment(2) != 'laporan' ) || ($this->uri->segment(1)==="cpns" && $this->uri->segment(2) !== 'laporan' )  || $this->uri->segment(1)==="disposisi"  || $this->uri->segment(1)==="vernpkp" || $this->uri->segment(1)==="notapersetujuan" || ($this->uri->segment(1)==="bup" && $this->uri->segment(2) != "laporan" ) || $this->uri->segment(1)==="konversinip" || ($this->uri->segment(1)==="suratmasuk" &&  $this->uri->segment(2) != 'laporan') || ($this->uri->segment(1)==="pindah"  &&  $this->uri->segment(2) != 'laporan') ) echo "active-menu" ?>"><i class="fa fa-edit fa-3x"></i> Pencatatan<span class="fa arrow"></span></a>
+                        <a href="#" class="<?php if( ($this->uri->segment(1) == "pinjam" && $this->uri->segment(2) != 'laporan' ) || ($this->uri->segment(1) == "hukuman" && $this->uri->segment(2) != 'laporan' ) || ($this->uri->segment(1)==="cpns" && $this->uri->segment(2) !== 'laporan' )  || $this->uri->segment(1)==="disposisi"  || $this->uri->segment(1)==="vernpkp" || $this->uri->segment(1)==="notapersetujuan" || ($this->uri->segment(1)==="bup" && $this->uri->segment(2) != "laporan" ) || $this->uri->segment(1)==="konversinip" || ($this->uri->segment(1)==="suratmasuk" &&  $this->uri->segment(2) != 'laporan') || ($this->uri->segment(1)==="pindah"  &&  $this->uri->segment(2) != 'laporan') ) echo "active-menu" ?>"><i class="fa fa-edit fa-3x"></i> Pencatatan<span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
 						    <li>
                                 <a  href="#">Nota Persetujuan KP <span class="fa arrow"></span></a>
@@ -51,14 +47,25 @@
 									<li>
 										<a  href="<?php echo site_url()?>/vernpkp/">SAPK</a>
 									</li>
+									<li>
+										<a  href="<?php echo site_url()?>/notapersetujuan/search">Search</a>
+									</li>
 								</ul>	
                             </li>
 							<li>
-                                <a  href="<?php echo site_url()?>/bup/">Batas Usia Pensiun</a>
+							    <a  href="#">Batas Usia Pensiun<span class="fa arrow"></span></a>
+							    <ul class="nav nav-third-level">
+                                   <li><a  href="<?php echo site_url()?>/bup/">PNS BUP</a></li>
+								    <li><a  href="<?php echo site_url()?>/bup/search">Search</a></li>
+								</ul>   
                             </li>
 							
 							<li>
-                                <a  href="<?php echo site_url()?>/pindah/">Pindah Wilayah Kerja</a>
+							    <a  href="#">Pindah Wilayah Kerja<span class="fa arrow"></span></a>
+							    <ul class="nav nav-third-level">
+                                   <li><a  href="<?php echo site_url()?>/pindah/">Pindah</a></li>
+								   <li><a  href="<?php echo site_url()?>/pindah/search">Search</a></li>
+								</ul>
                             </li>
 							
 							<li>
@@ -72,13 +79,31 @@
 									<li>
 										<a  href="<?php echo site_url()?>/disposisi/">Disposisi</a>
 									</li>
+									<li>
+										<a  href="<?php echo site_url()?>/suratmasuk/search">Search</a>
+									</li>
 								</ul>	
                             </li>
 							<li>
-                                <a  href="<?php echo site_url()?>/cpns/">CPNS</a>
+							    <a  href="#">CPNS <span class="fa arrow"></span> </a>
+							   <ul class="nav nav-third-level">
+                                   <li><a  href="<?php echo site_url()?>/cpns/">Pengadaan</a></li>
+								   <li><a  href="<?php echo site_url()?>/cpns/search">Search</a></li>
+								</ul>
                             </li>
 							<li>
-                                <a  href="<?php echo site_url()?>/hukuman/">Hukuman Disiplin</a>
+							    <a  href="#">Hukuman Disiplin <span class="fa arrow"></span> </a>
+							    <ul class="nav nav-third-level">
+                                    <li><a  href="<?php echo site_url()?>/hukuman/">Hukuman</a></li>
+									<li><a  href="<?php echo site_url()?>/hukuman/search">Search</a></li>
+								</ul>
+                            </li>
+							<li>
+                                <a  href="#">Peminjaman Takah<span class="fa arrow"></span> </a>
+								<ul class="nav nav-third-level">
+								   <li> <a  href="<?php echo site_url()?>/pinjam/">Peminjaman </a></li>
+								   <li> <a  href="<?php echo site_url()?>/pinjam/search">Search </a></li>
+								</ul>
                             </li>
 							<!--
 							<li>
@@ -97,7 +122,7 @@
                             <li>
                                 <a class="" href="<?php echo site_url()?>/suratmasuk/laporan">Surat Masuk</a>
                             </li>
-							<?php if($this->session->userdata('level') == 'kasie' || $this->session->userdata('level') == 'admin'):?>
+							<?php if($this->session->userdata('level') == 'kasie' || $this->session->userdata('user_id') == '7'):?>
 							<li>
                                
 								<a href="<?php echo site_url()?>/capaiankinerja/">Rekapitulasi Capaian Kinerja</a>
@@ -117,6 +142,9 @@
                             </li>
 							<li>
                                 <a class="" href="<?php echo site_url()?>/hukuman/laporan">Hukuman Disiplin</a>
+                            </li>
+							<li>
+                                <a class="" href="<?php echo site_url()?>/pinjam/laporan">Peminjaman Takah</a>
                             </li>
                         </ul>
                       </li>                   			 
