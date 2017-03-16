@@ -91,6 +91,7 @@ class Scanning extends MY_Controller {
 					<th>PRASCANNING</th>
 					<th>PRADATE</th>
 					<th>SCANNING</th>
+					<th>SCANDATE</th>
 					<th>PEMBERI TUGAS</th>
 					<th>PELAKSANA</th>
 					'; 
@@ -101,9 +102,10 @@ class Scanning extends MY_Controller {
 			   	$html .= "<tr><td>$i</td>";
 				$html .= "<td class=str>{$r->nip}</td>";
 				$html .= "<td width=400>{$r->PNS_PNSNAM}</td>";
-				$html .= "<td>{$r->prascanning}</td>";
+				$html .= "<td align=center>".($r->prascanning ? '&#10004;' : '')."</td>";
 				$html .= "<td>{$r->pradate}</td>";
-				$html .= "<td>{$r->scanning}</td>";	
+				$html .= "<td align=center>".($r->scanning ? '&#10004;' : ' ')."</td>";	
+				$html .= "<td>{$r->scandate}</td>";
 				$html .= "<td>{$r->pemberi_tugas}</td>";	
 				$html .= "<td>{$r->pelaksana}</td>";	
 				$html .= "</tr>";
@@ -122,8 +124,8 @@ class Scanning extends MY_Controller {
 	function getLihat($data)
 	{
 	    $data ['create_time']          = $this->_get_time_create();
-	    $data['lihat']		           = TRUE;	
-		$data['pelaksana']			   = $data['pelaksana'];
+	    $data['lihat']		           = TRUE;
+        $data['pelaksana']			   = $data['pelaksana'];		
 	    $data['record']			   	   = $this->getRecord($data);
 		
 	    $data['instansi']			   = $this->_get_instansi();
@@ -180,10 +182,7 @@ table_name='pupns_kp_info'";
 	   INNER JOIN app_user e ON e.id = a.id_pelaksana
 	   WHERE c.PNS_INSDUK='$instansi' $user
 	   ) a
-	   group by nip ORDER BY a.nip ASC";
-	   
-	   //var_dump($sql);
-	   
+	   GROUP BY a.nip ORDER BY a.nip ASC";
 	   return $this->db1->query($sql);
 	
 	}
@@ -222,6 +221,230 @@ table_name='pupns_kp_info'";
 		$query  = $this->db3->query($sql);
 	    $row	= $query->row();
 		return $row->INS_NAMINS;
+	}
+	
+	public function search()
+	{	   
+		$search            = $this->input->post('search');
+		
+		if($search)
+		{
+		
+				$sql="SELECT 
+			a . *
+		FROM
+			okmdb.`okm_node_base` a
+			INNER JOIN    okmdb.okm_node_folder b ON b.NBS_UUID = a.NBS_UUID
+			WHERE a.NBS_CONTEXT ='okm_root' and a.NBS_NAME LIKE '%$search%'
+			
+			";
+			$r = $this->db1->query($sql)->result_array();
+			$children = array();
+			if(count($r) > 0) 
+			{
+				# It has children, let's get them.
+				foreach ( $r as $key => $item )
+				{
+					# Add the child to the list of children, and get its subchildren
+					$children = $this->getChildParent($item['NBS_UUID']);
+					
+				}
+				$data['message'] = '';
+			}
+			else
+			{
+				$data['message'] = 'Sorry, File Not Found';
+			}
+			
+			
+			$data['children'] = $this->buildMenu($children);
+		
+		}
+		else
+		{
+		    $data['message'] = '';
+		}
+		
+		$data['search']    = $search;	
+		// pupns
+		$data['pupns']      = $this->_get_pupns($search);
+		$data['pendidikan'] = $this->_get_pendidikan($search);	
+        $data['unor']		= $this->_get_unorpns($search);		
+		$this->load->view('search/vdms',$data);
+	
+	}
+	
+	function _get_pendidikan($search)
+	{
+	
+	   $sql="SELECT a.*, b.*  FROM mirror.`pupns_pendidikan` a
+LEFT JOIN mirror.pendik b ON a.PEN_PENKOD = b.DIK_KODIK
+WHERE a.`PNS_NIPBARU` LIKE '$search'
+ORDER BY a.`PEN_TAHLUL` DESC";
+
+       $r = $this->db1->query($sql);
+		
+		return $r;
+	}
+	
+	function _get_pupns($search)
+	{
+	
+	    $sql="SELECT a.*,DATE_FORMAT(a.PNS_TGLLHRDT,'%d-%m-%Y') LAHIR,
+		DATE_FORMAT(a.PNS_TMTCPN,'%d-%m-%Y') CPNS,
+		DATE_FORMAT(a.PNS_TMTPNS,'%d-%m-%Y') PNS,
+		b.GOL_GOLNAM,b.GOL_PKTNAM, c.DIK_NAMDIK, d.LOK_LOKNAM,
+		e.KED_KEDNAM, f.GOL_GOLNAM GOL_AWAL , g.JPG_JPGNAM,
+		h.INS_NAMINS INSDUK , i.INS_NAMINS INSKER, j.JJB_JJBNAM
+		FROM mirror.pupns a 
+		LEFT JOIN mirror.golru b ON a.PNS_GOLRU =b.GOL_KODGOL
+		LEFT JOIN mirror.tktpendik c ON a.PNS_TKTDIK = c.DIK_TKTDIK
+		LEFT JOIN mirror.lokker  d ON  a.PNS_TEMKRJ = d.LOK_LOKKOD
+		LEFT JOIN mirror.kedhuk e ON a.PNS_KEDHUK = e.KED_KEDKOD
+		LEFT JOIN mirror.golru f ON a.PNS_GOLAWL = f.GOL_KODGOL
+		LEFT JOIN mirror.jenpeg g ON a.PNS_JENPEG = g.JPG_JPGKOD
+		LEFT JOIN mirror.instansi h ON a.PNS_INSDUK = h.INS_KODINS
+		LEFT JOIN mirror.instansi i ON a.PNS_INSKER = i.INS_KODINS
+		LEFT JOIN mirror.jenjab j ON a.PNS_JNSJAB = j.JJB_JJBKOD
+		WHERE a.PNS_NIPBARU LIKE '$search'";
+		$r = $this->db1->query($sql);
+		
+		if($r->num_rows() > 0)
+		{
+			
+			$r = $r->row();
+		}
+		else
+		{
+			
+			$r = array();
+		}	
+		
+		return $r;
+	}
+	
+	function _get_unorpns($search)
+	{
+	
+	    $sql="SELECT 
+    a.`PNS_NIPBARU`,
+    a.`PNS_PNSNAM`,
+    h.INS_NAMINS INSDUK,
+    j.JJB_JJBNAM,
+    k.JBF_NAMJAB,
+    l.UNO_NAMUNO,
+    l.UNO_NAMJAB,
+    l.UNO_DIATASAN_ID,
+    m.UNO_NAMUNO UNO_INDUK
+FROM
+    mirror.pupns a
+        LEFT JOIN
+    mirror.instansi h ON a.PNS_INSDUK = h.INS_KODINS
+        LEFT JOIN
+    mirror.jenjab j ON a.PNS_JNSJAB = j.JJB_JJBKOD
+        LEFT JOIN
+    mirror.jabfun k ON a.PNS_JABFUN = k.JBF_KODJAB
+		LEFT JOIN
+    mirror.unor l ON (a.PNS_UNITOR = l.UNO_KODUNO
+        AND a.PNS_INSDUK = l.UNO_INSTAN
+        AND a.PNS_UNOR = l.UNO_ID)
+    LEFT join
+    mirror.unor m ON (l.UNO_DIATASAN_ID = m.UNO_ID  AND a.PNS_INSDUK = m.UNO_INSTAN) 
+WHERE
+    a.PNS_NIPBARU='$search'";
+		$r = $this->db1->query($sql);
+		
+		if($r->num_rows() > 0)
+		{
+			
+			$r = $r->row();
+		}
+		else
+		{
+			
+			$r = array();
+		}	
+		
+		return $r;
+	}
+	
+	function buildMenu($array)
+	{
+		 //if(count($array) == 1 ) return FALSE;
+		 $html = "<ul>";		  
+		  foreach ($array as $item)
+		  {
+			/* if(count($array) != 10)
+			{
+			    $html .='<li> <span><i class="fa fa-file"></i> ';
+				$html .='<span class="file" id='.$item['NBS_UUID'].'>'.$item['NBS_NAME'].'</span>';
+			}
+			else
+			{
+				$html .='<li> <span><i class="fa fa-folder-open"></i> ';	
+				$html .='<span class="file" id='.$item['NBS_UUID'].'>'.$item['NBS_NAME'].'</span>';
+				//$html .=$item['NBS_NAME'].' <span class="">'.count($item['CHILDREN']).'</span>';
+			} */
+			
+			$html .='<li> <span><i class="fa fa-folder-open"></i> ';
+			$html .='<span class="file" id='.$item['NBS_UUID'].'>'.$item['NBS_NAME'].'</span>';
+			
+			if (!empty($item['CHILDREN']))
+			{
+			  $html .= $this->buildMenu($item['CHILDREN']);
+			}
+			$html .='</span></li>';
+			
+		  }
+		  $html .='</ul>';
+		  
+		  return $html;
+	}
+	
+	
+	function getChildParent($uuid) 	
+	{
+		$sql = "select 
+		*
+	from
+		okmdb.okm_node_base
+	WHERE
+		nbs_parent = '$uuid' ORDER BY NBS_NAME ASC";
+		$r = $this->db1->query($sql)->result_array();
+		$children   = array();
+		
+		if(count($r) > 0) 
+		{
+		    foreach ( $r as $key => $item )
+			{
+			    $children[] = array( 'NBS_NAME' 	=> $item['NBS_NAME'],				
+									 'NBS_UUID'		=> $item['NBS_UUID'],
+									 'NBS_AUTHOR'   => $item['NBS_AUTHOR'],
+									 'NBS_CREATED'  => $item['NBS_CREATED'],
+									 'JUMLAH'		=> COUNT($this->getChildParent($item['NBS_UUID'])),
+									 'CHILDREN'     => $this->getChildParent($item['NBS_UUID']),
+				);
+				
+				
+				
+			}
+		}
+				
+		return $children;
+		
+	}
+	
+	
+	
+	function _get_dms_login($id)
+	{
+	    $sql="SELECT dms_user,dms_password FROM app_user WHERE id='$id' ";
+		$query = $this->db1->query($sql);
+		$row   = $query->row();
+		
+		return $row;
+		
+	
 	}
 	
 }
