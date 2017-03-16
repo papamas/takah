@@ -34,19 +34,20 @@
 			$('.progress-bar').css('width', '' + 0 + '%');
 			$('.progress-bar').text( 0 + '% Complete' );
 			$('.progress-bar').attr("aria-valuenow", 0);
+			var bulan = $('[name=tmt_bln]').val(), tahun  = $('[name=tmt_thn]').val();
 				
             $.ajax({
 			    url: "<?php echo site_url()?>/notapersetujuan/get_npkp_data",
 				dataType:'json',
 				type:'POST',
-				data:{nip:this.value},
+				data:{nip:this.value,bulan:bulan,tahun:tahun},
 				success: function(result){
 				    
                     //console.log();
 					$("#nolg").val(result[0].NOTA_PERSETUJUAN_KP);
 					$("#tgllg").val(result[0].TGL_NOTA_PERSETUJUAN_KP);
-					//$("#tmt_thn").val(result[0].TMT_THN);
-					//$('[name=tmt_bln]').val(result[0].TMT_BLN );
+					$("#tmt_thn").val(result[0].TMT_THN);
+					$('[name=tmt_bln]').val(result[0].TMT_BLN );
 					$('[name=gol_lama]').val(result[0].PKI_GOLONGAN_LAMA_ID); 
 					$('[name=gol_baru]').val(result[0].PKI_GOLONGAN_BARU_ID);
 					$("#lokasi_kerja").val(result[0].PNS_TEMKRJ);
