@@ -46,14 +46,16 @@
 								 <span class="help-block with-errors"> </span>	
 								</div> 
                                  <div class="form-group row" id="batas">
+								    <!--
 								    <label class="control-label col-md-2">Start Listing:</label>
                                             <div class="col-md-2">
 												<input name="start"  id="startlist"  type="text" class="form-control " value="<?php echo $this->session->userdata('start')?>"  placeholder=""/>    
 												<span class="help-block with-errors"></span>
                                             </div>
-									<label class="control-label col-md-2">End Listing:</label>
+									!-->		
+									<label class="control-label col-md-2">Jumlah Listing:</label>
                                             <div class="col-md-2">
-												<input name="end"  id="endlist"  type="text" class="form-control " value="<?php echo $this->session->userdata('end')?>"  placeholder=""/>    
+												<input name="end"  id="endlist"  type="text" pattern="^[0-9]+$" data-error="Invalid Number"  class="form-control " value="<?php echo $this->session->userdata('end')?>"  placeholder=""/>    
 												<span class="help-block with-errors"></span>
                                             </div>
 									
@@ -86,7 +88,7 @@
                                 </div>
 								<?php if($this->input->post()):?>
                                 <div class="form-group row">
-								<label class="control-label col-md-12">Berdasarkan Data Mirror SAPK Update : <?php echo $create_time ?> , Jumlah PNS yang blm masuk Pra/Scanning  : <?php echo number_format($jumlah,0,' ','.')?></label>
+								<label class="control-label col-md-12">Berdasarkan Data Mirror SAPK Update : <?php echo $create_time ?> , Jumlah PNS yang blm masuk Prascanning  : <?php echo number_format($jumlah,0,' ','.')?></label>
                                 </div>
                                 <?php endif;?>
 
@@ -102,7 +104,10 @@
 									  <th>NIP</th>
 									  <th>NAMA</th>
 									  <th>INSTANSI</th>
-									  <th>STATUS</th>                                          
+									  <th>STATUS</th>                                       
+									  <th>JABATAN</th>
+									  <th>UMUR</th>
+									  <th>BUP</th>
 								  </tr>
 							  </thead>   
 							  <tbody>
@@ -112,8 +117,11 @@
 									<td><?php echo $i?></td>
 									<td><?php echo $value['PNS_NIPBARU']?></td>
 									<td class="center"><?php echo $value['PNS_PNSNAM']?></td>
-									<td class="center"><?php echo $value['INS_NAMINS']?></td>
-									<td class="center"><?php echo $value['KED_KEDNAM']?></td>                                       
+									<td width="200" class="center"><?php echo $value['INS_NAMINS']?></td>
+									<td class="center"><?php echo $value['KED_KEDNAM']?></td>								
+									<td width="200" class="center"><?php if (!empty($value['JBF_NAMJAB'])) echo $value['JBF_NAMJAB']; else  echo $value['JJB_JJBNAM'] ?></td>
+									<td class="center"><?php echo $value['UMUR']?></td>
+									<td class="center"><?php if(!empty($value['JBF_USIPEN'])) echo $value['JBF_USIPEN']; else echo '58';?></td>
 								</tr>
 								<?php $i++;endforeach?>
 							  </tbody>
