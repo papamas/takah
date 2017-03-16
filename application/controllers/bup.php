@@ -36,10 +36,46 @@ class Bup extends MY_Controller {
 	{
 	   $search   = $this->input->get('q');
 	   
-	   $sql="SELECT PNS_NIPBARU as id,CONCAT( PNS_NIPBARU ,' - ', PNS_PNSNAM)  as text FROM PUPNS WHERE PNS_NIPBARU LIKE '$search%' ORDER BY PNS_PNSNAM ASC";
+	   $sql="SELECT a.PNS_NIPBARU as id,CONCAT( a.PNS_NIPBARU ,' - ', a.PNS_PNSNAM)  as text FROM PUPNS a
+	   WHERE a.PNS_NIPBARU LIKE '$search%' OR a.PNS_PNSNIP LIKE '$search' 
+	   ORDER BY PNS_PNSNAM ASC";
 	   $query= $this->db3->query($sql);
 	   $ret['results'] = $query->result_array();
 	   echo json_encode($ret);
+	   
+	   
+	}
+	
+    function get_bup_data()
+	{
+	    $nip   = $this->input->post('nip');
+		$sql="SELECT *, DATE_FORMAT(PNI_SK_TANGGAL,'%d-%m-%Y') tgl_sk, DATE_FORMAT(PNI_TMT_PENSIUN,'%d-%m-%Y') tmt_pen FROM 
+		`pupns_pensiun_info` WHERE `PNI_NIPBARU` LIKE '$nip' OR PNI_PNSNIP LIKE '$nip'
+		ORDER BY `pupns_pensiun_info`.`PNI_SK_TANGGAL`desc ,PNI_TGL_USUL DESC";
+		$query= $this->db3->query($sql);
+		
+		if($query->num_rows()  > 0)
+		{
+		    $row		= $query->row();
+		
+            $data[]		= array('tgl_sk'      			   => $row->tgl_sk,
+								'tmt_pen'  				   => $row->tmt_pen,
+								'PNI_SK_NOMOR'             => $row->PNI_SK_NOMOR,
+								'PNI_PNSNIP'               => $row->PNI_PNSNIP,
+			);			
+		}
+		else
+		{
+		     $data[]		= array('tgl_sk'      			   => '',
+								    'tmt_pen'  				   => '',
+								    'PNI_SK_NOMOR'             => '',
+									'PNI_PNSNIP'               => '',
+								
+			);		
+		}
+		
+		echo json_encode($data);	
+		
 	}
 	
 	function _get_instansi()
@@ -53,13 +89,47 @@ class Bup extends MY_Controller {
 	    $instansi          = $this->input->post('instansi');
 		$nip			   = $this->input->post('nip');
 		$tmt			   = $this->input->post('tmt');
+		$tgl_sk			   = $this->input->post('tgl_sk');
+		$no_sk			   = $this->input->post('no_sk');
+		$nip_lama		   = $this->input->post('nip_lama');
 		$keterangan        = $this->input->post('keterangan');
+		
+		if(!empty($tgl_sk))
+		{
+		    $tgl_sk = date('Y-m-d',strtotime($tgl_sk));
+		}
+		else
+		{
+		    $tgl_sk = NULL;
+		}
+		
+		if(!empty($no_sk))
+		{
+		    $no_sk = $no_sk;
+		}
+		else
+		{
+		    $no_sk = NULL;
+		}
+		
+		if(!empty($nip_lama))
+		{
+		    $nip_lama = $nip_lama;
+		}
+		else
+		{
+		    $nip_lama = NULL;
+		}
+		
 		
 		$data = array('instansi'				=> $instansi,
 					  'nip'						=> $nip,
 					  'tmt'						=> date('Y-m-d',strtotime($tmt)),
+					  'tgl_sk'					=> $tgl_sk,
+					  'nomor_sk'				=> $no_sk,
 					  'keterangan'				=> $keterangan,
 					  'created_by'				=> $this->session->userdata('user_id'),
+					  'nip_lama'				=> $nip_lama,
 					  
 		);
 		
@@ -113,7 +183,7 @@ class Bup extends MY_Controller {
 		
 		
 		
-		$sql="SELECT a.* FROM bup a  WHERE 1=1  $sql_pelaksana $sql_instansi  AND DATE( created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+		$sql="SELECT a.*, DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input FROM bup a  WHERE 1=1  $sql_pelaksana $sql_instansi  AND DATE( created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
 AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 		
 		//var_dump($sql); exit;
@@ -135,9 +205,13 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 		$html .= '<table border="1">';					
 		$html .='<tr>
 					<th>NO</th>
+					<th>TGL</th>
 					<th>NIP</th>
+					<th>NIP LAMA</th>	
 					<th>INTANSI </th>
 					<th>TMT</th>
+					<th>TGL SK</th>
+					<th>NOMOR</th>
 					<th>PELAKSANA</th>
 					<th>KETERANGAN</th>'; 
 		$html 	.= '</tr>';
@@ -145,9 +219,13 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 			$i = 1;		        
 			foreach ($q->result() as $r) {
 			   	$html .= "<tr><td>$i</td>";
+				$html .= "<td>{$r->tgl_input}</td>";
 				$html .= "<td class=str>{$r->nip}</td>";
+				$html .= "<td class=str>{$r->nip_lama}</td>";
 				$html .= "<td>{$this->_get_nama_instansi($r->instansi)}</td>";
 				$html .= "<td>{$r->tmt}</td>";
+				$html .= "<td>{$r->tgl_sk}</td>";
+				$html .= "<td>{$r->nomor_sk}</td>";
 				$html .= "<td>{$this->_get_nama_orang($r->created_by)}</td>";				
                 $html .= "<td>{$r->keterangan}</td>";				
 				$html .= "</tr>";
@@ -202,6 +280,88 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 	   return $row->nama;  
 	
 	}
+	
+	function search()
+	{
+	    $search =$this->input->post('search');
+		
+		if($search)
+		{
+		   $sql_search = "AND (a.nip ='$search' OR a.nip_lama ='$search')";
+		}
+		else
+		{
+		   $sql_search ="";
+		}
+		
+		$user_id = $this->session->userdata('user_id');		
+		
+		$sql="SELECT a.*, DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input,
+		DATE_FORMAT(a.tmt, '%d-%m-%Y') tgl_tmt,
+		DATE_FORMAT(a.tgl_sk, '%d-%m-%Y') tglsk,
+		b.INS_NAMINS FROM bup a
+		INNER JOIN mirror.instansi b ON a.instansi = b.INS_KODINS 
+		WHERE 1=1 $sql_search  AND a.created_by='$user_id' LIMIT 10";
+		$query = $this->db1->query($sql);
+		
+		$data['record']    = $query; 
+		$data['message']   ='';
+		$data['instansi']  = $this->_get_instansi();
+	    $this->load->view('search/vbup',$data);
+	}
+	
+	function get_bup()
+	{
+	   $id = $this->input->post('bup_id');
+	   
+	   $sql="SELECT *,DATE_FORMAT(created_date,'%d-%m-%Y') tgl_input,
+	    DATE_FORMAT(tmt,'%d-%m-%Y') tgl_tmt,
+		DATE_FORMAT(tgl_sk,'%d-%m-%Y') tglsk
+	    FROM takah.bup where id='$id' ";
+	   $query = $this->db1->query($sql);
+		
+	   echo json_encode($query->result_array());
+	   
+	
+	}
+	
+	function update()
+	{
+	    $id  			        = $this->input->post('bup_id');
+		$tgl_input  			= $this->input->post('tgl_input');
+		$nip  					= $this->input->post('nip');
+		$instansi	  			= $this->input->post('instansi');
+		$tgl_tmt		  		= $this->input->post('tgl_tmt');
+		$tgl_sk			        = $this->input->post('tgl_sk');
+		$no_sk			        = $this->input->post('no_sk');
+		$keterangan		  		= $this->input->post('keterangan');
+		
+		$data = array('created_date'     => date('Y-m-d', strtotime($tgl_input)),
+					  'nip'              => $nip,
+					  'instansi'         => $instansi,
+					  'tmt'              => date('Y-m-d', strtotime($tgl_tmt)),
+					  'tgl_sk'			 => date('Y-m-d',strtotime($tgl_sk)),
+					  'nomor_sk'		 => $no_sk,
+					  'keterangan'       => $keterangan,
+					  
+		);
+		
+		
+		
+		
+		$this->db1->where('id',$id);
+	    $this->db1->update('bup', $data);
+		
+	}
+	
+	function delete()
+	{
+	    $id  			    = $this->input->post('bupdel_id');
+		$this->db1->where('id',$id);
+	    $this->db1->delete('bup');
+	
+	}
+	
 	
 }
 
