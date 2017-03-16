@@ -141,18 +141,36 @@ Order by ins_kodins ASC";
 		{
 		    $sql_instansi  = " AND a.instansi_tujuan='$instansi' ";
 		}
-		else
+		elseif($mutasi == '2')
 		{
 		   $sql_instansi  = " AND a.instansi_asal='$instansi'  ";
+		
+		}
+		else
+		{
+		   $sql_instansi  = "   ";
 		
 		}
 		
 		
 		
 		
-		$sql="SELECT a.*,DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input FROM pwk a  WHERE 1=1  
+		/* $sql="SELECT a.*,DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input FROM pwk a  WHERE 1=1  
 		$sql_pelaksana $sql_instansi  AND DATE( created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
-AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y')"; */
+        $sql="SELECT a.*,
+		b.PNS_PNSNAM, 
+		SUBSTRING_INDEX(b.PNS_PNSNAM, ' ', 1) LABEL,
+        c.INS_NAMINS nama_instansi_asal,
+        d.INS_NAMINS nama_instansi_tujuan		
+		FROM (
+		SELECT a.*,DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input 
+		FROM takah.pwk a WHERE 1=1 
+		$sql_pelaksana $sql_instansi  AND DATE( created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y')) a 
+LEFT JOIN  mirror.pupns b ON a.nip = b.pns_nipbaru
+LEFT JOIN mirror.instansi c ON c.INS_KODINS = a.instansi_asal
+LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan";
 		
 		//var_dump($sql); exit;
 		$q    = $this->db1->query($sql);
@@ -175,12 +193,15 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 					<th rowspan="2">NO</th>
 					<th rowspan="2">TGL</th>
 					<th rowspan="2">NIP</th>
+					<th rowspan="2">NAMA</th>
 					<th colspan="2">INTANSI </th>
 					<th rowspan="2">TMT</th>
 					<th rowspan="2">NO.SK</th>
 					<th rowspan="2">TGL SK</th>
 					<th rowspan="2">PELAKSANA</th>
 					<th rowspan="2" >KETERANGAN</th>
+					<th rowspan="2" >LABEL</th>
+					
 					'; 
 		$html 	.= '</tr><tr><th>ASAL</th><th>TUJUAN</th></tr>';
 		if($q->num_rows() > 0){
@@ -189,13 +210,15 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 			   	$html .= "<tr><td>$i</td>";
 				$html .= "<td>{$r->tgl_input}</td>";
 				$html .= "<td class=str>{$r->nip}</td>";
-				$html .= "<td>{$this->_get_nama_instansi($r->instansi_asal)}</td>";
-				$html .= "<td>{$this->_get_nama_instansi($r->instansi_tujuan)}</td>";
+				$html .= "<td>{$r->PNS_PNSNAM}</td>";
+				$html .= "<td>{$r->nama_instansi_asal}</td>";
+				$html .= "<td>{$r->nama_instansi_tujuan}</td>";
 				$html .= "<td>{$r->tmt}</td>";
 				$html .= "<td>{$r->no_sk}</td>";
 				$html .= "<td>{$r->tgl_sk}</td>";
 				$html .= "<td>{$this->_get_nama_orang($r->created_by)}</td>";				
-                $html .= "<td>{$r->keterangan}</td>";				
+                $html .= "<td>{$r->keterangan}</td>";
+				$html .= "<td>{$r->LABEL}</td>";
 				$html .= "</tr>";
 				$i++;
 			}
@@ -213,9 +236,19 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 	{
 	   $sql="SELECT INS_NAMINS FROM instansi WHERE INS_KODINS='$id' ";
        $query  = $this->db3->query($sql);
-	   $row    = $query->row();
 	   
-	   return $row->INS_NAMINS;  
+	   if($query->num_rows() > 0)
+	   {	   
+			$row    = $query->row();
+			$r      = $row->INS_NAMINS;
+			
+	   }
+	   else
+	   {
+	       $r       = '';
+	   }
+	   
+	   return   $r;
 	
 	}
 	
@@ -229,6 +262,86 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 	   return $row->nama;  
 	
 	}
+	
+	function search()
+	{
+	    $search =$this->input->post('search');
+		
+		if($search)
+		{
+		   $sql_search = "AND a.nip ='$search' ";
+		}
+		else
+		{
+		   $sql_search ="";
+		}
+		
+		$user_id = $this->session->userdata('user_id');		
+		
+		$sql="SELECT a.*, DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input,
+		DATE_FORMAT(a.tgl_sk, '%d-%m-%Y') tgl_suratkep, 
+		DATE_FORMAT(a.tmt, '%d-%m-%Y') tgl_tmt,
+		b.INS_NAMINS asal , c.INS_NAMINS tujuan FROM pwk a
+		INNER JOIN mirror.instansi b ON a.instansi_asal = b.INS_KODINS 
+		INNER JOIN mirror.instansi c ON a.instansi_tujuan = c.INS_KODINS 
+		WHERE 1=1 $sql_search  AND a.created_by='$user_id' LIMIT 10";
+		$query = $this->db1->query($sql);
+		
+		$data['record']    = $query; 
+		$data['message']   ='';
+		$data['instansi']  = $this->_get_instansi();
+	    $this->load->view('search/vpwk',$data);
+	}
+	
+	function get_pwk()
+	{
+	   $id = $this->input->post('pindah_id');
+	   
+	   $sql="SELECT *,DATE_FORMAT(created_date,'%d-%m-%Y') tgl_input,
+	   DATE_FORMAT(tgl_sk,'%d-%m-%Y') tgl_suratkep,
+	   DATE_FORMAT(tmt,'%d-%m-%Y') tgl_tmt
+	   FROM takah.pwk where id='$id' ";
+	   $query = $this->db1->query($sql);
+		
+	   echo json_encode($query->result_array());
+	   
+	
+	}
+	
+	function update()
+	{
+	    $id  			        = $this->input->post('pindah_id');
+		$tgl_input  			= $this->input->post('tgl_input');
+		$nip  					= $this->input->post('nip');
+		$asal	  		    	= $this->input->post('instansi_asal');
+		$tujuan	  		    	= $this->input->post('instansi_tujuan');
+		$no_sk		  			= $this->input->post('no_sk');
+		$tgl_sk		  			= $this->input->post('tgl_sk');
+		$tgl_tmt		  		= $this->input->post('tgl_tmt');
+		
+		$data = array('created_date'     => date('Y-m-d', strtotime($tgl_input)),
+					  'nip'              => $nip,
+					  'instansi_asal'    => $asal,
+					  'instansi_tujuan'  => $tujuan,
+					  'no_sk'            => strtoupper($no_sk),
+					  'tgl_sk'           => date('Y-m-d', strtotime($tgl_sk)),
+					  'tmt'              => date('Y-m-d', strtotime($tgl_tmt)),
+		
+		);
+		
+		$this->db1->where('id',$id);
+	    $this->db1->update('pwk', $data);
+		
+	}
+	
+	function delete()
+	{
+	    $id  			    = $this->input->post('pindahdel_id');
+		$this->db1->where('id',$id);
+	    $this->db1->delete('pwk');
+	
+	}
+	
 }
 
 /* End of file welcome.php */
