@@ -101,6 +101,34 @@ class Notapersetujuan extends MY_Controller {
 	   
 	}
 	
+	function search()
+	{
+	    $search =$this->input->post('search');
+		
+		if($search)
+		{
+		   $sql_search = "AND a.nip ='$search' ";
+		}
+		else
+		{
+		   $sql_search ="";
+		}
+		
+		$user_id = $this->session->userdata('user_id');
+		
+		
+		
+		$sql="SELECT a.*, DATE_FORMAT(a.tgl_input, '%d-%m-%Y') tgl_in,DATE_FORMAT(a.tmt, '%d-%m-%Y') tmt_kp, b.INS_NAMINS FROM takah.npkp a 
+		INNER JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
+		WHERE 1=1 $sql_search  AND id_pelaksana='$user_id'  LIMIT 10";
+		$query = $this->db1->query($sql);
+		
+		$data['record']    = $query; 
+		$data['message']   ='';
+		$data['instansi']  = $this->_get_instansi();
+	    $this->load->view('search/vnota_persetujuan',$data);
+	}
+	
 	function _tada_npkp($data)
 	
 	{
@@ -141,10 +169,24 @@ class Notapersetujuan extends MY_Controller {
 		
 	function get_npkp_data()
 	{
-	    $nip  =  $this->input->post('nip');
+	    $nip  		=  $this->input->post('nip');
+		$bulan      =  $this->input->post('bulan');
+		$tahun		=  $this->input->post('tahun');
+		
+		if(!empty($bulan) AND !empty($tahun))
+		{
+		   $periode       = $tahun.'-'.$bulan.'-'.'01';
+		   $sql_periode   = " AND DATE(PKI_TMT_GOLONGAN_BARU)='$periode'";
+		}
+		else
+		{
+		    $sql_periode  =" ";
+		
+		}
+		
 		$sql="select a.*,b.PNS_TEMKRJ FROM (SELECT JKP_JPNKOD,PKI_NIPBARU,NOTA_PERSETUJUAN_KP ,DATE_FORMAT(TGL_NOTA_PERSETUJUAN_KP,'%d-%m-%Y') TGL_NOTA_PERSETUJUAN_KP,DATE(PKI_TMT_GOLONGAN_BARU) PKI_TMT_GOLONGAN_BARU ,
 		PKI_GOLONGAN_LAMA_ID,PKI_GOLONGAN_BARU_ID,MONTH(PKI_TMT_GOLONGAN_BARU) tmt_bln ,YEAR(PKI_TMT_GOLONGAN_BARU) tmt_thn
-		FROM mirror.pupns_kp_info WHERE PKI_NIPBARU='$nip' ORDER BY PKI_TMT_GOLONGAN_BARU DESC LIMIT 0,1) a 
+		FROM mirror.pupns_kp_info WHERE PKI_NIPBARU='$nip' AND 1=1  $sql_periode   AND NOTA_PERSETUJUAN_KP IS NOT NULL  ORDER BY PKI_SK_TANGGAL DESC LIMIT 0,1) a 
 		INNER JOIN mirror.pupns b ON b.PNS_NIPBARU = a. PKI_NIPBARU";
 		
 		$query  = $this->db3->query($sql);
@@ -195,6 +237,50 @@ class Notapersetujuan extends MY_Controller {
 		$query  = $this->db3->query($sql);
 	    return  $query;
 		
+	}
+	
+	function get_npkp()
+	{
+	   $id = $this->input->post('npkp_id');
+	   $sql="SELECT *,DATE_FORMAT(tgl_input,'%d-%m-%Y') tgl_in,
+	   MONTH(tmt) tmt_bln ,YEAR(tmt) tmt_thn FROM takah.npkp where id='$id' ";
+	   $query = $this->db1->query($sql);
+		
+	   echo json_encode($query->result_array());
+	   
+	
+	}
+	
+	public function update()
+	{
+	    $npkp_id      = $this->input->post('npkp_id');
+		$nip          = $this->input->post('nip');
+		$tmt_bln      = $this->input->post('tmt_bln');
+		$tmt_thn      = $this->input->post('tmt_thn');
+		$instansi     = $this->input->post('instansi');
+		$tgl          = $this->input->post('tgl');
+		$tmt          = $tmt_thn.'-'.$tmt_bln.'-'.'01';
+        $aksi         = $this->input->post('action');
+
+        $data = array('nip'				=>  $nip,
+					 'kode_instansi' 	=>  $instansi,
+					 'tgl_input'		=>  date('Y-m-d', strtotime($tgl)),
+					 'tmt'              =>  $tmt,
+					 'aksi'				=>  $aksi,
+	    ); 
+		
+		$this->db1->where('id',$npkp_id);
+		$this->db1->update('npkp',$data);
+
+
+	
+	}
+	
+	public function delete()
+	{
+	     $npkp_id      = $this->input->post('npkp_id');
+		 $this->db1->where('id',$npkp_id);
+		 $this->db1->delete('npkp');
 	}
 }
 
