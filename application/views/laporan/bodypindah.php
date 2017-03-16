@@ -22,7 +22,7 @@
 								 <div class="form-group row">
 									<label for="inputfield3" class="col-md-2 control-label">Instansi :</label>
 									<div class="col-sm-10">
-									  <select name="instansi"   required id="instansi" class="form-control select2" >
+									  <select name="instansi"   id="instansi" class="form-control select2" >
 										<option value="">--Silahkan Pilih--</option>
 										<?php foreach($instansi->result() as $value):?>
 										<option value="<?php echo $value->INS_KODINS?>"><?php echo $value->INS_NAMINS?></option>
@@ -35,8 +35,9 @@
 								<div class="form-group row">
 								     <label class="control-label col-md-2">Mutasi:</label>
 									<div class="col-md-4">
-                                        <input type="radio" required value="1" name="mutasi" id="masuk"  checked />&nbsp; Masuk
+                                        <input type="radio" required value="1" name="mutasi" id="masuk"   />&nbsp; Masuk
 										<input type="radio" required value="2" name="mutasi" id="keluar" />&nbsp; Keluar
+										<input type="radio" required value="3" name="mutasi" id="keluar" checked />&nbsp; Semua
 									</div>	
 								    <label class="control-label col-md-2">Pelaksana Tugas:</label>
 									<div class="col-md-4">
