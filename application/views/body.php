@@ -25,73 +25,309 @@
 				</p>
 				<hr/>
 				
-				 <div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							Statistik Pindah Wilayah Kerja Berdasarkan Instansi Tujuan
-						</div>
-						<div class="panel-body">
-							<div class="col-md-7">
-								<canvas id="areaChart"></canvas>
-						    </div>
-							<div class="col-md-5">
-							  <div id="legend-area"></div>   
-							</div>  
-						</div>
-					</div>   				
-				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							Statistik Pindah Wilayah Kerja Berdasarkan Instansi Asal
+					<div class="panel panel-info">
+						<div class="panel-heading bg-color-green">
+							Prestasi Kinerja Seksi Pengelolaan Arsip Instansi Vertikal dan Provinsi
 						</div>
 						<div class="panel-body">
-							<div class="col-md-7">
-								 <canvas id="lineChart"></canvas>
-							  </div>
-							<div class="col-md-5">
-								<div id="legend-line" class="chart-legend"></div>    
-						    </div>
-						</div>
-					</div>   				
-				</div>
-				<div class="col-md-6 col-sm-6 col-xs-6">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							Statistik Pertumbuhan Data
-						</div>
-						<div class="panel-body">
-							<div class="col-md-8">							
-								<canvas id="pieChart" ></canvas>
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($line_chart)) {?>
+								<div class="col-md-6">
+									<canvas id="areaChart"></canvas>
+								</div>
+								<div class="col-md-6">
+								  <div id="legend-area" style="font-size:10px"></div>   
+								</div>
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>	
+							</div>							
+							<div class="panel-footer text-center bg-color-red">
+							   Pindah Wilayah Kerja (Masuk)								
 							</div>
-							<div class="col-md-4">
-								<div id="legend"></div>
+						</div>
+						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($line_chart_asal)) {?>							
+								<div class="col-md-6">
+									 <canvas id="lineChart"></canvas>
+								</div>
+								<div class="col-md-6">
+								  <div id="legend-line" style="font-size:10px"></div>    
+								</div> 
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>		
+							</div>							
+							<div class="panel-footer text-center bg-color-blue">
+							   Pindah Wilayah Kerja (Keluar)
+								
+							</div>
+						</div>
+						<div class="col-md-5">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($line_chart_asal)) {?>	
+								<div class="col-md-7">
+									<canvas id="barChart"></canvas>
+								</div>
+								<div class="col-md-5">
+								  <div id="legend-bar" style="font-size:10px"></div>    
+								</div>
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>		
+							</div>							
+							<div class="panel-footer text-center bg-color-brown">
+							   Nota Persetujuan Kenaikan Pangkat								
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-7">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($stat_cpns)) {?>								
+								<div class="col-md-6">
+									<canvas id="barChart2"></canvas>
+								</div>								
+								<div class="col-md-6">
+								  <div id="legend-bar2" style="font-size:10px"></div>    
+								</div> 
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>	
+							</div>							
+							<div class="panel-footer text-center bg-color-orange">
+							   CPNS								
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-12">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($stat_surat)) {?>
+								<div class="col-md-6">
+									<canvas id="barChart3"></canvas>
+								</div>								
+								<div class="col-md-6">
+								  <div id="legend-bar3" style="font-size:10px"></div>    
+								</div> 
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>	
+							</div>							
+							<div class="panel-footer text-center bg-color-fuchsia">
+							   SURAT MASUK								
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-6">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($stat_bup)) {?>
+								<div class="col-md-5">
+									<canvas id="barChart4"></canvas>
+								</div>								
+								<div class="col-md-7">
+								  <div id="legend-bar4" style="font-size:10px"></div>    
+								</div> 
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>		
+							</div>							
+							<div class="panel-footer text-center bg-color-purple">
+							   BUP								
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-6">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($stat_hd)) {?>
+								<div class="col-md-4">
+									<canvas id="barChart5"></canvas>
+								</div>								
+								<div class="col-md-8">
+								  <div id="legend-bar5" style="font-size:9px"></div>    
+								</div>
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>		
+							</div>							
+							<div class="panel-footer text-center bg-color-maron">
+							   Hukuman Disiplin							
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-12">
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($statistik)) {?>
+								<div class="col-md-7">
+									<canvas id="pieChart" ></canvas>
+								</div>
+								<div class="col-md-5">
+								  <div id="legend"></div>  
+								</div> 
+							<?php } else { echo "<p class='text-center'> NO DATA</p>";}?>	
+							</div>
+							<div class="panel-footer text-center bg-color-red">
+							  Statistik Pertumbuhan Data								
+							</div>
+						</div>
+						</div>					    
+					</div>		 
+					</div>				  				
+				</div>
+				<hr/>
+				
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="panel panel-info">
+						<div class="panel-heading bg-color-green">
+							Prestasi Kinerja Seksi Pengelolaan Arsip Instansi Kabupaten dan Kota
+						</div>
+						
+						<div class="panel-body">
+						<div class="panel no-boder">
+							<div class="panel-body">
+								<?php if(!empty($line_chart_kab)){?>
+								    <div class="col-md-6">								
+									<canvas id="areaChart_kab"></canvas>
+									</div>
+									<div class="col-md-6">
+									  <div id="legend-area_kab" style="font-size:10px"></div>   
+									</div> 
+								<?php } else { echo "<p class=text-center>NO DATA</p>";}?> 				
+							</div>							
+							<div class="panel-footer text-center bg-color-red">
+							   Pindah Wilayah Kerja (Masuk)								
+							</div>
+						</div>
+						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($line_chart_asal_kab)){?>
+								<div class="col-md-6">								    
+									 <canvas id="lineChart_kab"></canvas>									
+								</div>
+								<div class="col-md-6">
+								  <div id="legend-line_kab" style="font-size:10px"></div>    
+								</div> 
+							<?php } else { echo "<p class=text-center>NO DATA</p>";}?> 				
+							</div>							
+							<div class="panel-footer text-center bg-color-blue">
+							   Pindah Wilayah Kerja (Keluar)
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+						<div class="col-md-5">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($bar_chart_kab)) {?>
+								<div class="col-md-7">								
+								<canvas id="barChart_kab"></canvas>
+								</div>
+								<div class="col-md-5">
+								  <div id="legend-bar_kab" style="font-size:10px"></div>    
+								</div>
+							<?php } else { echo "<p class=text-center>NO DATA</p>";}?> 								 
+							</div>							
+							<div class="panel-footer text-center bg-color-brown">
+							   Nota Persetujuan Kenaikan Pangkat								
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-7">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($stat_cpns_kab)) {?>
+								<div class="col-md-5">
+									<canvas id="barChart_kab2"></canvas>
+								</div>								
+								<div class="col-md-7">
+								  <div id="legend-bar_kab2" style="font-size:9px"></div>    
+								</div> 
 							</div>	
-						</div>
-					</div>   				
-				</div>
-				<div class="col-md-6 col-sm-6 col-xs-6">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							Statistik Nota Persetujuan Kenaikan Pangkat
-						</div>
-						<div class="panel-body">
-							<div class="col-md-8">							
-								  <canvas id="barChart"></canvas>
+							<?php } else { echo "<p class=text-center>NO DATA</p>";}?> 	
+							<div class="panel-footer text-center bg-color-orange">
+							   CPNS								
 							</div>
-							<div class="col-md-4">
-							    <div id="legend-bar"></div>
-							  </div>
-							
+						</div>						
+						</div>						
+                       </div>
+						
+						<div class="col-md-12">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($stat_surat_kab)){?>
+								<div class="col-md-6">
+									<canvas id="barChart_kab3"></canvas>
+								</div>								
+								<div class="col-md-6">
+								  <div id="legend-bar_kab3" style="font-size:10px"></div>    
+								</div>
+							<?php } else { echo "<p class=text-center>NO DATA</p>";}?>
+							</div>							
+							<div class="panel-footer text-center bg-color-fuchsia">
+							   SURAT MASUK								
+							</div>
+						</div>						
 						</div>
-					</div>   				
+						
+						<div class="col-md-6">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							 <?php if(!empty($stat_bup_kab)){?>   
+								<div class="col-md-5">
+									<canvas id="barChart_kab4"></canvas>
+								</div>								
+								<div class="col-md-7">
+								  <div id="legend-bar_kab4" style="font-size:10px"></div>    
+								</div> 
+							<?php } else { echo "<p class=text-center>NO DATA</p>";}?>	
+							</div>							
+							<div class="panel-footer text-center bg-color-purple">
+							   BUP								
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-6">						
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($stat_hd_kab)){?>   							
+								<div class="col-md-4">
+									<canvas id="barChart_kab5"></canvas>
+								</div>								
+								<div class="col-md-8">
+								  <div id="legend-bar_kab5" style="font-size:9px"></div>    
+								</div> 
+							<?php } else { echo "<p class=text-center>NO DATA</p>";}?>		
+							</div>							
+							<div class="panel-footer text-center bg-color-maron">
+							   Hukuman Disiplin							
+							</div>
+						</div>						
+						</div>
+						
+						<div class="col-md-12">
+						<div class="panel no-boder">
+							<div class="panel-body">
+							<?php if(!empty($statistik_kab)){?>   	
+								<div class="col-md-7">
+									<canvas id="pieChart_kab" ></canvas>
+								</div>
+								<div class="col-md-5">
+								  <div id="legend-kab"></div>  
+								</div> 
+							<?php } else { echo "<p class=text-center>NO DATA</p>";}?>		
+							</div>
+							<div class="panel-footer text-center bg-color-red">
+							  Statistik Pertumbuhan Data								
+							</div>
+						</div>
+						</div>						    
+					</div>		 
+					</div>					  				
 				</div>
-				
-				
-				
-				
-				
-				
+				<!--
+			    
 				<p style="font-size:18px;font-weight: bold;" class="text-center">
 					INFORMASI TERKINI
 				</p>
@@ -141,7 +377,7 @@
                                 </table>
                             </div>
                         </div>
-                        
+                  -->    
                  <!-- /. ROW  -->           
 				</div>
 

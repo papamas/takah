@@ -7,6 +7,7 @@
     
 	<!-- CUSTOM SCRIPTS -->
     <script src="<?php echo base_url()?>assets/js/custom.js"></script>
+
 	<!-- CUSTOM SCRIPTS -->
 	<script src="<?php echo base_url()?>assets/js/jQueryUI/jquery-ui.custom.js"></script>
 	<script src="<?php echo base_url()?>assets/js/fancytree/jquery.fancytree.js" type="text/javascript"></script>
@@ -18,18 +19,11 @@
 	-->
 	<script>	
 	$(document).ready(function () {	
-	   
-		$('.file').on('click',function() {
-	        
-			//console.log();
-			
-			var uuid = this.id;
-			var iframe = $('#frame');
-		    iframe.attr('src', '<?php echo site_url()?>' + '/pascascanning/getContent/'+ uuid);
-	    });
+	  $("#tree").hide();
+	  $("#tree").fancytree();
+	  
+	  
 	});
-	
-	
    </script>
    <?php if($this->uri->segment(1) == 'welcome'):?>
     <script>
