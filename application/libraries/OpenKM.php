@@ -2,7 +2,7 @@
 
 class OpenKM {
 
-    var $server    = 'http://178.100.211.17:8080/OpenKM/';
+    var $server    = 'http://178.100.211.17:8081/OpenKM/';
 	var $user      = 'okmAdmin';
 	var $password  = 'admin';
 	var $okmAuth   = 'services/OKMAuth?wsdl';

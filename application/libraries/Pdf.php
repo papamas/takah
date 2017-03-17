@@ -22,28 +22,14 @@ class PDF extends TCPDF
 	
 	public function Footer() {
 		// Position at 15 mm from bottom
-		$this->SetY(-55);
-		// Set font
-		$this->SetFont('helvetica', '', 10);
-		$this->Cell(400, 10, 'Kepala Seksi Pengelolaan Arsip Kepegawaian', 0, false, 'C', 0, '', 0, false, 'T', 'M');
-		
-		$this->SetY(-50);
-		$this->Cell(400, 10, 'INSTANSI '.$this->instansi, 0, false, 'C', 0, '', 0, false, 'T', 'M');
-		
-		$this->SetY(-30);
-		$this->Cell(400, 10, $this->kepala_seksi, 0, false, 'C', 0, '', 0, false, 'T', 'M');
-		
-		$this->SetY(-25);
-		$this->Cell(400, 10, 'NIP.'.$this->nip, 0, false, 'C', 0, '', 0, false, 'T', 'M');
-		// Position at 15 mm from bottom
-		$this->SetY(-15);
+		$this->SetY(-33);
 		// Set font
 		$this->SetFont('helvetica', 'I', 8);
-		 $this->Line(10,195, $this->getPageWidth()-10, 195);
+		// $this->Line(10,195, $this->getPageWidth()-10, 195);
 		// Page number
-		$this->Cell(0, 10, 'Dokumen ini dibuat oleh  : '.$this->pengelola.' , dicetak pada tanggal :'.date('d-m-Y H:i'), 0, false, 'L', 0, '', 0, false, 'T', 'M');
+		$this->Cell(0, 10, 'Dokumen ini dicetak pada tanggal :'.date('d-m-Y H:i'), 0, false, 'R', 0, '', 0, false, 'T', 'M');
 	    
-		$this->Cell(0, 10, 'Hal '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+		
 	    
 		
 	}
