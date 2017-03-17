@@ -1,4 +1,4 @@
-# Takah
+# Aplikasi Takah
 Aplikasi Pengelolaan Tata Naskah Pada Kantor Regional  XI BKN
 
 Feature :
@@ -8,7 +8,7 @@ Feature :
 4. Perekaman PNS Pindah Wilayah Kerja
 5. Perekaman PNS yang telah mencapai BUP
 6. Perekaman Peminjaman Tata Naskah Kepegawaian
-7. Laporan
+7. Laporan Perekaman Data
 8. Pencetakan KARIN dan DAFTAR ISI
 9. Interkoneksi dengan Aplikasi DMS KANREG XI
 
@@ -20,5 +20,5 @@ Requirement :
 5. Database DMS KANREG XI
 
 Thanks to :
-1. Codeigniter 3.0
-2. Twitter Bootstrap
+1. Codeigniter 3.0  https://codeigniter.com/
+2. Twitter Bootstrap http://getbootstrap.com/
