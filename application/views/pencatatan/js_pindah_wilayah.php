@@ -36,6 +36,7 @@
 		   format:'DD-MM-YYYY',
 		 });
 		 
+		 
 		 $("#nip").select2({
 		    minimumInputLength: 7,
     	    ajax: {
@@ -60,6 +61,62 @@
 		   $('#nip').removeAttr('required');
 		   $('#nip').hide();
 		});
+		
+		
+		$("#nip").change(function(){
+		    myApp.showPleaseWait();
+			$('.progress-bar').css('width', '' + 0 + '%');
+			$('.progress-bar').text( 0 + '% Complete' );
+			$('.progress-bar').attr("aria-valuenow", 0);
+			var pilih = $('input[name=pengalihan]:checked').val();
+				
+            $.ajax({
+			    url: "<?php echo site_url()?>/pindah/get_pengalihan",
+				dataType:'json',
+				type:'POST',
+				data:{nip:this.value,pilih:pilih},
+				success: function(result){
+				    //console.log(result);
+					$("#no_sk").val(result[0].nomor_sk);
+					$("#tgl_sk").val(result[0].tgl_sk);
+					$("#tmt").val(result[0].tmt);
+					$("#instansi_asal").val(result[0].kode_instansi).trigger('change');
+					$("#instansi_tujuan").val(result[0].PNS_INSKER).trigger('change');
+					$("#keterangan").val(result[0].keterangan);
+					setTimeout(function() {myApp.hidePleaseWait();	} , 1000);						
+		        },
+				xhr: function() {
+						var xhr = new window.XMLHttpRequest();
+						xhr.addEventListener('progress', function(e) {
+							if (e.lengthComputable) {
+							    var value = (100 * e.loaded / e.total);
+								$('.progress-bar').css('width', '' + value + '%');
+								$('.progress-bar').text( value + '% Complete' );
+								$('.progress-bar').attr("aria-valuenow", value);
+								
+							}
+						});
+						return xhr;
+					}, 
+			});			
+		  
+		});
+		
+		var myApp;
+		myApp = myApp || (function () {
+			var pleaseWaitDiv = $('<div class="modal fade" id="pleaseWaitDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><img src="<?php echo base_url()?>assets/img/load.gif"/><label> Processing...</label></h2></div><div class="modal-body"><div class="progress"><div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div></div></div></div></div>');
+			return {
+				showPleaseWait: function() {
+					pleaseWaitDiv.modal('show');
+				},
+				hidePleaseWait: function () {
+					pleaseWaitDiv.modal('hide');
+				},	
+
+			};
+		})();  
+		
+
 		
 	});	
 </script>

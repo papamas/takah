@@ -19,12 +19,19 @@
                                 <div class="col-md-12">
 								       <form method="post" action="<?php echo site_url()?>/pindah/save/" data-toggle="validator" class="" role="form">
 									    <div class="form-group row">
+                                        	<label class="control-label col-md-2">Pilih:</label>
+												<div class="col-md-10">
+												<input type="radio" required value="1" name="pengalihan" id="pengalihan1" checked />&nbsp;Pengalihan Guru
+												<input type="radio" required value="2"  name="pengalihan" id="pengalihan2" />&nbsp;Normal
+                                                </div>  
+										</div>
+										<div class="form-group row">
                                             <label class="control-label col-md-2">Instansi Asal:</label>
                                             <div class="col-md-10">
-											<select name="instansi_asal" required class="form-control select2" >
+											<select name="instansi_asal" id="instansi_asal" required class="form-control select2" >
                                                 <option value="">--Silahkan Pilih--</option>
 												<?php foreach($instansi->result() as $value):?>
-												<option value="<?php echo $value->INS_KODINS?>"  <?php if($this->session->userdata('instansi')== $value->INS_KODINS) echo 'selected="selected"'?>  ><?php echo $value->INS_NAMINS?></option>
+												<option value="<?php echo $value->INS_KODINS?>"  <?php if($this->session->userdata('instansi_asal')== $value->INS_KODINS) echo 'selected="selected"'?>  ><?php echo $value->INS_NAMINS?></option>
                                                 <?php endforeach?>
 												
 											</select>											 
@@ -35,10 +42,10 @@
 										<div class="form-group row">
                                             <label class="control-label col-md-2">Instansi Tujuan:</label>
                                             <div class="col-md-10">
-											<select name="instansi_tujuan" required class="form-control select2" >
+											<select name="instansi_tujuan" id="instansi_tujuan" required class="form-control select2" >
                                                 <option value="">--Silahkan Pilih--</option>
 												<?php foreach($instansi->result() as $value):?>
-												<option value="<?php echo $value->INS_KODINS?>"  <?php if($this->session->userdata('instansi')== $value->INS_KODINS) echo 'selected="selected"'?>  ><?php echo $value->INS_NAMINS?></option>
+												<option value="<?php echo $value->INS_KODINS?>"  <?php if($this->session->userdata('instansi_tujuan')== $value->INS_KODINS) echo 'selected="selected"'?>  ><?php echo $value->INS_NAMINS?></option>
                                                 <?php endforeach?>
 												
 											</select>											 
@@ -61,7 +68,7 @@
                                             <label class="control-label col-md-2">TMT:</label>
                                             <div class="col-md-4">
 											<div class='input-group date' id='datetimepicker2'>
-												<input pattern="^\d{2}\-\d{1,2}\-\d{4}$" type='text' required name="tmt" id="tmt" value="<?php if($this->session->userdata('tgl')) echo $this->session->userdata('tgl'); else echo date('d-m-Y')?>" class="form-control" />
+												<input pattern="^\d{2}\-\d{1,2}\-\d{4}$" type='text' required name="tmt" id="tmt" value="" class="form-control" />
 												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
 												</span>								
 											</div>											            
@@ -76,7 +83,7 @@
 										    <label class="control-label col-md-2">Tanggal SK:</label>
                                             <div class="col-md-4">
 											<div class='input-group date' id='datetimepicker1'>
-												<input pattern="^\d{2}\-\d{1,2}\-\d{4}$" type='text' required name="tgl_sk" id="tgl_sk" value="<?php if($this->session->userdata('tgl')) echo $this->session->userdata('tgl'); else echo date('d-m-Y')?>" class="form-control" />
+												<input pattern="^\d{2}\-\d{1,2}\-\d{4}$" type='text' required name="tgl_sk" id="tgl_sk" value="" class="form-control" />
 												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
 												</span>								
 											</div>											            
@@ -86,7 +93,7 @@
 										 <div class="form-group row">
                                             <label class="control-label col-md-2">Keterangan:</label>
                                             <div class="col-md-10">
-											<textarea name="keterangan" class="form-control" rows="3"></textarea>
+											<textarea name="keterangan" class="form-control" rows="3" id="keterangan"></textarea>
 											</div>
                                         </div>
                                         

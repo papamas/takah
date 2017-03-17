@@ -342,6 +342,42 @@ LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan";
 	
 	}
 	
+	function get_pengalihan()
+	{
+		$nip		= $this->input->post('nip');
+		$pilih      = $this->input->post('pilih');
+		
+		$sql 		= "SELECT a.nip,a.nomor_sk,DATE_FORMAT(a.tgl_sk,'%d-%m-%Y') tgl_sk,a.kode_instansi,b.PNS_INSKER FROM pengalihan_pns a 
+		LEFT JOIN mirror.pupns b on a.nip= b.PNS_NIPBARU WHERE a.nip='$nip' ";
+		$query		= $this->db1->query($sql);
+		
+		if($query->num_rows() > 0)
+		{
+		    $row		= $query->row();
+            $data[]		= array('nip'			=> $row->nip,
+								'nomor_sk'      => $row->nomor_sk,
+								'tgl_sk'        => $row->tgl_sk,
+								'kode_instansi' => $row->kode_instansi,
+								'tmt'           => '1-10-2016',
+								'PNS_INSKER'    => $row->PNS_INSKER,
+								'keterangan'    => 'Pengalihan Guru'
+			);			
+		}
+		else
+		{
+		    $data[]		= array('nip'			=> '',
+								'nomor_sk'      => '',
+								'tgl_sk'        => '',
+								'kode_instansi' => '',
+								'tmt'           => '',
+								'PNS_INSKER'    => '',
+								'keterangan'    => '',
+			);		
+		}
+		
+		echo json_encode($data);
+	}
+	
 }
 
 /* End of file welcome.php */
