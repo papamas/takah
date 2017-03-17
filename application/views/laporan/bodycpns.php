@@ -17,7 +17,7 @@
                              Laporan Pengadaan CPNS
                         </div>
                         <div class="panel-body">						
-							<form method="post" class="" action="<?php echo site_url()?>/cpns/cetakLaporan/">
+							<form method="post" class="" action="<?php echo site_url()?>/cpns/laporanCetak/">
 								 <input type="hidden" name="page" id="page"/>
 								 <div class="form-group row">
 									<label for="inputfield3" class="col-md-2 control-label">Instansi :</label>
@@ -51,6 +51,14 @@
 									  </div>
 									</div>										
 								 </div>
+								 <div class="form-group row">
+								   	<label class="control-label col-md-2">Perintah Cetak:</label>
+									<div class="col-md-4">
+										<input type="radio" required value="1" name="perintah" id="perintah1"   />&nbsp;KARIN
+										<input type="radio" required value="2" name="perintah" id="perintah2" />&nbsp;DAFTAR ISI
+										<input type="radio" required value="3" name="perintah" id="perintah3" checked />&nbsp;LAPORAN
+									</div>	
+								</div> 	
 															
 								<button type="submit" class="btn btn-primary btn-sm btn-block" name="print" id="print" value="print"><i class="glyphicon glyphicon-print fa fa-print"></i>&nbsp;Cetak Laporan</button>
                             </form>
