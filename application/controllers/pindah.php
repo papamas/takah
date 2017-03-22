@@ -358,7 +358,7 @@ LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan";
 								'nomor_sk'      => $row->nomor_sk,
 								'tgl_sk'        => $row->tgl_sk,
 								'kode_instansi' => $row->kode_instansi,
-								'tmt'           => '1-10-2016',
+								'tmt'           => '01-10-2016',
 								'PNS_INSKER'    => $row->PNS_INSKER,
 								'keterangan'    => 'Pengalihan Guru'
 			);			
