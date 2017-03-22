@@ -363,6 +363,7 @@ FROM
             b.PNS_PNSNAM,
             b.PNS_INSDUK,
 			b.PNS_INSKER,
+			c.KED_KEDNAM,
             SUBSTRING_INDEX(b.PNS_PNSNAM, ' ', 1) LABEL
     FROM
         (select 
@@ -389,7 +390,9 @@ FROM
     INNER JOIN mirror.golru b ON b.GOL_KODGOL = a.gol_baru_id
     INNER JOIN mirror.jenis_kp c ON c.JKP_JPNKOD = a.jenis_kp
     INNER JOIN mirror.lokker d ON d.LOK_LOKKOD = a.lokasi_kerja) a
-    LEFT JOIN mirror.pupns b ON a.nip = b.PNS_NIPBARU  WHERE 1=1  $sql_instansi ) a
+    LEFT JOIN mirror.pupns b ON a.nip = b.PNS_NIPBARU  
+	LEFT JOIN mirror.kedhuk c ON c.KED_KEDKOD = b.PNS_KEDHUK
+	WHERE 1=1  $sql_instansi ) a
         LEFT JOIN
     mirror.instansi b ON a.PNS_INSKER = b.INS_KODINS";
 		$q    = $this->db1->query($sql);
@@ -413,6 +416,7 @@ FROM
 					<th>TGL</th>
 					<th>NIP</th>
 					<th>NAMA</th>
+					<th>KEDUDUKAN HUKUM</th>
 					<th>TMT</th>
 					<th>AKSI</th>
 					<th>WILAYAH KERJA</th>
@@ -435,6 +439,7 @@ FROM
 				$html .= "<td >{$r->tgl_input}</td>";
 				$html .= "<td class=str width=150>{$r->nip}</td>";
 				$html .= "<td>{$r->PNS_PNSNAM}</td>";
+				$html .= "<td>{$r->KED_KEDNAM}</td>";				
 				$html .= "<td>{$r->tmt}</td>";
 				$html .= "<td>{$r->aksi}</td>";
 				$html .= "<td>{$this->_get_nama_instansi($kode_instansi)}</td>";
@@ -478,7 +483,7 @@ INNER JOIN MIRROR.golru d ON d.GOL_KODGOL = a.gol_baru_id
 INNER JOIN mirror.jenis_kp e ON e.JKP_JPNKOD = a.jenis_kp
 WHERE 1=1 $sql_aksi  AND a.kode_instansi='$instansi' AND DATE( tgl_input ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
 AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana "; */
-        $sql="SELECT a.*, b.PNS_PNSNAM,SUBSTRING_INDEX( b.PNS_PNSNAM,' ',1) LABEL,c.INS_NAMINS SAPK_INS from (SELECT 
+        $sql="SELECT a.*, b.PNS_PNSNAM,SUBSTRING_INDEX( b.PNS_PNSNAM,' ',1) LABEL,c.INS_NAMINS SAPK_INS, d.KED_KEDNAM from (SELECT 
     a . *,
     b.INS_NAMINS,
     c.GOL_GOLNAM GOL_LAMA,
@@ -501,7 +506,8 @@ WHERE
         $sql_pelaksana
 ) a
 LEFT JOIN mirror.pupns  b ON a.nip = b.PNS_NIPBARU
-LEFT JOIN mirror.instansi c ON b.PNS_INSKER = c.INS_KODINS";
+LEFT JOIN mirror.instansi c ON b.PNS_INSKER = c.INS_KODINS
+LEFT JOIN mirror.kedhuk d ON d.KED_KEDKOD = b.PNS_KEDHUK";
        
 	   //var_dump($sql);exit;  
 		$q    = $this->db1->query($sql);
@@ -525,6 +531,7 @@ LEFT JOIN mirror.instansi c ON b.PNS_INSKER = c.INS_KODINS";
 					<th>TGL</th>
 					<th>NIP</th>
 					<th>NAMA</th>
+					<th>KEDUDUKAN HUKUM</th>
 					<th>TMT</th>
 					<th>AKSI</th>
 					<th>INSTANSI</th>
@@ -544,6 +551,7 @@ LEFT JOIN mirror.instansi c ON b.PNS_INSKER = c.INS_KODINS";
 				$html .= "<td >{$r->tgl_input}</td>";
 				$html .= "<td class=str width=150>{$r->nip}</td>";
 				$html .= "<td>{$r->PNS_PNSNAM}</td>";
+				$html .= "<td>{$r->KED_KEDNAM}</td>";
 				$html .= "<td>{$r->tmt}</td>";
 				$html .= "<td>{$r->aksi}</td>";
 				$html .= "<td width=450>{$r->INS_NAMINS}</td>";
