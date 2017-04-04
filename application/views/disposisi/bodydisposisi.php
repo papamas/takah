@@ -56,7 +56,18 @@
 							 <button type="submit" class="btn-sm btn-block btn-primary"><i class="glyphicon glyphicon-cog"></i>&nbsp; Jalankan Perintah</button>
 								
 						</form>	
-						<hr/>
+						<br/>
+						<div class="row">
+						 <form action="<?php echo site_url()?>/disposisi/search/" method="post" >		   		     
+							 <div class="col-md-8 col-md-offset-2 input-group">
+								  <input type="text" name="search" class="form-control" placeholder="Masukan NIP atau Nomor Surat">
+								  <span class="input-group-btn">
+									<button type="submit" class="btn btn-default" type="button"><i class="fa fa-search"> Search!</i></button>
+								  </span>
+							  </div>
+						  </form>
+						 </div>
+						<hr/>	 
 						<?php if($show && $surat_masuk->num_rows() > 0):?>
 						 
 						<form method="post" action="<?php echo site_url()?>/disposisi/aksimultiple/" data-toggle="validator" class="" role="form">
@@ -67,19 +78,19 @@
 								  <tr>
 									  <th>No</th>
 									  <th>NIP</th>
+									  <th>Nama</th>
 									  <th>Instansi</th>
 									  <th>No.Surat</th>
 									  <th>Tgl Surat</th>
 									  <th>Jumlah</th>
-									  <!--<th>NOTE</th>-->
 									  <th>
 									    <div class="btn-group">
-													  <button data-toggle="dropdown" class="btn-xs btn-primary dropdown-toggle">Action <span class="caret"></span></button>
-														  <ul class="dropdown-menu">
-															<li><a href="#" id="check"><span class="glyphicon glyphicon-check"></span> Check </a></li>
-															<li><a href="#" id="uncheck"><span  class="glyphicon glyphicon-unchecked"></span> Uncheck</a></li>															
-														  </ul>
-													</div>
+										    <button data-toggle="dropdown" class="btn-xs btn-primary dropdown-toggle">Act<span class="caret"></span></button>
+											    <ul class="dropdown-menu">
+													<li><a href="#" id="check"><span class="glyphicon glyphicon-check"></span> Check </a></li>
+													<li><a href="#" id="uncheck"><span  class="glyphicon glyphicon-unchecked"></span> Uncheck</a></li>															
+												 </ul>
+										</div>
 									  </th>
 								  </tr>
 							  </thead>   
@@ -89,17 +100,17 @@
 								<tr>
 									<td><?php echo anchor_popup(site_url().'/disposisi/note/'.$value->id,$value->id, $ket);?></td>
 									<td><?php echo anchor_popup(site_url().'/disposisi/detail/'.$value->nip,$value->nip, $det);?></td>
+									<td><?php echo $value->PNS_PNSNAM?></td>
 									<td width="200"><?php echo $value->INS_NAMINS?></td>
 									<td><?php echo $value->nomor_surat?></td>
 									<td><?php echo $value->tgl_surat?></td>
 									<td><?php echo $value->jumlah_surat?></td>
-									<!--<td><input type="text" name="note" /></td>-->
-									<td align="center"><input type="checkbox" value="<?php echo $value->id ?>" class="checkbox-surat" name="status_penerima[]" <?php if($value->status_penerima) echo 'checked'?>/> </td>
+									<td width="75" align="center"><input type="checkbox" value="<?php echo $value->id ?>" class="checkbox-surat" name="status_penerima[]" <?php if($value->status_penerima) echo 'checked'?>/> </td>
 								</tr>
 								<?php $i++;endforeach?>
                               </tbody>
 							</table> 
-							<hr/>
+							
 							<div class="col-md-offset-8">
 							 <?php echo $pagination?>
 							</div> 

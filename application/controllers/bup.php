@@ -183,7 +183,13 @@ class Bup extends MY_Controller {
 		
 		
 		
-		$sql="SELECT a.*, DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input FROM bup a  WHERE 1=1  $sql_pelaksana $sql_instansi  AND DATE( created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
+		$sql="SELECT a.*, b. PNS_PNSNAM , c.INS_NAMINS , d.nama ,
+		DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input FROM takah.bup a
+        LEFT JOIN mirror.pupns b ON a.nip =  b.PNS_NIPBARU
+        LEFT JOIN mirror.instansi c ON a.instansi =  c.INS_KODINS
+        LEFT JOIN takah.app_user d ON d.id = a.created_by 		
+		WHERE 1=1  $sql_pelaksana $sql_instansi  
+		AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
 AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 		
 		//var_dump($sql); exit;
@@ -208,6 +214,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 					<th>TGL</th>
 					<th>NIP</th>
 					<th>NIP LAMA</th>	
+					<th>NAMA</th>					
 					<th>INTANSI </th>
 					<th>TMT</th>
 					<th>TGL SK</th>
@@ -222,11 +229,12 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 				$html .= "<td>{$r->tgl_input}</td>";
 				$html .= "<td class=str>{$r->nip}</td>";
 				$html .= "<td class=str>{$r->nip_lama}</td>";
-				$html .= "<td>{$this->_get_nama_instansi($r->instansi)}</td>";
+				$html .= "<td class=str>{$r->PNS_PNSNAM}</td>";				
+				$html .= "<td>{$r->PNS_PNSNAM}</td>";
 				$html .= "<td>{$r->tmt}</td>";
 				$html .= "<td>{$r->tgl_sk}</td>";
 				$html .= "<td>{$r->nomor_sk}</td>";
-				$html .= "<td>{$this->_get_nama_orang($r->created_by)}</td>";				
+				$html .= "<td>{$r->nama}</td>";				
                 $html .= "<td>{$r->keterangan}</td>";				
 				$html .= "</tr>";
 				$i++;

@@ -5,7 +5,7 @@
 <script src="<?php echo base_url()?>assets/js/noty/packaged/jquery.noty.packaged.js"></script>
 <script>	
 	$(document).ready(function () {	
-		$('#datetimepicker').datetimepicker({
+		$('.datetimepicker').datetimepicker({
 		   sideBySide: true,
 		   locale: 'id',
 		   format:'DD-MM-YYYY',
@@ -16,7 +16,7 @@
 		 $("#nip").select2({
 		    minimumInputLength: 7,
     	    ajax: {
-				url:  '<?php echo site_url() ?>'+'/pindah/get_pns',
+				url:  '<?php echo site_url() ?>'+'/bup/get_pns',
 				dataType:'json',
 				type:'GET',
 				cache: "true",
@@ -28,6 +28,59 @@
                // console.log(results: data.results);
 				//return {results:data};
             }  
+		});
+		
+		var myApp;
+		myApp = myApp || (function () {
+			var pleaseWaitDiv = $('<div class="modal fade" id="pleaseWaitDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><img src="<?php echo base_url()?>assets/img/load.gif"/><label> Processing...</label></h2></div><div class="modal-body"><div class="progress"><div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div></div></div></div></div></div>');
+			return {
+				showPleaseWait: function() {
+					pleaseWaitDiv.modal('show');
+				},
+				hidePleaseWait: function () {
+					pleaseWaitDiv.modal('hide');
+				},	
+
+			};
+		})();  
+		
+		$("#nip").change(function(){
+		    myApp.showPleaseWait();
+			$('.progress-bar').css('width', '' + 0 + '%');
+			$('.progress-bar').text( 0 + '% Complete' );
+			$('.progress-bar').attr("aria-valuenow", 0);
+				
+            $.ajax({
+			    url: "<?php echo site_url()?>/bup/get_bup_data",
+				dataType:'json',
+				type:'POST',
+				data:{nip:this.value},
+				success: function(result){
+				    
+                    //console.log();
+					$("#no_sk").val(result[0].PNI_SK_NOMOR);
+					$("#tgl_sk").val(result[0].tgl_sk);
+					$("#tmt").val(result[0].tmt_pen);
+					$("#nip_lama").val(result[0].PNI_PNSNIP);
+					
+					setTimeout(function() {myApp.hidePleaseWait();	} , 1000);	
+					
+		        },
+				xhr: function() {
+						var xhr = new window.XMLHttpRequest();
+						xhr.addEventListener('progress', function(e) {
+							if (e.lengthComputable) {
+							    var value = (100 * e.loaded / e.total);
+								$('.progress-bar').css('width', '' + value + '%');
+								$('.progress-bar').text( value + '% Complete' );
+								$('.progress-bar').attr("aria-valuenow", value);
+								
+							}
+						});
+						return xhr;
+					}, 
+			});			
+		  
 		});
 		
 		var message   = '<?php echo $message?>';

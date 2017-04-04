@@ -362,7 +362,7 @@ class Disposisi extends MY_Controller {
 		
 		if($search != '')
 		{
-		    $sql_search  = " AND  a.nip ='$search' ";
+		    $sql_search  = " AND  (a.nip ='$search' OR a.nomor_surat LIKE '%$search%') ";
 		}
 		else
 		{
@@ -370,9 +370,11 @@ class Disposisi extends MY_Controller {
 			
 		}
 		
-		$sql="SELECT a.*,b.INS_NAMINS FROM surat_masuk a 
+		$sql="SELECT a.*, b.PNS_PNSNAM FROM ( SELECT a.*,b.INS_NAMINS FROM surat_masuk a 
 		INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
-		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  $sql_search order by a.status_penerima,a.id DESC LIMIT $page,25 ";
+		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  $sql_search LIMIT $page,25) a
+		LEFT JOIN mirror.pupns b ON a.nip =  b.PNS_NIPBARU
+		";
 	   
 	   $query	=  $this->db1->query($sql);
 	   
@@ -421,7 +423,7 @@ class Disposisi extends MY_Controller {
 		
 		if($search != '')
 		{
-		    $sql_search  = " AND  a.nip ='$search' ";
+		    $sql_search  = " AND  (a.nip ='$search' OR a.nomor_surat LIKE '%$search%' ) ";
 		}
 		else
 		{
@@ -429,9 +431,12 @@ class Disposisi extends MY_Controller {
 			
 		}
 		
-		$sql="SELECT a.*,b.INS_NAMINS FROM surat_masuk a 
+		$sql="SELECT a.* FROM (SELECT a.*,b.INS_NAMINS FROM surat_masuk a 
 		INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
-		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  $sql_search order by a.status_penerima ASC ";
+		WHERE 1=1 $sql_penerima $sql_instansi $sql_status  $sql_search 
+		)a
+		LEFT JOIN mirror.pupns b ON a.nip = b.PNS_NIPBARU
+		";
 	   
 	   $query	=  $this->db1->query($sql);
 	   

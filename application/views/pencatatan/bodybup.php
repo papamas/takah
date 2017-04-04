@@ -34,24 +34,46 @@
 										
 										<div class="form-group row">
 										    <label class="control-label col-md-2">NIP:</label>
-                                            <div  class="col-md-5">
+                                            <div  class="col-md-10">
 											<select name="nip" required id="nip" class="form-control" >
 											<option value="">--Silahkan Pilih--</option>											
 										    </select>				
 											</div>   
 											
-                                            <label class="control-label col-md-1">TMT:</label>
+                                           			
+										</div>
+										<div class="form-group row">										    
+                                            <label class="control-label col-md-2">NIP Lama:</label>
+                                            <div class="col-md-5">
+											<input type="text" id="nip_lama" readonly  name="nip_lama" class="form-control">
+											</div>   
+											<label class="control-label col-md-1">TMT:</label>
                                             <div class="col-md-4">
-											<div class='input-group date' id='datetimepicker'>
-												<input pattern="^\d{2}\-\d{1,2}\-\d{4}$" type='text' required name="tmt" id="tmt" value="<?php if($this->session->userdata('tgl')) echo $this->session->userdata('tgl'); else echo date('d-m-Y')?>" class="form-control" />
+											<div class='input-group date datetimepicker'>
+												<input pattern="^\d{2}\-\d{1,2}\-\d{4}$" type='text' required name="tmt" id="tmt" value="" class="form-control" />
 												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
 												</span>								
 											</div>											            
                                            <span class="help-block with-errors"></span>
-										   </div>								
-										</div>
+										   </div>					
+                                        </div>
+										<div class="form-group row">
+										     <label class="control-label col-md-2">Tanggal SK:</label>
+                                            <div class="col-md-3">
+											<div class='input-group date datetimepicker' >
+												<input pattern="^\d{1,2}\-\d{1,2}\-\d{4}$"  type='text' name="tgl_sk" id="tgl_sk" value="" class="form-control" />
+												<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+												</span>								
+											</div>											            
+                                           <span class="help-block with-errors"></span>
+										   </div>
+                                            <label class="control-label col-md-2">Nomor. SK:</label>
+                                            <div class="col-md-5">
+											<input type="text" id="no_sk"  name="no_sk" class="form-control">
+											</div>                                      
+                                        </div>
 										
-										 <div class="form-group row">
+									    <div class="form-group row">
                                             <label class="control-label col-md-2">Keterangan:</label>
                                             <div class="col-md-10">
 											<textarea name="keterangan" class="form-control" rows="3"></textarea>
