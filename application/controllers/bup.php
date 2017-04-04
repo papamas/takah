@@ -230,7 +230,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
 				$html .= "<td class=str>{$r->nip}</td>";
 				$html .= "<td class=str>{$r->nip_lama}</td>";
 				$html .= "<td class=str>{$r->PNS_PNSNAM}</td>";				
-				$html .= "<td>{$r->PNS_PNSNAM}</td>";
+				$html .= "<td>{$r->INS_NAMINS}</td>";
 				$html .= "<td>{$r->tmt}</td>";
 				$html .= "<td>{$r->tgl_sk}</td>";
 				$html .= "<td>{$r->nomor_sk}</td>";
