@@ -394,7 +394,7 @@ FROM
 	LEFT JOIN mirror.kedhuk c ON c.KED_KEDKOD = b.PNS_KEDHUK
 	WHERE 1=1  $sql_instansi ) a
         LEFT JOIN
-    mirror.instansi b ON a.PNS_INSKER = b.INS_KODINS";
+    mirror.instansi b ON a.PNS_INSKER = b.INS_KODINS ORDER by a.id ASC";
 		$q    = $this->db1->query($sql);
 		
         // creating xls file
@@ -507,7 +507,8 @@ WHERE
 ) a
 LEFT JOIN mirror.pupns  b ON a.nip = b.PNS_NIPBARU
 LEFT JOIN mirror.instansi c ON b.PNS_INSKER = c.INS_KODINS
-LEFT JOIN mirror.kedhuk d ON d.KED_KEDKOD = b.PNS_KEDHUK";
+LEFT JOIN mirror.kedhuk d ON d.KED_KEDKOD = b.PNS_KEDHUK
+order by a.id ASC";
        
 	   //var_dump($sql);exit;  
 		$q    = $this->db1->query($sql);

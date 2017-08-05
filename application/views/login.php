@@ -70,7 +70,7 @@
         
       
        <p style="font-size:16px;" class="text-info text-center">
-             Copyright &copy; Nur Muhamad Holik 2015 - 2016
+             Copyright &copy; Nur Muhamad Holik 2015 - 2017
         </p>
 		
 		

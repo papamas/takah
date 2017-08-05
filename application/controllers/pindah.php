@@ -278,14 +278,15 @@ LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan";
 		
 		$user_id = $this->session->userdata('user_id');		
 		
-		$sql="SELECT a.*, DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input,
+		$sql="SELECT a.*,b.INS_NAMINS tujuan  FROM (SELECT a.*, DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input,
 		DATE_FORMAT(a.tgl_sk, '%d-%m-%Y') tgl_suratkep, 
 		DATE_FORMAT(a.tmt, '%d-%m-%Y') tgl_tmt,
-		b.INS_NAMINS asal , c.INS_NAMINS tujuan FROM pwk a
+		b.INS_NAMINS asal 		  
+		FROM pwk a
 		INNER JOIN mirror.instansi b ON a.instansi_asal = b.INS_KODINS 
-		INNER JOIN mirror.instansi c ON a.instansi_tujuan = c.INS_KODINS 
-		WHERE 1=1 $sql_search  AND a.created_by='$user_id' LIMIT 10";
-		$query = $this->db1->query($sql);
+		WHERE 1=1 $sql_search  AND a.created_by='$user_id' LIMIT 5
+		) a 
+		INNER JOIN mirror.instansi b ON a.instansi_tujuan = b.INS_KODINS ";
 		
 		$data['record']    = $query; 
 		$data['message']   ='';

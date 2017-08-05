@@ -190,7 +190,7 @@ class Bup extends MY_Controller {
         LEFT JOIN takah.app_user d ON d.id = a.created_by 		
 		WHERE 1=1  $sql_pelaksana $sql_instansi  
 		AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
-AND STR_TO_DATE( '$enddate', '%d/%m/%Y')";
+AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ORDER BY a.id ASC";
 		
 		//var_dump($sql); exit;
 		$q    = $this->db1->query($sql);
