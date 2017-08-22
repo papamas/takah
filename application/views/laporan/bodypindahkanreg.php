@@ -14,18 +14,18 @@
                    <!-- Advanced Tables -->
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                             Laporan Pindah Wilayah Kerja Per Instansi
+                             Laporan Pindah Wilayah Kerja Per Kanreg dan BKN Pusat
                         </div>
                         <div class="panel-body">						
-							<form method="post" class="" action="<?php echo site_url()?>/pindah/cetakLaporan/">
+							<form method="post" class="" action="<?php echo site_url()?>/pindah/cetakLaporankanreg/">
 								 <input type="hidden" name="page" id="page"/>
 								 <div class="form-group row">
-									<label for="inputfield3" class="col-md-2 control-label">Instansi :</label>
+									<label for="inputfield3" class="col-md-2 control-label">Wilayah :</label>
 									<div class="col-sm-10">
-									  <select name="instansi"   id="instansi" class="form-control select2" >
+									  <select name="wilayah" required   id="wilayah" class="form-control select2" >
 										<option value="">--Silahkan Pilih--</option>
-										<?php foreach($instansi->result() as $value):?>
-										<option value="<?php echo $value->INS_KODINS?>"><?php echo $value->INS_NAMINS?></option>
+										<?php foreach($wilayah->result() as $value):?>
+										<option value="<?php echo $value->kode?>"><?php echo $value->nama_kantor?> - <?php echo $value->alamat?></option>
 										<?php endforeach?>
 									 </select> 
 
@@ -33,11 +33,13 @@
 								  </div>
 								  
 								<div class="form-group row">
-								     <label class="control-label col-md-2">Mutasi:</label>
+								     <label class="control-label col-md-2">Instasi:</label>
 									<div class="col-md-4">
-                                        <input type="radio" required value="1" name="mutasi" id="masuk"   />&nbsp; Masuk
-										<input type="radio" required value="2" name="mutasi" id="keluar" />&nbsp; Keluar
+                                        <input type="radio" required value="1" name="mutasi" id="masuk"   />&nbsp; Asal
+										<input type="radio" required value="2" name="mutasi" id="keluar" />&nbsp; Tujuan
+										<!--
 										<input type="radio" required value="3" name="mutasi" id="keluar" checked />&nbsp; Semua
+									    -->
 									</div>	
 								    <label class="control-label col-md-2">Pelaksana Tugas:</label>
 									<div class="col-md-4">

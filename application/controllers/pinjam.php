@@ -585,7 +585,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
 		$user_id = $this->session->userdata('user_id');
 		
 		
-		
+		/*
 		$sql="SELECT a.*, DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input,
 		b.INS_NAMINS, c.PNS_PNSNAM , 
 		d.PNS_PNSNAM NamaPeminjam ,
@@ -595,6 +595,18 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
 		INNEr JOIN mirror.pupns d ON a.nip_peminjam = d.PNS_NIPBARU
 		INNER JOIN takah.app_user e ON a.created_by = e.id
 		WHERE 1=1 $sql_search  LIMIT 5";
+		*/
+		$sql="SELECT a.*,b.INS_NAMINS, c.PNS_PNSNAM , 
+		d.PNS_PNSNAM NamaPeminjam ,
+		e.nama,DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input 
+		FROM (SELECT * FROM takah.formulir_pinjam ORDER BY id DESC LIMIT 5 ) a
+		INNER JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
+		INNER JOIN mirror.pupns c ON a.nip_pns = c.PNS_NIPBARU
+		INNER JOIN mirror.pupns d ON a.nip_peminjam = d.PNS_NIPBARU
+		INNER JOIN takah.app_user e ON a.created_by = e.id
+		WHERE 1=1 $sql_search
+		";
+		
 		$query = $this->db1->query($sql);
 		
 		$data['record']    = $query; 
