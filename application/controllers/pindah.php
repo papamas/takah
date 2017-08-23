@@ -162,7 +162,9 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')"; */
 		b.PNS_PNSNAM, 
 		SUBSTRING_INDEX(b.PNS_PNSNAM, ' ', 1) LABEL,
         c.INS_NAMINS nama_instansi_asal,
-        d.INS_NAMINS nama_instansi_tujuan		
+        d.INS_NAMINS nama_instansi_tujuan,
+        e.nama_wilayah wilayah_asal,
+        f.nama_wilayah wilayah_tujuan		
 		FROM (
 		SELECT a.*,DATE_FORMAT(a.created_date,'%d-%m-%Y') tgl_input 
 		FROM takah.pwk a WHERE 1=1 
@@ -170,7 +172,9 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y')"; */
 AND STR_TO_DATE( '$enddate', '%d/%m/%Y')) a 
 LEFT JOIN  mirror.pupns b ON a.nip = b.pns_nipbaru
 LEFT JOIN mirror.instansi c ON c.INS_KODINS = a.instansi_asal
-LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan";
+LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan
+LEFT JOIN takah.kantor_instansi e ON a.instansi_asal = e.kode_instansi
+LEFT JOIN takah.kantor_instansi f ON a.instansi_tujuan = f.kode_instansi";
 		
 		//var_dump($sql); exit;
 		$q    = $this->db1->query($sql);
@@ -194,10 +198,12 @@ LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan";
 					<th rowspan="2">TGL</th>
 					<th rowspan="2">NIP</th>
 					<th rowspan="2">NAMA</th>
-					<th colspan="2">INTANSI </th>
+					<th colspan="2">INSTANSI </th>
 					<th rowspan="2">TMT</th>
 					<th rowspan="2">NO.SK</th>
 					<th rowspan="2">TGL SK</th>
+					<th rowspan="2">WILAYAH ASAL</th>
+					<th rowspan="2">WILAYAH TUJUAN</th>
 					<th rowspan="2">PELAKSANA</th>
 					<th rowspan="2" >KETERANGAN</th>
 					<th rowspan="2" >LABEL</th>
@@ -216,6 +222,8 @@ LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan";
 				$html .= "<td>{$r->tmt}</td>";
 				$html .= "<td>{$r->no_sk}</td>";
 				$html .= "<td>{$r->tgl_sk}</td>";
+				$html .= "<td>{$r->wilayah_asal}</td>";
+				$html .= "<td>{$r->wilayah_tujuan}</td>";				
 				$html .= "<td>{$this->_get_nama_orang($r->created_by)}</td>";				
                 $html .= "<td>{$r->keterangan}</td>";
 				$html .= "<td>{$r->LABEL}</td>";
