@@ -278,7 +278,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ) $sql_penerima $sql_status $sql_instan
 		b.INS_NAMINS FROM surat_masuk a
 		INNER JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
 		WHERE 1=1 $sql_search  
-		AND id_penerima='$user_id' 
+		-- AND id_penerima='$user_id' 
 		LIMIT 10";
 		$query = $this->db1->query($sql);
 		
