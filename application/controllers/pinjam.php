@@ -43,7 +43,7 @@ class Pinjam extends MY_Controller {
 	public function cetakFormulir($id)
 	{
 	   
-		$row             =   $this->_get_formulir($id);
+		$row             = $this->_get_formulir($id);
 		$nama_instansi   = $this->_get_nama_instansi($row->kode_instansi);
 		$seksi           = $this->_get_seksi();
 		$nama_pns        = $this->_get_nama_pns($row->nip_pns);
@@ -299,6 +299,7 @@ class Pinjam extends MY_Controller {
 		$keperluan     	         = $this->input->post('keperluan');
 		$nip_peminjam  	         = $this->input->post('peminjam');
 		$nip_mengetahui          = $this->_get_mengetahui();
+		$telp					 = $this->input->post('handphone');
 		
 		$data = array('kode_instansi'   			=> $kode_instansi,
 		              'dari'            			=> $dari,
@@ -306,6 +307,7 @@ class Pinjam extends MY_Controller {
 					  'keperluan'					=> $keperluan,
 					  'nip_peminjam'				=> $nip_peminjam,
 					  'nip_mengetahui'				=> $nip_mengetahui,
+					  'telp'						=> $telp,
 					  'field1'						=> $this->input->post('field1'),
 					  'field2'						=> $this->input->post('field2'),
 					  'field3'						=> $this->input->post('field3'),
