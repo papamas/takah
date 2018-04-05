@@ -72,21 +72,17 @@
 										<option value="">--Silahkan Pilih--</option>										
 									</select>										 
 									<span class="help-block with-errors"> </span>
-									</div>	
-									                           
+									</div>										                           
 								</div>
-								<!--	
 								<div class="form-group row ">
-								    <label class="control-label col-md-2">Yang Menerima:</label>
+								    <label class="control-label col-md-2">Nomor Handphone:</label>
 									<div class="col-md-7">
-									<select name="yang_menerima" required id="yang_menerima" class="form-control" >
-										<option value="">--Silahkan Pilih--</option>										
-									</select>										 
+									<input type="text" name="handphone" required class="form-control" />	 
 									<span class="help-block with-errors"> </span>
 									</div>	
 									
 								</div>
-								
+								<!--								
 								<div class="form-group row ">
 									<label class="control-label col-md-2">Mengetahui:</label>
 									<div class="col-md-7">
