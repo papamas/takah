@@ -550,7 +550,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
 		
 		if($id_seksi ==  '1')
 		{
-		   $r  = '198305012006041004';
+		   $r  = '196810011995111001';
 		}
 		else
 		{

@@ -339,7 +339,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana GROUP BY a.aksi,a.tmt"
 		}
 		else
 		{
-		    $sql_instansi = " AND a.kode_provinsi='$instansi' ";
+		    $sql_instansi = "   AND ( a.kode_provinsi='$instansi'  or a.kode_provinsi is NULL) ";
 		}
 		
 		
@@ -380,21 +380,23 @@ FROM
             c.GOL_GOLNAM GOL_LAMA
     FROM
         takah.npkp a
-    INNER JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
-    INNER JOIN mirror.golru c ON c.GOL_KODGOL = a.gol_lama_id
+    LEFT JOIN mirror.instansi b ON b.INS_KODINS = a.kode_instansi
+    LEFT JOIN mirror.golru c ON c.GOL_KODGOL = a.gol_lama_id
     WHERE
         1 = 1
             AND a.kode_instansi BETWEEN '1010' AND '4062' $sql_aksi 
             AND DATE(tgl_input) BETWEEN STR_TO_DATE('$startdate', '%d/%m/%Y ') AND STR_TO_DATE('$enddate', '%d/%m/%Y')
             $sql_pelaksana ) a
-    INNER JOIN mirror.golru b ON b.GOL_KODGOL = a.gol_baru_id
-    INNER JOIN mirror.jenis_kp c ON c.JKP_JPNKOD = a.jenis_kp
-    INNER JOIN mirror.lokker d ON d.LOK_LOKKOD = a.lokasi_kerja) a
+    LEFT JOIN mirror.golru b ON b.GOL_KODGOL = a.gol_baru_id
+    LEFT JOIN mirror.jenis_kp c ON c.JKP_JPNKOD = a.jenis_kp
+    LEFT JOIN mirror.lokker d ON d.LOK_LOKKOD = a.lokasi_kerja) a
     LEFT JOIN mirror.pupns b ON a.nip = b.PNS_NIPBARU  
 	LEFT JOIN mirror.kedhuk c ON c.KED_KEDKOD = b.PNS_KEDHUK
 	WHERE 1=1  $sql_instansi ) a
         LEFT JOIN
-    mirror.instansi b ON a.PNS_INSKER = b.INS_KODINS ORDER by a.id ASC";
+    mirror.instansi b ON a.PNS_INSKER = b.INS_KODINS";
+	
+	    //var_dump($sql); exit;
 		$q    = $this->db1->query($sql);
 		
         // creating xls file
@@ -491,13 +493,13 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y ' ) $sql_pelaksana "; */
     e.JKP_JPNNAMA
 FROM
     takah.npkp a
-        INNER JOIN
+        LEFT JOIN
     mirror.instansi b ON b.INS_KODINS = a.kode_instansi
-        INNER JOIN
+        LEFT JOIN
     MIRROR.golru c ON c.GOL_KODGOL = a.gol_lama_id
-        INNER JOIN
+        LEFT JOIN
     MIRROR.golru d ON d.GOL_KODGOL = a.gol_baru_id
-        INNER JOIN
+        LEFT JOIN
     mirror.jenis_kp e ON e.JKP_JPNKOD = a.jenis_kp
 WHERE
     1 = 1 $sql_aksi 
@@ -507,10 +509,9 @@ WHERE
 ) a
 LEFT JOIN mirror.pupns  b ON a.nip = b.PNS_NIPBARU
 LEFT JOIN mirror.instansi c ON b.PNS_INSKER = c.INS_KODINS
-LEFT JOIN mirror.kedhuk d ON d.KED_KEDKOD = b.PNS_KEDHUK
-order by a.id ASC";
+LEFT JOIN mirror.kedhuk d ON d.KED_KEDKOD = b.PNS_KEDHUK ORDER BY a.id ASC";
        
-	   //var_dump($sql);exit;  
+	    //var_dump($sql);exit;  
 		$q    = $this->db1->query($sql);
 		
         // creating xls file
@@ -580,8 +581,8 @@ order by a.id ASC";
 	
 	function _get_instansi()
 	{
-	    $sql="SELECT * FROM mirror.instansi where 
-INS_KODINS between '7000' and '7171' OR   INS_KODINS between '7900' and '7972'
+	    $sql="SELECT * FROM mirror.instansi /* where 
+INS_KODINS between '7000' and '7171' OR   INS_KODINS between '7900' and '7972'*/
 Order by ins_kodins ASC";		
 		$query  = $this->db3->query($sql);
 		return $query;

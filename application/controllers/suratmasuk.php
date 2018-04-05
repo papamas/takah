@@ -130,8 +130,9 @@ class Suratmasuk extends MY_Controller {
 		}
 		
 		
-		$sql="SELECT a.*, b.action_disposisi FROM  surat_masuk a 
+		$sql="SELECT a.*, b.action_disposisi ,c.PNS_PNSNAM FROM  surat_masuk a 
 		LEFT JOIN action_disposisi  b ON b.id_surat=a.id  
+		LEFT JOIN mirror.pupns c ON a.nip = c.PNS_NIPBARU
 		WHERE 1=1 AND ( DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
 AND STR_TO_DATE( '$enddate', '%d/%m/%Y') OR DATE( a.update_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
 AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ) $sql_penerima $sql_status $sql_instansi
@@ -163,6 +164,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ) $sql_penerima $sql_status $sql_instan
 					<th>PERIHAL</th>
 					<th>DISPOSISI</th>
 					<th>NIP</th>
+					<th>NAMA</th>
 					<th>INSTANSI</th>
 					<th>PENGIRIM</th>
 					<th>KEPADA</th>
@@ -182,6 +184,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ) $sql_penerima $sql_status $sql_instan
 				$html .= "<td>{$r->perihal}</td>";
 				$html .= "<td>{$r->keterangan}</td>";
 				$html .= "<td class=str width=150>{$r->nip}</td>";
+				$html .= "<td class=str width=150>{$r->PNS_PNSNAM}</td>";
 				$html .= "<td>{$this->_get_nama_instansi($r->kode_instansi)}</td>";
 				$html .= "<td>{$this->_get_nama_orang($r->id_pengirim)}</td>";
 				$html .= "<td>{$this->_get_nama_orang($r->id_penerima)}</td>";
@@ -263,7 +266,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ) $sql_penerima $sql_status $sql_instan
 		
 		if($search)
 		{
-		   $sql_search = "AND a.nip ='$search' ";
+		   $sql_search = "AND ( a.nip LIKE '%$search%'  OR a.nomor_surat LIKE '%$search%') ";
 		}
 		else
 		{
@@ -278,7 +281,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') ) $sql_penerima $sql_status $sql_instan
 		b.INS_NAMINS FROM surat_masuk a
 		INNER JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
 		WHERE 1=1 $sql_search  
-		-- AND id_penerima='$user_id' 
+		AND (id_penerima='$user_id' OR id_pengirim='$user_id')
 		LIMIT 10";
 		$query = $this->db1->query($sql);
 		
