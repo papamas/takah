@@ -1,5 +1,7 @@
 # Aplikasi Takah
-Aplikasi Pengelolaan Tata Naskah Pada Kantor Regional  XI BKN
+Aplikasi Pengelolaan Tata Naskah Kepegawaian yang dipergunakan Pada Kantor Regional  XI BKN
+
+<img src="https://github.com/papamas/takah/blob/master/screenshot/dashboard.jpg" />
 
 Feature :
 1. Statistik Data PNS KANREG XI
