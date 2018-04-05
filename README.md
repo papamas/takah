@@ -1,7 +1,6 @@
 # Aplikasi Takah
 Aplikasi Pengelolaan Tata Naskah Kepegawaian yang dipergunakan Pada Kantor Regional  XI BKN
 
-<img src="https://github.com/papamas/takah/blob/master/screenshot/dashboard.jpg" />
 
 Feature :
 1. Statistik Data PNS KANREG XI
@@ -24,3 +23,5 @@ Requirement :
 Thanks to :
 1. Codeigniter 3.0  https://codeigniter.com/
 2. Twitter Bootstrap http://getbootstrap.com/
+
+<img src="https://github.com/papamas/takah/blob/master/screenshot/dashboard.jpg" />
