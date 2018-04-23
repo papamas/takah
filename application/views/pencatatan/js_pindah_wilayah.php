@@ -55,11 +55,21 @@
 		});
         
 		$('#status_nip').click(function() {
+		   /*
 		   var input_nip = '<br/><input type="text" required value="" name="tnip" id="tnip" class="form-control "  placeholder=""  />';
 								
 		   $('.no_nip').append(input_nip);
+		   */
 		   $('#nip').removeAttr('required');
 		   $('#nip').hide();
+		   
+		   $('#no_nip').show();
+		   $('#tnip').attr('required',true);
+		   
+		    $('#anip').hide();
+		   
+		   $('#no_nama').show();
+		   $('#nama').attr('required',true);
 		});
 		
 		

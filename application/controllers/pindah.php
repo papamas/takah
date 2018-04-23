@@ -88,6 +88,7 @@ Order by ins_kodins ASC";
 		$keterangan        = $this->input->post('keterangan');
 		$tnip              = $this->input->post('tnip');
 		$status_nip		   = $this->input->post('status_nip');
+		$nama			   = $this->input->post('nama');
 		
 		if($status_nip == '1' ) $nip = $tnip;
 		
@@ -99,6 +100,7 @@ Order by ins_kodins ASC";
 					  'no_sk'					=> $no_sk,
 					  'keterangan'				=> $keterangan,
 					  'created_by'				=> $this->session->userdata('user_id'),
+					  'nama'					=> $nama,
 					  
 		);
 		

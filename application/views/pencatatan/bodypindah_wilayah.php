@@ -52,11 +52,12 @@
 											</div>
 										 <span class="help-block with-errors"> </span>	
                                         </div>
-										<div class="form-group row">
+										<div class="form-group row" id="anip">
 										    <label class="control-label col-md-2">NIP:</label>
-                                            <div  class="col-md-6 no_nip">
+                                            <div class="col-md-6">
 											<select name="nip" required id="nip" class="form-control" >
-											<option value="">--Silahkan Pilih--</option>											
+											<option value="">--Silahkan Pilih--</option>
+											</div>											
 										    </select>				
 											</div>   
 											<label class="control-label col-md-1">Status:</label>
@@ -64,6 +65,21 @@
 											<input type="radio"  value="1" name="status_nip" id="status_nip"  />&nbsp;NIP tidak ditemukan											
 											</div>
 										</div>	
+										
+										<div class="form-group row" style="display:none" id="no_nip">
+                                            <label class="control-label col-md-2">NIP:</label>
+                                            <div class="col-md-6">
+											<input type="text" name="tnip" id="tnip" class="form-control" rows="3" id="nama" />
+											</div>
+                                        </div>
+										
+										<div class="form-group row" style="display:none" id="no_nama">
+                                            <label class="control-label col-md-2">Nama:</label>
+                                            <div class="col-md-10">
+											<input type="text" name="nama"  class="form-control" rows="3" id="nama" />
+											</div>
+                                        </div>
+										
 										<div class="form-group row">									
                                             <label class="control-label col-md-2">TMT:</label>
                                             <div class="col-md-4">
