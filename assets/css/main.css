@@ -10,6 +10,7 @@
 /*********************************************************/
 /*                 Sticky footer styles                  */
 /*********************************************************/
+
 #wrap {
   margin: 0 auto;
 }
@@ -22,6 +23,7 @@
   body {
     height: 100%;
     /* The html and body elements cannot have any padding or margin. */
+	
   }
   #wrap {
     /* Wrapper for page content to push down footer */
