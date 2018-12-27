@@ -123,6 +123,7 @@ LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan ORDER BY a.id AS
 					'; 
 		$html 	.= '</tr><tr><th>ASAL</th><th>TUJUAN</th></tr>';
 		if($q->num_rows() > 0){
+			
 			$i = 1;		        
 			foreach ($q->result() as $r) {
 			   	$html .= "<tr><td>$i</td>";

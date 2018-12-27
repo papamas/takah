@@ -282,7 +282,7 @@ class Pinjam extends MY_Controller {
 	
 	function get_pns()
 	{
-	   $search   = $this->input->get('q');
+	   $search   = trim($this->input->get('q'));
 	   
 	   $sql="SELECT PNS_NIPBARU as id,CONCAT( PNS_NIPBARU ,' - ', PNS_PNSNAM,',' ,if(PNS_GLRBLK is null ,'',PNS_GLRBLK))  as text FROM PUPNS WHERE PNS_NIPBARU LIKE '$search%' ORDER BY PNS_PNSNAM ASC";
 	   $query= $this->db3->query($sql);
@@ -573,7 +573,7 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
 	
 	function search()
 	{
-	    $search =$this->input->post('search');
+	    $search = trim($this->input->post('search'));
 		
 		if($search)
 		{
@@ -601,13 +601,15 @@ AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
 		$sql="SELECT a.*,b.INS_NAMINS, c.PNS_PNSNAM , 
 		d.PNS_PNSNAM NamaPeminjam ,
 		e.nama,DATE_FORMAT(a.created_date, '%d-%m-%Y') tgl_input 
-		FROM (SELECT * FROM takah.formulir_pinjam ORDER BY id DESC LIMIT 5 ) a
-		INNER JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
-		INNER JOIN mirror.pupns c ON a.nip_pns = c.PNS_NIPBARU
-		INNER JOIN mirror.pupns d ON a.nip_peminjam = d.PNS_NIPBARU
-		INNER JOIN takah.app_user e ON a.created_by = e.id
-		WHERE 1=1 $sql_search
+		FROM (SELECT a.* FROM takah.formulir_pinjam a WHERE 1=1 $sql_search LIMIT 5 ) a
+		LEFT JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
+		LEFT JOIN mirror.pupns c ON a.nip_pns = c.PNS_NIPBARU
+		LEFT JOIN mirror.pupns d ON a.nip_peminjam = d.PNS_NIPBARU
+		LEFT JOIN takah.app_user e ON a.created_by = e.id
+		
 		";
+		
+		//var_dump($sql);exit;
 		
 		$query = $this->db1->query($sql);
 		

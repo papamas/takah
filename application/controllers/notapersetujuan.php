@@ -156,7 +156,7 @@ class Notapersetujuan extends MY_Controller {
 	{
 	   $search   = $this->input->get('q');
 	   
-	   $sql="SELECT PNS_NIPBARU as id,CONCAT( PNS_NIPBARU ,' - ', PNS_PNSNAM)  as text FROM PUPNS WHERE PNS_NIPBARU LIKE '$search%' ORDER BY PNS_PNSNAM ASC";
+	   $sql="SELECT PNS_NIPBARU as id,CONCAT( PNS_NIPBARU ,' - ', PNS_PNSNAM)  as text FROM PUPNS WHERE TRIM(PNS_NIPBARU)=TRIM('$search') OR TRIM(PNS_PNSNIP)=TRIM('$search') ORDER BY PNS_PNSNAM ASC";
 	   $query= $this->db3->query($sql);
 	   $ret['results'] = $query->result_array();
 	   echo json_encode($ret);

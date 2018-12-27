@@ -410,17 +410,17 @@ FROM (SELECT  a.id, a.nip,LEFT(a.instansi,2) kode_prov,RIGHT(a.instansi,2) kode_
 		b.IJASAH_NAMA pendidikan , b.TAHUN_IJAZAH thn_ijazah, DATE_FORMAT( b.DITETAPKAN_TANGGAL ,'%d-%m-%Y' ) tgl_penetapan,
         e.GOL_GOLNAM golongan,  c.INS_NAMINS nama_instansi
         FROM  takah.cpns a
-		INNER JOIN mirror.pupns_pengadaan_info b  ON a.nip = b.NIP
-		INNER JOIN mirror.instansi c ON a.instansi = c.INS_KODINS
-		INNER JOIN mirror.golru e ON b.GOLONGAN_AWAL_ID = e.GOl_KODGOL
+		LEFT JOIN mirror.pupns_pengadaan_info b  ON a.nip = b.NIP
+		LEFT JOIN mirror.instansi c ON a.instansi = c.INS_KODINS
+		LEFT JOIN mirror.golru e ON b.GOLONGAN_AWAL_ID = e.GOl_KODGOL
         WHERE 1=1 AND DATE( a.created_date ) BETWEEN STR_TO_DATE( '$startdate', '%d/%m/%Y ' )
 AND STR_TO_DATE( '$enddate', '%d/%m/%Y') $sql_pelaksana $sql_instansi
 ) a
-INNER JOIN mirror.pupns b ON  a.nip = b.PNS_NIPBARU
+LEFT JOIN mirror.pupns b ON  a.nip = b.PNS_NIPBARU
 LEFT JOIN mirror.agama c ON  b.PNS_KODAGA = c.AGA_KODAGA
 ) a
-INNER JOIN mirror.instansi b ON a.PNS_INSDUK = b.INS_KODINS
-INNER JOIN mirror.instansi c ON a.PNS_INSKER = c.INS_KODINS
+LEFT JOIN mirror.instansi b ON a.PNS_INSDUK = b.INS_KODINS
+LEFT JOIN mirror.instansi c ON a.PNS_INSKER = c.INS_KODINS
 order by a.id asc 
 		";
 		//var_dump($sql);exit;

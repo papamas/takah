@@ -396,12 +396,21 @@ LEFT JOIN mirror.instansi d ON d.INS_KODINS = a.instansi_tujuan ORDER BY a.id AS
 					'; 
 		$html 	.= '</tr><tr><th>ASAL</th><th>TUJUAN</th></tr>';
 		if($q->num_rows() > 0){
-			$i = 1;		        
+			$i = 1;
+           
 			foreach ($q->result() as $r) {
+				if(!empty($r->PNS_PNSNAM))
+				{
+					$nama = $r->PNS_PNSNAM;
+				}
+				else
+				{
+					$nama = $r->nama;
+				}
 			   	$html .= "<tr><td>$i</td>";
 				$html .= "<td>{$r->tgl_input}</td>";
 				$html .= "<td class=str>{$r->nip}</td>";
-				$html .= "<td>{$r->PNS_PNSNAM}</td>";
+				$html .= "<td>{$nama}</td>";
 				$html .= "<td>{$r->nama_instansi_asal}</td>";
 				$html .= "<td>{$r->nama_instansi_tujuan}</td>";
 				$html .= "<td>{$r->tmt}</td>";
