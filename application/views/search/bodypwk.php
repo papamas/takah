@@ -39,6 +39,7 @@
 												  <th>No.SK</th>
 												  <th>Tgl SK</th>
 												  <th>TMT</th>
+												  <th>Ket</th>
 												  <th>Perintah</th>
 											  </tr>
 										  </thead>   
@@ -52,6 +53,7 @@
 												   <td><?php echo $value->no_sk?></td>
 												   <td><?php echo $value->tgl_suratkep?></td>
 												   <td><?php echo $value->tgl_tmt?></td>
+												   <td><?php echo $value->keterangan?></td>
 												   <td width="100">
 													<button class="btn btn-primary btn-xs" title="Edit" data-id="<?php echo $value->id?>" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit "></i> E</button>
 													<button class="btn btn-danger btn-xs" title="Delete" data-id="<?php echo $value->id?>" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-eraser"></i> D</button>
@@ -157,9 +159,16 @@
 						</span>								
 					</div>											            
 				   <span class="help-block with-errors"></span>
-				   </div>
-				   	
+				   </div>				   	
 				</div>
+				
+				 <div class="form-group row">
+				   <label class="control-label col-md-2">Ket:</label>
+					<div  class="col-md-10">
+					<input type="text" name="keterangan" required id="keterangan" class="form-control" >									
+					</div> 	
+				</div>
+				
 				<input type="hidden" value="" id="pindah_id" name="pindah_id">
 			</form>
 			</div>

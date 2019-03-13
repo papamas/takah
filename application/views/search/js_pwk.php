@@ -51,6 +51,7 @@
 					$('[name=instansi_asal]').val(result[0].instansi_asal);
 					$('[name=instansi_tujuan]').val(result[0].instansi_tujuan);
 					$('[name=nip]').val(result[0].nip);
+					$("#keterangan").val(result[0].keterangan);
 					
 				},				
 			});		

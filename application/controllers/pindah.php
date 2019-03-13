@@ -292,11 +292,13 @@ LEFT JOIN takah.kantor_instansi f ON a.instansi_tujuan = f.kode_instansi";
 		DATE_FORMAT(a.tgl_sk, '%d-%m-%Y') tgl_suratkep, 
 		DATE_FORMAT(a.tmt, '%d-%m-%Y') tgl_tmt,
 		b.INS_NAMINS asal 		  
-		FROM pwk a
+		FROM takah.pwk a
 		INNER JOIN mirror.instansi b ON a.instansi_asal = b.INS_KODINS 
 		WHERE 1=1 $sql_search  AND a.created_by='$user_id' LIMIT 5
 		) a 
 		INNER JOIN mirror.instansi b ON a.instansi_tujuan = b.INS_KODINS ";
+		
+		
 		$query = $this->db1->query($sql);
 		
 		$data['record']    = $query; 
