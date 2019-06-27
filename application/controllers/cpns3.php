@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Cpns extends MY_Controller {
+class Cpns3 extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -477,149 +477,149 @@ order by a.id asc
 			  */
 			$this->pdf->SetFont('helvetica', 'B', 12);
 			
-			$this->pdf->SetXY(21,61);
+			$this->pdf->SetXY(21,57);
 			$txt1 = substr($value->nip,0,1);
 			$this->pdf->Write(0, $txt1, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(26,61);
+			$this->pdf->SetXY(26,57);
 			$txt2 = substr($value->nip,1,1);
 			$this->pdf->Write(0, $txt2, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(32,61);
+			$this->pdf->SetXY(31,57);
 			$txt3 = substr($value->nip,2,1);
 			$this->pdf->Write(0, $txt3, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(38,61);
+			$this->pdf->SetXY(37,57);
 			$txt4 = substr($value->nip,3,1);;
 			$this->pdf->Write(0, $txt4, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(44,61);
+			$this->pdf->SetXY(42,57);
 			$txt5 = substr($value->nip,4,1);
 			$this->pdf->Write(0, $txt5, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(49,61);
+			$this->pdf->SetXY(48,57);
 			$txt6 = substr($value->nip,5,1);
 			$this->pdf->Write(0, $txt6, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(55,61);
+			$this->pdf->SetXY(54,57);
 			$txt7 = substr($value->nip,6,1);
 			$this->pdf->Write(0, $txt7, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(60,61);
+			$this->pdf->SetXY(59,57);
 			$txt8 = substr($value->nip,7,1);
 			$this->pdf->Write(0, $txt8, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(72,61);
+			$this->pdf->SetXY(70,57);
 			$txt9 = substr($value->nip,8,1);
 			$this->pdf->Write(0, $txt9, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(78,61);
+			$this->pdf->SetXY(75,57);
 			$txt10 = substr($value->nip,9,1);
 			$this->pdf->Write(0, $txt10, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(83,61);
+			$this->pdf->SetXY(80,57);
 			$txt11 = substr($value->nip,10,1);
 			$this->pdf->Write(0, $txt11, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(89,61);
+			$this->pdf->SetXY(86,57);
 			$txt12 = substr($value->nip,11,1);
 			$this->pdf->Write(0, $txt12, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(95,61);
+			$this->pdf->SetXY(91,57);
 			$txt13 = substr($value->nip,12,1);
 			$this->pdf->Write(0, $txt13, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(101,61);
+			$this->pdf->SetXY(97,57);
 			$txt14 = substr($value->nip,13,1);
 			$this->pdf->Write(0, $txt14, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(113,61);
+			$this->pdf->SetXY(108,57);
 			$txt15 = substr($value->nip,14,1);
 			$this->pdf->Write(0, $txt15, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(124,61);
+			$this->pdf->SetXY(119,57);
 			$txt16 = substr($value->nip,15,1);
 			$this->pdf->Write(0, $txt16, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(129,61);
+			$this->pdf->SetXY(124,57);
 			$txt17 = substr($value->nip,16,1);
 			$this->pdf->Write(0, $txt17, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(135,61);
+			$this->pdf->SetXY(130,57);
 			$txt18 = substr($value->nip,17,1);
 			$this->pdf->Write(0, $txt18, '', 0, 'L', true, 0, false, false, 0);
 			
 			$this->pdf->SetFont('helvetica', '', 9);
 			
-			$this->pdf->SetXY(111,76);
+			$this->pdf->SetXY(111,71);
 			$nm = $value->nama;
 			$this->pdf->Write(0, $nm, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,82);
+			$this->pdf->SetXY(111,77);
 			$st = 'CPNS';
 			$this->pdf->Write(0, $st, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,88);
+			$this->pdf->SetXY(111,83);
 			$jp = 'PNS DAERAH';
 			$this->pdf->Write(0, $jp, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,93);
+			$this->pdf->SetXY(111,88);
 			$gol = $value->golongan;
 			$this->pdf->Write(0, $gol, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(145,93);
+			$this->pdf->SetXY(145,88);
 			$tmt = $value->tgl_tmt;
 			$this->pdf->Write(0, $tmt, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,104);
+			$this->pdf->SetXY(111,100);
 			$tgl_sk = $value->tgl_penetapan;
 			$this->pdf->Write(0, $tgl_sk, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,115);
+			$this->pdf->SetXY(111,111);
 			$no_sk = $value->no_sk.' / '.$value->tgl_sk;
 			$this->pdf->Write(0, $no_sk, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,126);
+			$this->pdf->SetXY(111,122);
 			$pejabat = 'KEPALA BADAN KEPEGAWAIAN NEGARA';
 			$this->pdf->Write(0, $pejabat, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,132);
+			$this->pdf->SetXY(111,128);
 			$jabatan = $value->jabatan;
 			$this->pdf->Write(0, $jabatan, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,137);
+			$this->pdf->SetXY(111,132);
 			$lahir = ' '. $value->tgl_lahir;
 			$this->pdf->Write(0, $lahir, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,143);
+			$this->pdf->SetXY(111,138);
 			$jk = $value->kelamin;
 			$this->pdf->Write(0, $jk, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,149);
+			$this->pdf->SetXY(111,143);
 			$agama = strtoupper($value->agama);
 			$this->pdf->Write(0, $agama, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,154);
+			$this->pdf->SetXY(111,149);
 			$pendidikan = $value->pendidikan;
 			$this->pdf->Write(0, $pendidikan, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(28,171);
+			$this->pdf->SetXY(29,166);
 			$no_sekolah = '1.';
 			$this->pdf->Write(0, $no_sekolah, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(35,171);
+			$this->pdf->SetXY(37,166);
 			$sekolah = $value->pendidikan;
 			$this->pdf->Write(0, $sekolah, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(115,171);
+			$this->pdf->SetXY(116,166);
 			$thn_sekolah = $value->thn_ijazah;
 			$this->pdf->Write(0, $thn_sekolah, '', 0, 'L', true, 0, false, false, 0);
 			
-		    $this->pdf->SetXY(111,294);
+		    $this->pdf->SetXY(111,290);
 			$dep = strtoupper($value->instansi_kerja);
 			$this->pdf->Write(0, $dep, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,299);
+			$this->pdf->SetXY(111,296);
 			$dep = $value->unit;
 			
 			switch ($dep) {
@@ -649,15 +649,15 @@ order by a.id asc
 			} 
 			
 			$this->pdf->Write(0, $label, '', 0, 'L', true, 0, false, false, 0);			
-			$this->pdf->SetXY(111,305);
+			$this->pdf->SetXY(111,302);
 			$prop = strtoupper($provinsi);
 			$this->pdf->Write(0, $prop, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,310);
+			$this->pdf->SetXY(111,308);
 			$kota = ($value->kode_kota =='00' ? '' : strtoupper($value->nama_instansi));
 			$this->pdf->Write(0, $kota, '', 0, 'L', true, 0, false, false, 0); 
 			
-			$this->pdf->SetXY(111,317);
+			$this->pdf->SetXY(111,314);
 			$induk = strtoupper($value->instansi_induk);
 			$this->pdf->Write(0, $induk, '', 0, 'L', true, 0, false, false, 0);
         } 
@@ -739,109 +739,109 @@ order by a.id asc ";
 			
 			$this->pdf->SetFont('helvetica', 'B', 12);
 			
-			$this->pdf->SetXY(36,66);
+			$this->pdf->SetXY(38,60);
 			$txt1 = substr($value->nip,0,1);
 			$this->pdf->Write(0, $txt1, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(43,66);
+			$this->pdf->SetXY(45,60);
 			$txt2 =substr($value->nip,1,1);
 			$this->pdf->Write(0, $txt2, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(50,66);
+			$this->pdf->SetXY(52,60);
 			$txt3 = substr($value->nip,2,1);
 			$this->pdf->Write(0, $txt3, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(57,66);
+			$this->pdf->SetXY(59,60);
 			$txt4 = substr($value->nip,3,1);
 			$this->pdf->Write(0, $txt4, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(64,66);
+			$this->pdf->SetXY(66,60);
 			$txt5 = substr($value->nip,4,1);
 			$this->pdf->Write(0, $txt5, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(70,66);
+			$this->pdf->SetXY(73,60);
 			$txt6 = substr($value->nip,5,1);
 			$this->pdf->Write(0, $txt6, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(77,66);
+			$this->pdf->SetXY(80,60);
 			$txt7 = substr($value->nip,6,1);
 			$this->pdf->Write(0, $txt7, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(84,66);
+			$this->pdf->SetXY(87,60);
 			$txt8 = substr($value->nip,7,1);
 			$this->pdf->Write(0, $txt8, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(97,66);
+			$this->pdf->SetXY(102,60);
 			$txt9 = substr($value->nip,8,1);
 			$this->pdf->Write(0, $txt9, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(104,66);
+			$this->pdf->SetXY(109,60);
 			$txt10 = substr($value->nip,9,1);
 			$this->pdf->Write(0, $txt10, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(112,66);
+			$this->pdf->SetXY(116,60);
 			$txt11 = substr($value->nip,10,1);
 			$this->pdf->Write(0, $txt11, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(118,66);
+			$this->pdf->SetXY(123,60);
 			$txt12 = substr($value->nip,11,1);
 			$this->pdf->Write(0, $txt12, '', 0, 'L', true, 0, false, false, 0); 
 			
-			$this->pdf->SetXY(125,66);
+			$this->pdf->SetXY(130,60);
 			$txt13 = substr($value->nip,12,1);
 			$this->pdf->Write(0, $txt13, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(131,66);
+			$this->pdf->SetXY(136,60);
 			$txt14 = substr($value->nip,13,1);
 			$this->pdf->Write(0, $txt14, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(146,66);
+			$this->pdf->SetXY(151,60);
 			$txt15 = substr($value->nip,14,1);;
 			$this->pdf->Write(0, $txt15, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(158,66);
+			$this->pdf->SetXY(164,60);
 			$txt16 = substr($value->nip,15,1);
 			$this->pdf->Write(0, $txt16, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(165,66);
+			$this->pdf->SetXY(171,60);
 			$txt17 = substr($value->nip,16,1);
 			$this->pdf->Write(0, $txt17, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(172,66);
+			$this->pdf->SetXY(178,60);
 			$txt18 = substr($value->nip,17,1);
 			$this->pdf->Write(0, $txt18, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(37,75);
+			$this->pdf->SetXY(37,72);
 			$nm = $value->nama;
 			$this->pdf->Write(0, $nm, '', 0, 'L', true, 0, false, false, 0);
 			
 			$this->pdf->SetFont('helvetica', '', 9);
 			
-			$this->pdf->SetXY(12,125);
+			$this->pdf->SetXY(12,124);
 			$no = '1. ';
 			$this->pdf->Write(0, $no, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,125);
+			$this->pdf->SetXY(113,124);
 			$isi = 'Kartu Induk ';
 			$this->pdf->Write(0, $isi, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(12,132);
+			$this->pdf->SetXY(12,131);
 			$no = '2. ';
 			$this->pdf->Write(0, $no, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(20,132);
+			$this->pdf->SetXY(20,131);
 			$pejabat = 'Kepala. BKN';
 			$this->pdf->Write(0, $pejabat, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(56,132);
+			$this->pdf->SetXY(58,131);
 			$no_sk = $value->no_sk;
 			$this->pdf->Write(0, $no_sk, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(91,132);
+			$this->pdf->SetXY(93,131);
 			$tgl_sk = $value->tgl_sk;
 			$this->pdf->Write(0, $tgl_sk, '', 0, 'L', true, 0, false, false, 0);
 			
-			$this->pdf->SetXY(111,132);
+			$this->pdf->SetXY(113,131);
 			$isi = 'Penetapan NIP CPNS DAERAH';
 			$this->pdf->Write(0, $isi, '', 0, 'L', true, 0, false, false, 0);
 			

@@ -17,12 +17,12 @@
                              Laporan Pengadaan CPNS
                         </div>
                         <div class="panel-body">						
-							<form method="post" class="" action="<?php echo site_url()?>/cpns/laporanCetak/">
+							<form method="post" class="" id="lapcpns" action="#">
 								 <input type="hidden" name="page" id="page"/>
 								 <div class="form-group row">
 									<label for="inputfield3" class="col-md-2 control-label">Instansi :</label>
 									<div class="col-sm-10">
-									  <select name="instansi"   id="instansi" class="form-control select2" >
+									  <select name="instansi"   id="instansi" class="form-control select2" required>
 										<option value="">--Silahkan Pilih--</option>
 										<?php foreach($instansi->result() as $value):?>
 										<option value="<?php echo $value->INS_KODINS?>"><?php echo $value->INS_NAMINS?></option>
@@ -34,7 +34,7 @@
 								<div class="form-group row">
 								    <label class="control-label col-md-2">Pelaksana Tugas:</label>
 									<div class="col-md-4">
-									<select name="pelaksana" id="pelaksana" class="form-control select2" >
+									<select name="pelaksana" id="pelaksana" class="form-control select2" required>
 										<option value="">--Silahkan Pilih--</option>
 										<?php foreach($pelaksana->result() as $value):?>
                                         <option value="<?php echo $value->id ?>" <?php if($this->session->userdata('pelaksana')== $value->id) echo 'selected="selected"'?>><?php echo $value->nama?></option>
@@ -51,6 +51,18 @@
 									  </div>
 									</div>										
 								 </div>
+								 <div class="form-group row">
+								    <label class="control-label col-md-2">Template:</label>
+									<div class="col-md-8">
+									<select name="template" id="template" class="form-control select2" required>
+										<option value="">--Silahkan Pilih--</option>
+										<option value="<?php echo site_url()?>/cpns/laporanCetak/">Template 1 ( Printer HP 1102 PAKIKK + Blangko 2019 )</option>
+										<option value="<?php echo site_url()?>/cpns2/laporanCetak/">Template 2 ( Printer HP 1102 PAKIVP + Blangko 2019 )</option>
+                                      	<option value="<?php echo site_url()?>/cpns3/laporanCetak/">Template 3 ( Printer HP 1102 PAKIVP + Blangko 2018 )</option>	
+										<option value="<?php echo site_url()?>/cpns4/laporanCetak/">Template 4 ( Printer HP 1102 PAKIKK + Blangko 2018 )</option>
+									</select>									 
+									</div>								    					 
+								</div>
 								 <div class="form-group row">
 								   	<label class="control-label col-md-2">Perintah Cetak:</label>
 									<div class="col-md-4">

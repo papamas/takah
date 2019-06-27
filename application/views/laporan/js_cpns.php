@@ -21,6 +21,11 @@
 		 });
 		 
 		 
+		$("#template").change(function() {		
+		    var selected = $(this).children(":selected").val();					
+			$("#lapcpns").attr('action', selected);
+		});	 
+		 
 	
 	});
 </script>
