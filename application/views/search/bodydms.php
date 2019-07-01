@@ -92,6 +92,18 @@
 						<li class="list-group-item">
 						  <b>Instansi Kerja</b> <span class="pull-right"><?php echo $pupns->INSKER?></span>
 						</li>
+						<br/>
+						<form action="<?php echo site_url()?>/scanning/createFolder" method="post">
+						<div class="form-group row">
+							<input type="hidden" name="instansi" value="<?php echo $pupns->INSKER?>" />
+							<input type="hidden" name="nip" value="<?php echo $pupns->PNS_NIPBARU?>" />	          
+						</div>
+						
+						<div class="form-group">
+						 <button type="submit" class="btn btn-block btn-sm btn-primary"><i class="glyphicon glyphicon-cog"></i>&nbsp;Create DMS Folder</button>
+						
+					    </div>
+						</form>
 						
 					  </ul>
                   </div><!-- /.tab-pane -->

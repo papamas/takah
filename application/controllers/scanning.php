@@ -148,6 +148,63 @@ class Scanning extends MY_Controller {
 	
 	}
 	
+	function createFolder()
+	{
+		
+		$nama_instansi	=  $this->input->post('instansi');
+		$nip			=  $this->input->post('nip');
+		
+		$result			= $this->_createFolder($nama_instansi,$nip);
+		
+		//var_dump($result['Text']);exit;
+		$search            = $nip;
+		
+		if($search)
+		{
+		
+				$sql="SELECT 
+			a . *
+		FROM
+			okmdb.`okm_node_base` a
+			INNER JOIN    okmdb.okm_node_folder b ON b.NBS_UUID = a.NBS_UUID
+			WHERE a.NBS_CONTEXT ='okm_root' and a.NBS_NAME LIKE '%$search%'
+			
+			";
+			$r = $this->db1->query($sql)->result_array();
+			$children = array();
+			if(count($r) > 0) 
+			{
+				# It has children, let's get them.
+				foreach ( $r as $key => $item )
+				{
+					# Add the child to the list of children, and get its subchildren
+					$children = $this->getChildParent($item['NBS_UUID']);
+					
+				}
+				$data['message'] = $result['Text'];
+			}
+			else
+			{
+				$data['message'] = $result['Text'];
+			}
+			
+			
+			$data['children'] = $this->buildMenu($children);
+		
+		}
+		else
+		{
+		    $data['message'] = $result['Text'];
+		}
+		
+		$data['search']    = $search;	
+		// pupns
+		$data['pupns']      = $this->_get_pupns($search);
+		$data['pendidikan'] = $this->_get_pendidikan($search);	
+        $data['unor']		= $this->_get_unorpns($search);		
+		$this->load->view('search/vdms',$data);
+	}
+	
 	function _get_time_create()
 	{
 	    $sql="select DATE_FORMAT(create_time,'%d-%m-%Y %h:%i:%s') create_time from information_schema.tables where table_schema='mirror' and
@@ -225,6 +282,8 @@ table_name='pupns_kp_info'";
 	
 	public function search()
 	{	   
+		
+		
 		$search            = $this->input->post('search');
 		
 		if($search)
@@ -447,6 +506,44 @@ WHERE
 	
 	}
 	
+	
+	function _createFolder($nama_instansi,$nip)
+	
+	{
+		$id_user		= $this->session->userdata('user_id');		
+		$row			= $this->_get_dms_login($id_user);
+		
+		if(count($row) > 0){
+			
+		    $username 		= $row->dms_user;
+			$pass			= $row->dms_password;
+		}else{
+			$username		= '198105122015031001';
+			$pass			= '198105122015031001';
+		}
+		
+		$this->load->library('openkm');
+		$token 				 = $this->openkm->Login($username,$pass);
+		$validnip            = $this->openkm->isValid('/'.$nama_instansi.'/'.$nip);
+		$isValidnip          = $validnip['result'];
+		$template			 = array('D2 NP NIP','DIKLAT JABATAN','DPCP','DRH','DT KELUARGA','HUKUMAN DISIPLIN','IJAZAH','NPKP','PAK','PANGKALAN DATA','PERUB DT DASAR','PMK','SK CPNS','SK KP TERAKHIR','SK MUTASI PINDAH','SK PJO','SK PNS','SK PPJN','SKP','SPMJ TERAKHIR','STLUD','SURAT IJIN BELAJAR','URAIAN TUGAS');
+		if(!$isValidnip)
+		{
+		    $dms              = $this->openkm->CreateFolder('/'.$nama_instansi.'/'.$nip); 
+		   
+		    foreach ($template as $value){
+				$status  		 = $this->openkm->CreateFolder('/'.$nama_instansi.'/'.$nip.'/'.$value); 
+		    }
+		   
+		    $dms	= array('Text' => 'DMS Folder Has Been Created', 'Status'   => $status['status']);
+		}
+		else
+		{
+		    $dms		 = array ('Text'  => 'DMS Folder Has Been Exist' , 'Status'   => $isValidnip); 
+		}
+		
+		return $dms;
+	}
 }
 
 /* End of file welcome.php */
