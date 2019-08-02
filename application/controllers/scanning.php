@@ -327,10 +327,55 @@ table_name='pupns_kp_info'";
 		$data['search']    = $search;	
 		// pupns
 		$data['pupns']      = $this->_get_pupns($search);
-		$data['pendidikan'] = $this->_get_pendidikan($search);	
+		$data['pendidikan'] = $this->_get_pendidikan($search);
+		$data['pengadaan']  = $this->_get_pengadaan_info($search);	
+		$data['kp']		    = $this->_getkp_info($search);			
         $data['unor']		= $this->_get_unorpns($search);		
 		$this->load->view('search/vdms',$data);
 	
+	}
+	
+	function _getkp_info($search)
+	{
+	   $sql="select * from (select a.*,b.PNS_TEMKRJ, c.GOL_GOLNAM GOL_BARU, d.GOL_GOLNAM GOL_LAMA , e.JKP_JPNNAMA FROM (
+	   SELECT JKP_JPNKOD,PKI_NIPBARU,NOTA_PERSETUJUAN_KP ,PKI_SK_TANGGAL,
+	   DATE_FORMAT(TGL_NOTA_PERSETUJUAN_KP,'%d-%m-%Y') TGL_NOTA_PERSETUJUAN_KP,
+	   DATE(PKI_TMT_GOLONGAN_BARU) PKI_TMT_GOLONGAN_BARU ,
+	   PKI_GOLONGAN_LAMA_ID,PKI_GOLONGAN_BARU_ID FROM mirror.pupns_kp_info 
+	   WHERE PKI_NIPBARU='$search' AND NOTA_PERSETUJUAN_KP IS NOT NULL 
+	   ) a 
+	   INNER JOIN mirror.pupns b ON b.PNS_NIPBARU = a. PKI_NIPBARU
+	   LEFT JOIN mirror.golru  c ON a.PKI_GOLONGAN_BARU_ID = c.GOL_KODGOL
+	   LEFT JOIN mirror.golru  d ON a.PKI_GOLONGAN_LAMA_ID = d.GOL_KODGOL
+	   LEFT JOIN mirror.jenis_kp e ON a.JKP_JPNKOD = e.JKP_JPNKOD
+	   ) a ORDER BY PKI_SK_TANGGAL DESC";
+	   
+	    $r = $this->db1->query($sql);
+		
+		return $r;
+	}
+	
+	function _get_pengadaan_info($search)
+	{
+	    $sql ="SELECT a.*,DATE_FORMAT(a.TMT_CPNS,'%d-%m-%Y') CPNS,
+		DATE_FORMAT(a.PERSETUJUAN_TEKNIS_TANGGAL,'%d-%m-%Y') TANGGAL_TEKNIS,
+		DATE_FORMAT(a.DITETAPKAN_TANGGAL,'%d-%m-%Y') TANGGAL_PENETAPAN
+		FROM mirror.pupns_pengadaan_info  a WHERE a.NIP LIKE '$search' ";
+		$r = $this->db1->query($sql);
+		if($r->num_rows() > 0)
+		{
+			
+			$r = $r->row();
+		}
+		else
+		{
+			
+			$r = array();
+		}	
+		
+		return $r;
+		
+		
 	}
 	
 	function _get_pendidikan($search)
