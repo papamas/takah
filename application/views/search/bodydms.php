@@ -60,8 +60,11 @@
                 <ul class="nav nav-tabs">
                   <li class="active"><a data-toggle="tab" href="#activity" aria-expanded="true">Data Utama</a></li>
                   <li class=""><a data-toggle="tab" href="#timeline" aria-expanded="false">Pendidikan</a></li>
+				  <li> <a href="#pengadaan" data-toggle="tab">Penetapan NIP</a></li> 
 				   <li class=""><a data-toggle="tab" href="#unor" aria-expanded="false">Posisi & Jabatan</a></li>
+				   <li><a href="#kp" data-toggle="tab">Kenaikan Pangkat</a></li>
                 </ul>
+				
                 <div class="tab-content">
                   <div id="activity" class="tab-pane active">
 					  <ul class="list-group list-group-unbordered">
@@ -107,6 +110,8 @@
 						
 					  </ul>
                   </div><!-- /.tab-pane -->
+				  
+				  
                   <div id="timeline" class="tab-pane ">
                     <!-- The timeline -->
                     <ul class="timeline timeline-inverse">
@@ -128,6 +133,58 @@
                       
                     </ul>
                   </div><!-- /.tab-pane -->
+				  
+				   <div class="tab-pane" id="pengadaan">
+				    <?php if(count($pengadaan) > 0):?>										
+                      <ul class="list-group list-group-unbordered">
+						<li class="list-group-item">
+							<b>Jabatan</b><span class="pull-right"><?php echo $pengadaan->JABATAN_NAMA?></span>
+						</li>						
+						<li class="list-group-item"><b>Unit Kerja</b><span class="pull-right"><?php echo $pengadaan->UNIT_KERJA_NAMA?></span>
+						</li>						
+						<li class="list-group-item"><b>Ijazah</b><span class="pull-right"><?php echo $pengadaan->IJASAH_NAMA?></span>
+						</li>
+						<li class="list-group-item"><b>Tahun Ijazah</b><span class="pull-right"><?php echo $pengadaan->TAHUN_IJAZAH?></span>
+						</li>
+						<li class="list-group-item"><b>TMT CPNS</b><span class="pull-right"><?php echo $pengadaan->CPNS?></span></li>
+						<li class="list-group-item" ><b>Persetujuan Teknis</b><span class="pull-right"><?php echo $pengadaan->PERSETUJUAN_TEKNIS_NOMOR?></span>
+						</li>
+					    <li class="list-group-item"><b>Tanggal Teknis</b><span class="pull-right"><?php echo $pengadaan->TANGGAL_TEKNIS?></span></li>
+					    <li class="list-group-item"><b>Tanggal Penetepan</b><span class="pull-right"><?php echo $pengadaan->TANGGAL_PENETAPAN?></span></li>
+					  </ul>
+					<?php endif;?>
+                    </div>					
+					
+				  
+				  <div class=" tab-pane" id="kp">  
+				       <?php if($kp->num_rows() > 0) {?>
+						  <ul class="timeline timeline-inverse">                      
+						  <?php foreach($kp->result() as $value):?>
+						  <li class="time-label">
+							<span class="bg-yellow">
+							  TMT <?php echo $value->PKI_TMT_GOLONGAN_BARU;?>
+							</span>
+						  </li>
+						  <li>
+							<i class="fa fa-trophy bg-aqua"></i>
+							<div class="timeline-item">
+							   <span class="time"><i class="fa fa-calendar-o"></i> Tanggal. <?php echo $value->TGL_NOTA_PERSETUJUAN_KP ?></span>
+							  <h3 class="timeline-header"><a href="#"><?php echo $value->GOL_LAMA?> - <?php echo $value->GOL_BARU?></a> </h3>
+							    <div class="timeline-body">Jenis Kenaikan Pangkat : <?php echo $value->JKP_JPNNAMA?><br/>
+								 Nomor. <?php echo $value->NOTA_PERSETUJUAN_KP?> 
+							    </div>
+							</div>
+						  </li>
+						  <?php endforeach;?>					  
+						</ul>
+						<?php } else {?>
+						<div class="callout callout-warning">
+						  <h4>Warning!</h4>
+						  <p>Oops ! sory data not found.</p> <p>We could not find data you were looking for.</p>
+						</div>
+					    <?php }?>
+                    </div><!-- /.tab-pane -->
+				  
 				  <div id="unor" class="tab-pane">
 					  <ul class="list-group list-group-unbordered">
 						<li class="list-group-item">
