@@ -200,8 +200,10 @@ class Scanning extends MY_Controller {
 		$data['search']    = $search;	
 		// pupns
 		$data['pupns']      = $this->_get_pupns($search);
-		$data['pendidikan'] = $this->_get_pendidikan($search);	
-        $data['unor']		= $this->_get_unorpns($search);		
+		$data['pendidikan'] = $this->_get_pendidikan($search);
+		$data['pengadaan']  = $this->_get_pengadaan_info($search);	
+		$data['kp']		    = $this->_getkp_info($search);			
+        $data['unor']		= $this->_get_unorpns($search);			
 		$this->load->view('search/vdms',$data);
 	}
 	

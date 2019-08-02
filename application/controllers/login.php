@@ -37,7 +37,7 @@ class Login extends CI_Controller {
 		$pwd   = $this->_remove_space($this->input->post('password'));		
 		
 		// cek in okm user
-		$query = $this->db1->query(" SELECT nama,level,id FROM app_user WHERE user_name='$name' AND password =SHA1('$pwd')"); 
+		$query = $this->db1->query(" SELECT nama,level,id,id_seksi FROM app_user WHERE user_name='$name' AND password =SHA1('$pwd')"); 
 	    	
 		
 		 
@@ -51,7 +51,8 @@ class Login extends CI_Controller {
 											   'logged_in'        => TRUE,
 											   'user_id'	      => $row->id,
 											   'app_user'         => TRUE,	
-                                               'level'            => $row->level,						  
+                                               'level'            => $row->level,
+											   'seksi'            => $row->id_seksi,						  
 									   ));      
             // set last login
 			$this->_set_last_login();

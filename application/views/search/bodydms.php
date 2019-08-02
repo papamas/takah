@@ -157,7 +157,7 @@
 					
 				  
 				  <div class=" tab-pane" id="kp">  
-				       <?php if($kp->num_rows() > 0) {?>
+				       <?php if($kp->num_rows() > 0):?>
 						  <ul class="timeline timeline-inverse">                      
 						  <?php foreach($kp->result() as $value):?>
 						  <li class="time-label">
@@ -177,12 +177,8 @@
 						  </li>
 						  <?php endforeach;?>					  
 						</ul>
-						<?php } else {?>
-						<div class="callout callout-warning">
-						  <h4>Warning!</h4>
-						  <p>Oops ! sory data not found.</p> <p>We could not find data you were looking for.</p>
-						</div>
-					    <?php }?>
+						<?php endif;?>
+						
                     </div><!-- /.tab-pane -->
 				  
 				  <div id="unor" class="tab-pane">
