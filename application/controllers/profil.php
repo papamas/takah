@@ -21,8 +21,9 @@ class Profil extends MY_Controller {
 	function __construct()
 	{
 	    parent::__construct();
-		$this->db3   = $this->load->database('sapkdb', TRUE);
-	    //$this->db1   = $this->load->database('default', TRUE);
+		$this->db3   	= $this->load->database('sapkdb', TRUE);
+	    $this->oracle   = $this->load->database('oracle', TRUE);
+		
 		//$this->load->library('openkm');
 	}
 	
