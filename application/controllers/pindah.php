@@ -215,13 +215,16 @@ LEFT JOIN takah.kantor_instansi f ON a.instansi_tujuan = f.kode_instansi";
 		if($q->num_rows() > 0){
 			$i = 1;
             
-			if(is_null($r->PNS_PNSNAM)){
-				$nama = $r->nama;
-			}else{				
-				$nama = $r->PNS_PNSNAM;
-			}			
+					
 			foreach ($q->result() as $r) {
-			   	$html .= "<tr><td>$i</td>";
+			   	
+				if(is_null($r->PNS_PNSNAM)){
+					$nama = $r->nama;
+				}else{				
+					$nama = $r->PNS_PNSNAM;
+				}	
+				
+				$html .= "<tr><td>$i</td>";
 				$html .= "<td>{$r->tgl_input}</td>";
 				$html .= "<td class=str>{$r->nip}</td>";
 				$html .= "<td>{$nama}</td>";
