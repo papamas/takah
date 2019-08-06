@@ -118,9 +118,10 @@ class Notapersetujuan extends MY_Controller {
 		
 		
 		
-		$sql="SELECT a.*, DATE_FORMAT(a.tgl_input, '%d-%m-%Y') tgl_in,DATE_FORMAT(a.tmt, '%d-%m-%Y') tmt_kp, b.INS_NAMINS FROM takah.npkp a 
-		INNER JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS 
-		WHERE 1=1 $sql_search  AND id_pelaksana='$user_id'  LIMIT 10";
+		$sql="SELECT a.*,b.INS_NAMINS FROM 
+		(SELECT a.*, DATE_FORMAT(a.tgl_input, '%d-%m-%Y') tgl_in,DATE_FORMAT(a.tmt, '%d-%m-%Y') tmt_kp
+		FROM takah.npkp a  WHERE 1=1 $sql_search  AND id_pelaksana='$user_id'  order by id desc LIMIT 10 )a			 
+		LEFT JOIN mirror.instansi b ON a.kode_instansi = b.INS_KODINS ";
 		$query = $this->db1->query($sql);
 		
 		$data['record']    = $query; 
