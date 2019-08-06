@@ -30,13 +30,16 @@
 					</li>
 					
 					 <li>
-                        <a href="#" class="<?php if( ($this->uri->segment(1) == "pinjam" && $this->uri->segment(2) != 'laporan' ) || ($this->uri->segment(1) == "hukuman" && $this->uri->segment(2) != 'laporan' ) || ($this->uri->segment(1)==="cpns" && $this->uri->segment(2) !== 'laporan' )  || $this->uri->segment(1)==="disposisi"  || $this->uri->segment(1)==="vernpkp" || $this->uri->segment(1)==="notapersetujuan" || ($this->uri->segment(1)==="bup" && $this->uri->segment(2) != "laporan" ) || $this->uri->segment(1)==="konversinip" || ($this->uri->segment(1)==="suratmasuk" &&  $this->uri->segment(2) != 'laporan') || ($this->uri->segment(1)==="pindah"  &&  $this->uri->segment(2) != 'laporan' ) ) echo "active-menu" ?>"><i class="fa fa-edit fa-3x"></i> Pencatatan<span class="fa arrow"></span></a>
+                        <a href="#" class="<?php if( ($this->uri->segment(1) == "pinjam" && $this->uri->segment(2) != 'laporan' ) || ($this->uri->segment(1) == "hukuman" && $this->uri->segment(2) != 'laporan' ) || ($this->uri->segment(1)==="cpns" && $this->uri->segment(2) !== 'laporan' )  || $this->uri->segment(1)==="disposisi"  || $this->uri->segment(1)==="vernpkp" || $this->uri->segment(1)==="notapersetujuan" || $this->uri->segment(1)==="barcodenp"|| ($this->uri->segment(1)==="bup" && $this->uri->segment(2) != "laporan" ) || $this->uri->segment(1)==="konversinip" || ($this->uri->segment(1)==="suratmasuk" &&  $this->uri->segment(2) != 'laporan') || ($this->uri->segment(1)==="pindah"  &&  $this->uri->segment(2) != 'laporan' ) ) echo "active-menu" ?>"><i class="fa fa-edit fa-3x"></i> Pencatatan<span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
 						    <li>
                                 <a  href="#">Nota Persetujuan KP <span class="fa arrow"></span></a>
 								<ul class="nav nav-third-level">
 									<li>
 										<a  href="<?php echo site_url()?>/notapersetujuan/">Manual</a>
+									</li>
+									<li>
+										<a  href="<?php echo site_url()?>/barcodenp/">Barcode</a>
 									</li>
 									<li>
 										<a  href="<?php echo site_url()?>/vernpkp/">SAPK</a>

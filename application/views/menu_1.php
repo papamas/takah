@@ -45,6 +45,9 @@
 										<a  href="<?php echo site_url()?>/notapersetujuan/">Manual</a>
 									</li>
 									<li>
+										<a  href="<?php echo site_url()?>/barcodenp/">Barcode</a>
+									</li>
+									<li>
 										<a  href="<?php echo site_url()?>/vernpkp/">SAPK</a>
 									</li>
 									<li>
