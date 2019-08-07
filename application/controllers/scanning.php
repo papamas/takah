@@ -284,9 +284,22 @@ table_name='pupns_kp_info'";
 	
 	public function search()
 	{	   
+		$search            = trim($this->input->post('search'));	
+		
+		if(strlen($search) < 32){			
+			$search = $search;
+		}else{
+			$query = $this->_getBarcode_data($search);
+			
+			if($query->num_rows() > 0){
+				$row 	= $query->row();
+				$search = $row->NIP_BARU;
+			}else{
+				$search = $search;
+			}			
+		}
 		
 		
-		$search            = $this->input->post('search');
 		
 		if($search)
 		{
@@ -335,6 +348,13 @@ table_name='pupns_kp_info'";
         $data['unor']		= $this->_get_unorpns($search);		
 		$this->load->view('search/vdms',$data);
 	
+	}
+	
+	function _getBarcode_data($barcode){
+		
+		$sql="SELECT a.* FROM mirror.`pupns_barcode_dokumen` a WHERE a.`ID`='$barcode'";			
+		$query  = $this->db1->query($sql);	
+		return $query;
 	}
 	
 	function _getkp_info($search)

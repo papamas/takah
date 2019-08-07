@@ -14,7 +14,7 @@
 						   
 							 <form action="<?php echo site_url()?>/scanning/search/" method="post" >		   		     
 								 <div class="col-md-8 col-md-offset-2 input-group">
-									  <input type="text" name="search" required class="form-control" placeholder="Masukan NIP ">
+									  <input type="text" name="search" required class="form-control" placeholder="Masukan NIP / Scan Barcode" autofocus>
 									  <span class="input-group-btn">
 										<button type="submit" class="btn btn-default" type="button"><i class="fa fa-search"> Search!</i></button>
 									  </span>
