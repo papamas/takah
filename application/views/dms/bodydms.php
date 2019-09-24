@@ -17,8 +17,9 @@
                              Laporan DMS
                         </div>
                         <div class="panel-body">						
-							<form method="post" class="" action="<?php echo site_url()?>/dms/cetak/">
+							<form method="post" class="" action="<?php echo site_url()?>/dms/cetakMe/">
 								 <input type="hidden" name="page" id="page"/>
+								 <!--
 								 <div class="form-group row">
 									<label for="inputfield3" class="col-md-2 control-label">Instansi :</label>
 									<div class="col-sm-10">
@@ -30,24 +31,24 @@
 									 </select> 
 
 									</div>
-								  </div>
+								</div>
+								!-->
 								<div class="form-group row">
 								    <label class="control-label col-md-2">Pelaksana Tugas:</label>
 									<div class="col-md-4">
 									<select name="pelaksana" id="pelaksana" class="form-control select2" >
 										<option value="">--Silahkan Pilih--</option>
 										<?php foreach($pelaksana->result() as $value):?>
-                                        <option value="<?php echo $value->id ?>" <?php if($this->session->userdata('pelaksana')== $value->id) echo 'selected="selected"'?>><?php echo $value->nama?></option>
+                                        <option value="<?php echo $value->dms_user ?>" <?php if($this->session->userdata('pelaksana')== $value->dms_user) echo 'selected="selected"'?>><?php echo $value->nama?></option>
                                         <?php endforeach?>										
 									</select>									 
 									</div>
-								    <label class="control-label col-md-1">Status:</label>
-									<div class="col-md-5">
-										<input type="radio" required value="1" name="status" id="status1"  />&nbsp;Prascanning
-										<input type="radio" required value="2" name="status" id="status2" /> &nbsp;Scanning
-										<input type="radio" required value="3" name="status" id="status2" checked /> &nbsp;Semua
+								    <label class="control-label col-md-2">Vertikal:</label>
+										<div class="col-md-4">
+											<input type="radio" required value="1" name="vertikal" id="vertikal1"  />&nbsp;Ya
+											<input type="radio" required value="2" name="vertikal" id="vertikal2" checked />&nbsp;Tidak
+										</div>
 										
-									</div>	
      																 
 								</div>
 								<div class="form-group row">

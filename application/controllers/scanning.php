@@ -593,7 +593,7 @@ WHERE
 		$token 				 = $this->openkm->Login($username,$pass);
 		$validnip            = $this->openkm->isValid('/'.$nama_instansi.'/'.$nip);
 		$isValidnip          = $validnip['result'];
-		$template			 = array('D2 NP NIP','DIKLAT JABATAN','DPCP','DRH','DT KELUARGA','HUKUMAN DISIPLIN','IJAZAH','NPKP','PAK','PANGKALAN DATA','PERUB DT DASAR','PMK','SK CPNS','SK KP TERAKHIR','SK MUTASI PINDAH','SK PJO','SK PNS','SK PPJN','SKP','SPMJ TERAKHIR','STLUD','SURAT IJIN BELAJAR','URAIAN TUGAS');
+		$template			 = array('CPNS');
 		if(!$isValidnip)
 		{
 		    $dms              = $this->openkm->CreateFolder('/'.$nama_instansi.'/'.$nip); 
